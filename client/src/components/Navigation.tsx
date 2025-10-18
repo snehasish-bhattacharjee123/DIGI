@@ -7,8 +7,8 @@ export function Navigation() {
 
   const menuItems = [
     { label: "Services", href: "#services" },
-    { label: "Solutions", href: "#solutions" },
     { label: "Work", href: "#work" },
+    { label: "Solutions", href: "#solutions" },
     { label: "Resources", href: "#resources" },
     { label: "Company", href: "#company" },
   ];
@@ -31,12 +31,12 @@ export function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/50">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-2xl font-bold text-foreground" data-testid="link-home">
+            <a href="/" className="text-2xl font-bold text-foreground tracking-tight" data-testid="link-home">
               Superside
             </a>
           </div>
@@ -48,23 +48,26 @@ export function Navigation() {
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
                 data-testid={`link-${item.label.toLowerCase()}`}
               >
                 {item.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300"></span>
               </a>
             ))}
           </div>
 
           {/* CTA Button */}
           <div className="hidden lg:block">
-            <Button data-testid="button-book-demo">Book a demo</Button>
+            <Button data-testid="button-book-demo" className="font-medium">
+              Book a demo
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 text-foreground"
+            className="lg:hidden p-2 text-foreground hover-elevate rounded-md"
             data-testid="button-mobile-menu"
             aria-label="Toggle menu"
           >
@@ -75,20 +78,20 @@ export function Navigation() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-border bg-background" data-testid="mobile-menu">
+        <div className="lg:hidden border-t border-border/50 bg-background/95 backdrop-blur-lg" data-testid="mobile-menu">
           <div className="px-6 py-6 space-y-4">
             {menuItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors"
+                className="block text-base font-medium text-muted-foreground hover:text-foreground transition-colors py-2"
                 data-testid={`link-mobile-${item.label.toLowerCase()}`}
               >
                 {item.label}
               </a>
             ))}
-            <Button className="w-full" data-testid="button-mobile-book-demo">
+            <Button className="w-full font-medium" data-testid="button-mobile-book-demo">
               Book a demo
             </Button>
           </div>
