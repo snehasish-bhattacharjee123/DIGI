@@ -8,46 +8,11 @@ export function NewEraSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Right Side: Video/Image (Order changed for mobile) */}
           <div className="order-1 lg:order-2">
-            <div
-              className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg flex items-center justify-center"
-              onClick={togglePlayPause}
-            >
-              <video
-                ref={videoRef}
-                playsInline
-                className="w-full h-full object-cover"
+            <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+              <VideoPlayer
                 src="https://cdn.sanity.io/files/k0dlbavy/production/2f6d02ab9a1fab4e8a4222bc8a7346ca7e261227.mp4"
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              >
-                <source
-                  src="https://cdn.sanity.io/files/k0dlbavy/production/2f6d02ab9a1fab4e8a4222bc8a7346ca7e261227.mp4"
-                  type="video/mp4"
-                />
-              </video>
-
-              <button
-                onClick={togglePlayPause}
-                className="absolute inset-0 flex items-center justify-center hover:bg-black/20 transition-colors"
-              >
-                {isPlaying ? (
-                  <svg
-                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                )}
-              </button>
+                className="aspect-video"
+              />
             </div>
           </div>
           {/* Left Side: Text Content */}
