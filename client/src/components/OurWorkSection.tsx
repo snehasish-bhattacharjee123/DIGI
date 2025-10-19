@@ -1,10 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 export function OurWorkSection() {
-  const [isPlaying, setIsPlaying] = useState(false);
   const videoContainerRef = useRef(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: videoContainerRef,
