@@ -1,4 +1,10 @@
-import React from "react";
+import React, { useState, useRef } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const successStories = [
   {
