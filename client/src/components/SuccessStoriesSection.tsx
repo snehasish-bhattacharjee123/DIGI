@@ -146,6 +146,39 @@ export function SuccessStoriesSection() {
           ))}
         </div>
       </div>
+
+      {selectedStory !== null && (
+        <Dialog open={selectedStory !== null} onOpenChange={handleClose}>
+          <DialogContent className="max-w-4xl w-full max-h-[90vh] p-0 bg-black border-0">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Video Player</DialogTitle>
+            </DialogHeader>
+            <div className="relative w-full aspect-video bg-black">
+              <video
+                ref={videoRef}
+                controls
+                autoPlay
+                playsInline
+                className="w-full h-full"
+                src={
+                  window.innerWidth >= 768
+                    ? successStories[selectedStory].videoDesktopUrl
+                    : successStories[selectedStory].videoMobileUrl
+                }
+              >
+                <source
+                  src={
+                    window.innerWidth >= 768
+                      ? successStories[selectedStory].videoDesktopUrl
+                      : successStories[selectedStory].videoMobileUrl
+                  }
+                  type="video/mp4"
+                />
+              </video>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
   );
 }
