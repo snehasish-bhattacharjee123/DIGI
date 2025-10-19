@@ -100,7 +100,8 @@ export function SuccessStoriesSection() {
           {successStories.map((story, index) => (
             <div
               key={index}
-              className="group relative h-[400px] lg:h-[440px] rounded-lg overflow-hidden"
+              className="group relative h-[400px] lg:h-[440px] rounded-lg overflow-hidden cursor-pointer"
+              onClick={() => setSelectedStory(index)}
             >
               {/* Video Background */}
               <video
