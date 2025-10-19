@@ -134,12 +134,12 @@ export function SuccessStoriesSection() {
                   </h3>
                 </div>
                 <div className="flex-shrink-0">
-                  <a
-                    href={story.linkUrl}
-                    className="group/link inline-flex items-center gap-2 font-semibold text-lg"
+                  <button
+                    onClick={() => setSelectedStory(index)}
+                    className="group/link inline-flex items-center gap-2 font-semibold text-lg cursor-pointer hover:opacity-80 transition-opacity"
                   >
                     Play video <ArrowIcon />
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
