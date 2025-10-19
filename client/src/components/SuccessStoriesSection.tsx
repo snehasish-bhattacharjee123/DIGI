@@ -147,58 +147,20 @@ export function SuccessStoriesSection() {
 
       {selectedStory !== null && (
         <Dialog open={selectedStory !== null} onOpenChange={handleClose}>
-          <DialogContent className="max-w-4xl w-full max-h-[90vh] p-0 bg-black border-0">
+          <DialogContent className="max-w-5xl w-full max-h-[90vh] p-0 bg-black border-0">
             <DialogHeader className="sr-only">
               <DialogTitle>Video Player</DialogTitle>
             </DialogHeader>
-            <div
-              className="relative w-full aspect-video bg-black flex items-center justify-center"
-              onClick={togglePlayPause}
-            >
-              <video
-                ref={videoRef}
-                playsInline
-                className="w-full h-full"
+            <div className="relative w-full aspect-video">
+              <VideoPlayer
                 src={
                   window.innerWidth >= 768
                     ? successStories[selectedStory].videoDesktopUrl
                     : successStories[selectedStory].videoMobileUrl
                 }
-                onPlay={() => setIsPlaying(true)}
-                onPause={() => setIsPlaying(false)}
-              >
-                <source
-                  src={
-                    window.innerWidth >= 768
-                      ? successStories[selectedStory].videoDesktopUrl
-                      : successStories[selectedStory].videoMobileUrl
-                  }
-                  type="video/mp4"
-                />
-              </video>
-
-              <button
-                onClick={togglePlayPause}
-                className="absolute inset-0 flex items-center justify-center hover:bg-black/20 transition-colors"
-              >
-                {isPlaying ? (
-                  <svg
-                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
-                  </svg>
-                ) : (
-                  <svg
-                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                )}
-              </button>
+                className="aspect-video"
+                isModal={true}
+              />
             </div>
           </DialogContent>
         </Dialog>
