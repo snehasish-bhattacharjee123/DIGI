@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 export function OurWorkSection() {
   const videoContainerRef = useRef(null);
@@ -42,19 +43,10 @@ export function OurWorkSection() {
               translateY,
             }}
           >
-            <video
-              autoPlay
-              playsInline
-              muted
-              loop
-              className="h-full w-full object-cover"
+            <VideoPlayer
               src="https://cdn.sanity.io/files/k0dlbavy/production/bc8082e2b9b2a6b0cc7392174bdaf334db6f36b8.mp4"
-            >
-              <source
-                src="https://cdn.sanity.io/files/k0dlbavy/production/bc8082e2b9b2a6b0cc7392174bdaf334db6f36b8.mp4"
-                type="video/mp4"
-              />
-            </video>
+              className="h-full w-full"
+            />
           </motion.div>
         </div>
       </div>

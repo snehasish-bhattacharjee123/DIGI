@@ -56,19 +56,19 @@ const FaqItem = ({
   const isOpen = index === openIndex;
 
   return (
-    <div className="border-bor-foreground/[0.15] overflow-hidden border-b last:border-b-0 pb-4 md:pb-8">
+    <div className="border-b border-bor-foreground/20 pb-4 md:pb-6 lg:pb-8 last:border-b-0">
       <button
         onClick={() => toggleFaq(index)}
-        className="flex w-full items-center justify-between gap-6 text-left lg:gap-12"
+        className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-70 transition-opacity"
       >
-        <span className="lg:text-bor-xl font-medium">{faq.title}</span>
+        <span className="text-base md:text-lg lg:text-xl font-semibold flex-1">{faq.title}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="20"
+          height="20"
           fill="currentColor"
           viewBox="0 0 256 256"
-          className={`lg:size-6 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+          className={`flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
         >
           <rect width="256" height="256" fill="none"></rect>
           <line
@@ -99,8 +99,8 @@ const FaqItem = ({
         className="overflow-hidden transition-all duration-500 ease-in-out"
         style={{ maxHeight: isOpen ? '1000px' : '0px', opacity: isOpen ? 1 : 0 }}
       >
-        <div className="pt-2 md:pt-4">
-          <p>{faq.content}</p>
+        <div className="pt-3 md:pt-4">
+          <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">{faq.content}</p>
         </div>
       </div>
     </div>
@@ -119,70 +119,56 @@ export function FaqSection() {
   const secondHalf = faqData.slice(midIndex);
 
   return (
-    <section className="flex max-w-full flex-[0_0_auto] flex-col bg-bor-background text-bor-foreground dark overflow-hidden relative">
-      <div className="max-w-layout mx-auto h-full w-full">
-        <div className="max-w-container mx-container-overflow flex flex-[0_0_auto] flex-col w-full transition-colors pt-11 md:pt-14 lg:pt-[88px] pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20">
-          <div className="apply-without-header absolute left-0 top-0" id="section-ipa"></div>
-          <div className="gap-4 lg:gap-8 flex flex-col lg:flex-row lg:items-end lg:justify-between [&_div]:mr-auto!">
-            <div className="flex-col flex gap-2 lg:gap-4 max-w-[720px] xl:max-w-[924px]">
-              <span className="text-bor-xs 768:text-bor-xs 1280:text-bor-sm tracking-15 elysia:font-normal font-semibold uppercase">
-                FAQS
-              </span>
-              <h2
-                className="font-heading box-border tracking-[0.1px] text-bor-4xl md:text-bor-7xl lg:text-bor-8xl xl:text-bor-9xl"
-                data-testid="heading"
-              >
-                Frequently asked{' '}
-                <span className="font-serif text-[calc(100%+4px)] !font-normal">
-                  <em>questions</em>
-                </span>
-              </h2>
-            </div>
+    <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-0">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-12 md:mb-16 lg:mb-20">
+          <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
+            FAQS
+          </span>
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+            Frequently asked{' '}
+            <span className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal">
+              <em>questions</em>
+            </span>
+          </h2>
+        </div>
+
+        {/* Mobile view - single column */}
+        <div className="flex flex-col md:hidden gap-4 sm:gap-6">
+          {faqData.map((faq, index) => (
+            <FaqItem
+              key={index}
+              faq={faq}
+              index={index}
+              openIndex={openIndex}
+              toggleFaq={toggleFaq}
+            />
+          ))}
+        </div>
+
+        {/* Desktop view - two columns */}
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="flex flex-col gap-6 lg:gap-8">
+            {firstHalf.map((faq, index) => (
+              <FaqItem
+                key={index}
+                faq={faq}
+                index={index}
+                openIndex={openIndex}
+                toggleFaq={toggleFaq}
+              />
+            ))}
           </div>
-          <div className="flex max-w-full flex-[0_0_auto] flex-col">
-            {/* Mobile view */}
-            <div className="flex max-w-full flex-[0_0_auto] flex-col md:hidden">
-              <div className="max-w-full flex-[0_0_auto] flex flex-col gap-4 md:gap-8">
-                {faqData.map((faq, index) => (
-                  <FaqItem
-                    key={index}
-                    faq={faq}
-                    index={index}
-                    openIndex={openIndex}
-                    toggleFaq={toggleFaq}
-                  />
-                ))}
-              </div>
-            </div>
-            {/* Desktop view */}
-            <div className="max-w-full flex-[0_0_auto] hidden md:flex flex-row gap-12">
-              <div className="w-full">
-                <div className="max-w-full flex-[0_0_auto] flex flex-col gap-4 md:gap-8">
-                  {firstHalf.map((faq, index) => (
-                    <FaqItem
-                      key={index}
-                      faq={faq}
-                      index={index}
-                      openIndex={openIndex}
-                      toggleFaq={toggleFaq}
-                    />
-                  ))}
-                </div>
-              </div>
-              <div className="w-full">
-                <div className="max-w-full flex-[0_0_auto] flex flex-col gap-4 md:gap-8">
-                  {secondHalf.map((faq, index) => (
-                    <FaqItem
-                      key={midIndex + index}
-                      faq={faq}
-                      index={midIndex + index}
-                      openIndex={openIndex}
-                      toggleFaq={toggleFaq}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col gap-6 lg:gap-8">
+            {secondHalf.map((faq, index) => (
+              <FaqItem
+                key={midIndex + index}
+                faq={faq}
+                index={midIndex + index}
+                openIndex={openIndex}
+                toggleFaq={toggleFaq}
+              />
+            ))}
           </div>
         </div>
       </div>

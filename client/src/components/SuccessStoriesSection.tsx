@@ -1,4 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 const successStories = [
   {
@@ -68,6 +75,12 @@ const ArrowIcon = () => (
 );
 
 export function SuccessStoriesSection() {
+  const [selectedStory, setSelectedStory] = useState<number | null>(null);
+
+  const handleClose = () => {
+    setSelectedStory(null);
+  };
+
   return (
     <section className="bg-[#101c1c] text-white py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -84,7 +97,8 @@ export function SuccessStoriesSection() {
           {successStories.map((story, index) => (
             <div
               key={index}
-              className="group relative h-[400px] lg:h-[440px] rounded-lg overflow-hidden"
+              className="group relative h-[400px] lg:h-[440px] rounded-lg overflow-hidden cursor-pointer"
+              onClick={() => setSelectedStory(index)}
             >
               {/* Video Background */}
               <video
@@ -118,18 +132,39 @@ export function SuccessStoriesSection() {
                   </h3>
                 </div>
                 <div className="flex-shrink-0">
-                  <a
-                    href={story.linkUrl}
-                    className="group/link inline-flex items-center gap-2 font-semibold text-lg"
+                  <button
+                    onClick={() => setSelectedStory(index)}
+                    className="group/link inline-flex items-center gap-2 font-semibold text-lg cursor-pointer hover:opacity-80 transition-opacity"
                   >
                     Play video <ArrowIcon />
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
+
+      {selectedStory !== null && (
+        <Dialog open={selectedStory !== null} onOpenChange={handleClose}>
+          <DialogContent className="max-w-5xl w-full max-h-[90vh] p-0 bg-black border-0">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Video Player</DialogTitle>
+            </DialogHeader>
+            <div className="relative w-full aspect-video">
+              <VideoPlayer
+                src={
+                  window.innerWidth >= 768
+                    ? successStories[selectedStory].videoDesktopUrl
+                    : successStories[selectedStory].videoMobileUrl
+                }
+                className="aspect-video"
+                isModal={true}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
   );
 }
