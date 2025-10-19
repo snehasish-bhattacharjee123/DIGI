@@ -170,11 +170,12 @@ export function SuccessStoriesSection() {
             <DialogHeader className="sr-only">
               <DialogTitle>Video Player</DialogTitle>
             </DialogHeader>
-            <div className="relative w-full aspect-video bg-black">
+            <div
+              className="relative w-full aspect-video bg-black flex items-center justify-center"
+              onClick={togglePlayPause}
+            >
               <video
                 ref={videoRef}
-                controls
-                autoPlay
                 playsInline
                 className="w-full h-full"
                 src={
@@ -182,6 +183,8 @@ export function SuccessStoriesSection() {
                     ? successStories[selectedStory].videoDesktopUrl
                     : successStories[selectedStory].videoMobileUrl
                 }
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
               >
                 <source
                   src={
@@ -192,6 +195,29 @@ export function SuccessStoriesSection() {
                   type="video/mp4"
                 />
               </video>
+
+              <button
+                onClick={togglePlayPause}
+                className="absolute inset-0 flex items-center justify-center hover:bg-black/20 transition-colors"
+              >
+                {isPlaying ? (
+                  <svg
+                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-20 h-20 text-white opacity-70 hover:opacity-100 transition-opacity"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                )}
+              </button>
             </div>
           </DialogContent>
         </Dialog>
