@@ -74,6 +74,16 @@ const ArrowIcon = () => (
 );
 
 export function SuccessStoriesSection() {
+  const [selectedStory, setSelectedStory] = useState<number | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleClose = () => {
+    setSelectedStory(null);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
   return (
     <section className="bg-[#101c1c] text-white py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
