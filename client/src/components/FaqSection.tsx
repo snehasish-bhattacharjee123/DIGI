@@ -56,19 +56,19 @@ const FaqItem = ({
   const isOpen = index === openIndex;
 
   return (
-    <div className="border-bor-foreground/[0.15] overflow-hidden border-b last:border-b-0 pb-4 md:pb-8">
+    <div className="border-b border-bor-foreground/20 pb-4 md:pb-6 lg:pb-8 last:border-b-0">
       <button
         onClick={() => toggleFaq(index)}
-        className="flex w-full items-center justify-between gap-6 text-left lg:gap-12"
+        className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-70 transition-opacity"
       >
-        <span className="lg:text-bor-xl font-medium">{faq.title}</span>
+        <span className="text-base md:text-lg lg:text-xl font-semibold flex-1">{faq.title}</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
+          width="20"
+          height="20"
           fill="currentColor"
           viewBox="0 0 256 256"
-          className={`lg:size-6 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+          className={`flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
         >
           <rect width="256" height="256" fill="none"></rect>
           <line
@@ -99,8 +99,8 @@ const FaqItem = ({
         className="overflow-hidden transition-all duration-500 ease-in-out"
         style={{ maxHeight: isOpen ? '1000px' : '0px', opacity: isOpen ? 1 : 0 }}
       >
-        <div className="pt-2 md:pt-4">
-          <p>{faq.content}</p>
+        <div className="pt-3 md:pt-4">
+          <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">{faq.content}</p>
         </div>
       </div>
     </div>
