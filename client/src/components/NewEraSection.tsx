@@ -7,22 +7,20 @@ export function NewEraSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Right Side: Video/Image (Order changed for mobile) */}
           <div className="order-1 lg:order-2">
-            <div className="relative aspect-video bg-gray-200 rounded-lg flex items-center justify-center shadow-lg">
-              {/* Placeholder for video */}
-              <div className="absolute inset-0 bg-black/50 rounded-lg"></div>
-              <p className="text-white z-10 font-semibold">Video Placeholder</p>
-              <svg
-                className="absolute w-16 h-16 text-white z-10"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+            <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
+              <video
+                autoPlay
+                playsInline
+                muted
+                loop
+                className="w-full h-full object-cover"
+                src="https://cdn.sanity.io/files/k0dlbavy/production/2f6d02ab9a1fab4e8a4222bc8a7346ca7e261227.mp4"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+                <source
+                  src="https://cdn.sanity.io/files/k0dlbavy/production/2f6d02ab9a1fab4e8a4222bc8a7346ca7e261227.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </div>
           </div>
           {/* Left Side: Text Content */}
