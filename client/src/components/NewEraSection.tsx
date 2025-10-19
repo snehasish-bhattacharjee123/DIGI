@@ -9,10 +9,8 @@ export function NewEraSection() {
           <div className="order-1 lg:order-2">
             <div className="relative aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg">
               <video
-                autoPlay
                 playsInline
-                muted
-                loop
+                controls
                 className="w-full h-full object-cover"
                 src="https://cdn.sanity.io/files/k0dlbavy/production/2f6d02ab9a1fab4e8a4222bc8a7346ca7e261227.mp4"
               >
