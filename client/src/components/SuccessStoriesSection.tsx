@@ -76,29 +76,9 @@ const ArrowIcon = () => (
 
 export function SuccessStoriesSection() {
   const [selectedStory, setSelectedStory] = useState<number | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleClose = () => {
     setSelectedStory(null);
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  };
-
-  const togglePlayPause = (e?: React.MouseEvent) => {
-    if (e) {
-      e.stopPropagation();
-    }
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
-      } else {
-        videoRef.current.pause();
-        setIsPlaying(false);
-      }
-    }
   };
 
   return (
