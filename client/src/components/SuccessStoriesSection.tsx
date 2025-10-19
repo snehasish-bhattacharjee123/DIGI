@@ -1,10 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { VideoPlayer } from "@/components/VideoPlayer";
 
 const successStories = [
   {
