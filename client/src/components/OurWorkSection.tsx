@@ -43,10 +43,8 @@ export function OurWorkSection() {
             }}
           >
             <video
-              autoPlay
               playsInline
-              muted
-              loop
+              controls
               className="h-full w-full object-cover"
               src="https://cdn.sanity.io/files/k0dlbavy/production/bc8082e2b9b2a6b0cc7392174bdaf334db6f36b8.mp4"
             >
