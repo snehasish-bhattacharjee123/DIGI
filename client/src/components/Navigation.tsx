@@ -201,31 +201,32 @@ export function Navigation() {
           <div
             onMouseEnter={() => handleDesktopSubmenu(activeDesktopSubmenu)}
             onMouseLeave={() => handleDesktopSubmenu(null)}
-            className="absolute top-20 left-0 w-full bg-background border-t border-border/50 shadow-lg"
+            className="absolute top-20 left-0 w-full bg-background/98 backdrop-blur-md border-t border-border/40 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300"
           >
-            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               {navItems[activeDesktopSubmenu].subsections?.map(
                 (subsection, sIndex) => (
-                  <section key={sIndex} className="flex flex-col gap-4">
+                  <section key={sIndex} className="flex flex-col gap-6 transform transition-all duration-300 animate-in fade-in slide-in-from-top-4">
                     <a
                       href={subsection.href || "#"}
-                      className="group/link text-xl font-serif text-foreground hover:text-primary transition-colors"
+                      className="group/link inline-flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors duration-200"
                     >
-                      {subsection.title}
-                      <MoveUpRight className="inline-block size-4 align-middle opacity-0 group-hover/link:opacity-100 transition-opacity" />
+                      <span>{subsection.title}</span>
+                      <MoveUpRight className="size-4 opacity-0 group-hover/link:opacity-100 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-all duration-200" />
                     </a>
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-4">
                       {subsection.items?.map((subItem, iIndex) => (
                         <a
                           key={iIndex}
                           href={subItem.href || "#"}
-                          className="group flex items-center gap-2 pb-3 border-b border-border/30 last:border-b-0"
+                          className="group relative px-4 py-3 rounded-lg hover:bg-primary/5 transition-all duration-200 overflow-hidden"
                         >
-                          <div className="flex-1">
-                            <h4 className="font-medium text-foreground relative before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:w-0 before:h-1 before:bg-primary before:rounded-full before:transition-all group-hover:before:w-2 pl-3 group-hover:pl-4 transition-all">
+                          <div className="absolute inset-0 w-0 group-hover:w-1 bg-primary rounded-full transition-all duration-300"></div>
+                          <div className="flex-1 relative">
+                            <h4 className="font-medium text-foreground text-base group-hover:text-primary transition-colors duration-200">
                               {subItem.title}
                             </h4>
-                            <p className="text-muted-foreground text-sm">
+                            <p className="text-muted-foreground text-sm mt-1 group-hover:text-foreground/70 transition-colors duration-200">
                               {subItem.description}
                             </p>
                           </div>
