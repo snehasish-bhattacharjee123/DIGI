@@ -1,5 +1,12 @@
 import { motion } from "framer-motion";
-import { SiAmazon, SiReddit, SiAirbnb, SiMeta, SiSpotify, SiNetflix } from "react-icons/si";
+import {
+  SiAmazon,
+  SiReddit,
+  SiAirbnb,
+  SiMeta,
+  SiSpotify,
+  SiNetflix,
+} from "react-icons/si";
 
 const clients = [
   { name: "Amazon", icon: SiAmazon },
@@ -20,7 +27,10 @@ export function ClientLogos() {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider" data-testid="text-clients-label">
+          <p
+            className="text-sm font-medium text-muted-foreground uppercase tracking-wider"
+            data-testid="text-clients-label"
+          >
             Trusted by leading brands
           </p>
         </motion.div>

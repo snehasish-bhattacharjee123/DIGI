@@ -1,11 +1,16 @@
-import { type User, type InsertUser, type PortfolioItem, type InsertPortfolioItem } from "@shared/schema";
+import {
+  type User,
+  type InsertUser,
+  type PortfolioItem,
+  type InsertPortfolioItem,
+} from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  
+
   getAllPortfolioItems(): Promise<PortfolioItem[]>;
   getPortfolioItem(id: string): Promise<PortfolioItem | undefined>;
   createPortfolioItem(item: InsertPortfolioItem): Promise<PortfolioItem>;
@@ -27,42 +32,43 @@ export class MemStorage implements IStorage {
         title: "Pharmacy App Design",
         client: "Amazon Pharmacy",
         category: "Mobile App Design",
-        imageUrl: "/assets/generated_images/Amazon_Pharmacy_app_mockup_8bf3e1d7.png",
+        imageUrl: "/generated_images/Amazon_Pharmacy_app_mockup_8bf3e1d7.png",
         aspectRatio: "portrait",
       },
       {
         title: "Social Campaign",
         client: "Reddit",
         category: "Social Media",
-        imageUrl: "/assets/generated_images/Reddit_campaign_creative_1b23ce70.png",
+        imageUrl: "/generated_images/Reddit_campaign_creative_1b23ce70.png",
         aspectRatio: "landscape",
       },
       {
         title: "Video Production",
         client: "Pernod Ricard",
         category: "Video Production",
-        imageUrl: "/assets/generated_images/Pernod_Ricard_video_production_685784cf.png",
+        imageUrl:
+          "/generated_images/Pernod_Ricard_video_production_685784cf.png",
         aspectRatio: "portrait",
       },
       {
         title: "Banking App",
         client: "Digital Banking",
         category: "FinTech Design",
-        imageUrl: "/assets/generated_images/Fintech_app_design_413d4352.png",
+        imageUrl: "/generated_images/Fintech_app_design_413d4352.png",
         aspectRatio: "portrait",
       },
       {
         title: "Brand Identity",
         client: "Tech Startup",
         category: "Branding",
-        imageUrl: "/assets/generated_images/Brand_identity_system_8af1f13b.png",
+        imageUrl: "/generated_images/Brand_identity_system_8af1f13b.png",
         aspectRatio: "landscape",
       },
       {
         title: "E-Commerce Platform",
         client: "Sustainable Goods",
         category: "Web Design",
-        imageUrl: "/assets/generated_images/E-commerce_website_design_43c43606.png",
+        imageUrl: "/generated_images/E-commerce_website_design_43c43606.png",
         aspectRatio: "landscape",
       },
     ];
@@ -98,7 +104,9 @@ export class MemStorage implements IStorage {
     return this.portfolioItems.get(id);
   }
 
-  async createPortfolioItem(insertItem: InsertPortfolioItem): Promise<PortfolioItem> {
+  async createPortfolioItem(
+    insertItem: InsertPortfolioItem,
+  ): Promise<PortfolioItem> {
     const id = randomUUID();
     const item: PortfolioItem = { ...insertItem, id };
     this.portfolioItems.set(id, item);

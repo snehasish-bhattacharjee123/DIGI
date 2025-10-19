@@ -1,98 +1,93 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useQuery } from "@tanstack/react-query";
 import type { PortfolioItem } from "@shared/schema";
+import { ScrollingImages } from "./aceternity/ScrollingImages";
+
+// Import actual images from attached_assets
+const images = [
+  "/generated_images/Amazon_Pharmacy_app_mockup_8bf3e1d7.png",
+  "/generated_images/Brand_identity_system_8af1f13b.png",
+  "/generated_images/E-commerce_website_design_43c43606.png",
+  "/generated_images/Fintech_app_design_413d4352.png",
+  "/generated_images/Pernod_Ricard_video_production_685784cf.png",
+  "/generated_images/Reddit_campaign_creative_1b23ce70.png",
+];
+
+// Create a list of 15 portfolio items cycling through actual images
+const portfolioItems: PortfolioItem[] = Array.from({ length: 15 }, (_, i) => ({
+  id: String(i + 1),
+  imageUrl: images[i % images.length],
+  title: `Portfolio Item ${i + 1}`,
+  client: "Creative Brand",
+  category: "Design",
+  aspectRatio: "portrait",
+}));
 
 export function Hero() {
-  const { data: portfolioItems } = useQuery<PortfolioItem[]>({
-    queryKey: ['/api/portfolio'],
-  });
+  // Split portfolio items for three columns.
+  const items1 = portfolioItems.slice(0, 5);
+  const items2 = portfolioItems.slice(5, 10);
+  const items3 = portfolioItems.slice(10, 15);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Portfolio Images Background Grid */}
-      <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 p-4 opacity-20">
-        {portfolioItems?.slice(0, 15).map((item, i) => (
-          <motion.div
-            key={item.id}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: i * 0.05 }}
-            className="relative aspect-square overflow-hidden rounded-md"
-          >
-            <img
-              src={item.imageUrl}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background" />
-      
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 py-32 text-center z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Small overline text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-sm md:text-base text-muted-foreground uppercase tracking-wider mb-6"
-          >
-            The world's leading creative teams use Superside
-          </motion.p>
-
-          {/* Hero Headline */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight mb-8 leading-[1.1]">
-            Make <span className="text-primary">amazing</span>
-            <br />
-            creative. <span className="text-primary">Fast.</span>
-          </h1>
-
-          {/* Subheadline */}
-          <p className="text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-12" data-testid="text-hero-subtitle">
-            Scale your in-house creative team with top global talent powered by
-            industry-leading AI workflows.
-          </p>
-
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="min-w-[200px] text-base" data-testid="button-hero-book-demo">
-              Book a demo
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="min-w-[200px] text-base backdrop-blur-sm bg-background/50 border-primary/30 hover:border-primary/50"
-              data-testid="button-hero-view-work"
+    <section className="relative min-h-screen flex items-center bg-[#101c1c] text-white overflow-hidden pt-24 pb-12 lg:py-0">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+          {/* Left Side: Text Content */}
+          <div className="lg:col-span-2 text-center lg:text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              View our work
-            </Button>
-          </div>
-        </motion.div>
-      </div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-[#9bf5b3] leading-tight">
+                Your creative team's
+                <br />
+                creative team™
+              </h1>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-      >
-        <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex items-start justify-center p-2">
-          <motion.div
-            className="w-1.5 h-1.5 bg-primary/50 rounded-full"
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          />
+              <p className="text-lg md:text-xl text-white/80 max-w-xl mx-auto lg:mx-0 mb-8">
+                Scale your in-house creative team with top global talent powered
+                by industry-leading AI workflows, delivering anything you can
+                imagine fast and affordably.
+              </p>
+
+              <Button
+                size="lg"
+                className="bg-[#b3ffcb] text-black hover:bg-[#a2e6b9] rounded-full px-8 py-6 text-base font-semibold"
+                data-testid="button-hero-book-demo"
+              >
+                Book a demo
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Right Side: Scrolling Images */}
+          <div className="relative h-[50vh] lg:h-[600px] lg:col-span-3">
+            <div className="absolute inset-0 flex gap-2 sm:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]">
+              <div
+                className="flex-1"
+                style={{ transform: "translateY(-3rem)" }}
+              >
+                <ScrollingImages items={items1} direction="up" speed="slow" />
+              </div>
+              <div className="flex-1" style={{ transform: "translateY(3rem)" }}>
+                <ScrollingImages
+                  items={items2}
+                  direction="down"
+                  speed="normal"
+                />
+              </div>
+              <div
+                className="flex-1"
+                style={{ transform: "translateY(-5rem)" }}
+              >
+                <ScrollingImages items={items3} direction="up" speed="slow" />
+              </div>
+            </div>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
