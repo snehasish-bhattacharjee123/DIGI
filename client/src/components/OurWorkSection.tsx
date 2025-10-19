@@ -20,6 +20,21 @@ export function OurWorkSection() {
 
   const translateY = useTransform(inset, (latest) => `-${latest}%`);
 
+  const togglePlayPause = (e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
+    }
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
   return (
     <section className="bg-white text-black py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
