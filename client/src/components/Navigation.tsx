@@ -110,9 +110,9 @@ export function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 flex w-full transition-colors duration-300 ease-in-out z-50 h-20 ${
+      className={`fixed top-0 left-0 flex w-full z-50 h-20 transition-all duration-300 ease-in-out ${
         isScrolled
-          ? "bg-background/90 backdrop-blur-lg border-b border-border/50"
+          ? "bg-background/95 backdrop-blur-md border-b border-border/40 shadow-sm"
           : "bg-transparent"
       }`}
     >
