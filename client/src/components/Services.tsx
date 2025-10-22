@@ -10,34 +10,40 @@ interface Service {
 
 const services: Service[] = [
   {
-    icon: <Palette className="w-8 h-8" />,
-    title: "Design",
-    description: "Brand identity, UI/UX, and visual design that captures your vision and connects with your audience.",
-  },
-  {
     icon: <Video className="w-8 h-8" />,
-    title: "Video & Motion",
-    description: "Stunning video content and motion graphics that bring your stories to life with cinematic quality.",
+    title: "Video Production & Editing",
+    description:
+      "High-quality video, reels, and professional editing for compelling visual storytelling.",
   },
   {
-    icon: <Wand2 className="w-8 h-8" />,
-    title: "Creative Strategy",
-    description: "Data-driven creative strategies that align with your business goals and resonate with customers.",
+    icon: <Palette className="w-8 h-8" />,
+    title: "Logo Design & Branding",
+    description:
+      "Complete visual identity services from logo design to full brandboarding and style guides.",
   },
   {
     icon: <Layout className="w-8 h-8" />,
-    title: "Web & Digital",
-    description: "Beautiful, responsive websites and digital experiences optimized for conversion and engagement.",
+    title: "Website & Graphic Design",
+    description:
+      "Sleek, modern websites and stunning graphics that create a powerful brand presence.",
   },
   {
     icon: <Sparkles className="w-8 h-8" />,
-    title: "AI-Powered Workflows",
-    description: "Industry-leading AI tools that accelerate production while maintaining exceptional quality.",
+    title: "2D & 3D Animation",
+    description:
+      "Engaging 2D and 3D motion graphics and animations that bring your creative ideas to life.",
+  },
+  {
+    icon: <Wand2 className="w-8 h-8" />,
+    title: "Social Media Management",
+    description:
+      "Strategic SMM to build your brand, engage your audience, and drive growth across platforms.",
   },
   {
     icon: <Zap className="w-8 h-8" />,
-    title: "Rapid Delivery",
-    description: "Fast turnaround times without compromising on quality, keeping your projects on schedule.",
+    title: "Google & Meta Ads",
+    description:
+      "Targeted advertising campaigns on Google and Meta to reach your ideal customers and maximize ROI.",
   },
 ];
 
@@ -49,14 +55,26 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <Card className="p-8 h-full hover-elevate" data-testid={`card-service-${index}`}>
-        <div className="text-primary mb-4" data-testid={`icon-service-${index}`}>
+      <Card
+        className="p-8 h-full hover-elevate"
+        data-testid={`card-service-${index}`}
+      >
+        <div
+          className="text-primary mb-4"
+          data-testid={`icon-service-${index}`}
+        >
           {service.icon}
         </div>
-        <h3 className="text-xl font-bold mb-3" data-testid={`text-service-title-${index}`}>
+        <h3
+          className="text-xl font-bold mb-3"
+          data-testid={`text-service-title-${index}`}
+        >
           {service.title}
         </h3>
-        <p className="text-muted-foreground" data-testid={`text-service-description-${index}`}>
+        <p
+          className="text-muted-foreground"
+          data-testid={`text-service-description-${index}`}
+        >
           {service.description}
         </p>
       </Card>
@@ -75,11 +93,18 @@ export function Services() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl lg:text-5xl font-bold mb-4" data-testid="text-services-heading">
-            What We Do
+          <h2
+            className="text-4xl lg:text-5xl font-bold mb-4"
+            data-testid="text-services-heading"
+          >
+            Our Core Services
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="text-services-subtitle">
-            End-to-end creative services powered by global talent and cutting-edge AI
+          <p
+            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            data-testid="text-services-subtitle"
+          >
+            A complete suite of creative and digital marketing solutions to
+            elevate your brand.
           </p>
         </motion.div>
 

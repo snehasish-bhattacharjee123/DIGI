@@ -8,24 +8,22 @@ interface Stat {
 
 const stats: Stat[] = [
   {
-    value: "73",
-    suffix: "%",
-    label: "Faster time to market",
+    value: "Flexible",
+    label: "Production Options",
   },
   {
-    value: "750",
-    suffix: "k+",
-    label: "Creative projects delivered",
+    value: "Ultra-Fast",
+    label: "Turnaround Time",
   },
   {
-    value: "1000",
+    value: "10k",
     suffix: "+",
-    label: "Global creative experts",
+    label: "Projects Delivered",
   },
   {
-    value: "50",
-    suffix: "%",
-    label: "Cost savings vs agencies",
+    value: "20",
+    suffix: "+",
+    label: "Years of Experience",
   },
 ];
 
@@ -45,7 +43,10 @@ export function StatsSection() {
               data-testid={`stat-${index}`}
             >
               <div className="mb-3">
-                <span className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary" data-testid={`stat-value-${index}`}>
+                <span
+                  className="text-5xl md:text-6xl lg:text-7xl font-bold text-primary"
+                  data-testid={`stat-value-${index}`}
+                >
                   {stat.value}
                 </span>
                 {stat.suffix && (
@@ -54,7 +55,10 @@ export function StatsSection() {
                   </span>
                 )}
               </div>
-              <p className="text-sm md:text-base text-muted-foreground" data-testid={`stat-label-${index}`}>
+              <p
+                className="text-sm md:text-base text-muted-foreground"
+                data-testid={`stat-label-${index}`}
+              >
                 {stat.label}
               </p>
             </motion.div>

@@ -30,7 +30,7 @@ export function Hero() {
   const items3 = portfolioItems.slice(10, 15);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-[#101c1c] text-white overflow-hidden pt-24 pb-12 lg:py-0">
+    <section className="relative min-h-screen flex items-center bg-bor-background text-white overflow-hidden pt-24 pb-12 lg:py-0">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
           {/* Left Side: Text Content */}
@@ -40,21 +40,17 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-[#9bf5b3] leading-tight">
-                Your creative team's
-                <br />
-                creative team™
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-bor-gray leading-tight">
+                DIGITELLER CREATIVE
               </h1>
 
               <p className="text-lg md:text-xl text-white/80 max-w-xl mx-auto lg:mx-0 mb-8">
-                Scale your in-house creative team with top global talent powered
-                by industry-leading AI workflows, delivering anything you can
-                imagine fast and affordably.
+                Tailor of Tales
               </p>
 
               <Button
                 size="lg"
-                className="bg-[#b3ffcb] text-black hover:bg-[#a2e6b9] rounded-full px-8 py-6 text-base font-semibold"
+                className="bg-bor-orange text-bor-black hover:bg-bor-orange/90 rounded-full px-8 py-6 text-base font-semibold"
                 data-testid="button-hero-book-demo"
               >
                 Book a demo

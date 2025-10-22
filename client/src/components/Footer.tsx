@@ -57,14 +57,25 @@ export function Footer() {
               className="text-2xl font-bold mb-4"
               data-testid="text-footer-brand"
             >
-              Superside
+              DIGITELLER CREATIVE
             </h3>
             <p
               className="text-muted-foreground text-sm mb-6"
               data-testid="text-footer-tagline"
             >
-              Your creative team's creative team™
+              Tailor of Tales
             </p>
+            <div className="text-sm text-muted-foreground space-y-2 mb-6">
+              <p>
+                <strong>Phone:</strong> +91-7998596948
+              </p>
+              <p>
+                <strong>Email:</strong> digitellercreative@gmail.com
+              </p>
+              <p>
+                <strong>Address:</strong> E-79, Ramgarh, Kolkata 700047
+              </p>
+            </div>
 
             {/* Social Links */}
             <div className="flex gap-4">
@@ -114,7 +125,8 @@ export function Footer() {
             className="text-sm text-muted-foreground"
             data-testid="text-footer-copyright"
           >
-            © {new Date().getFullYear()} Superside. All rights reserved.
+            © {new Date().getFullYear()} DIGITELLER CREATIVE. All rights
+            reserved.
           </p>
           <p
             className="text-sm text-muted-foreground"

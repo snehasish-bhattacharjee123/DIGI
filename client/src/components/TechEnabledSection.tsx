@@ -51,7 +51,8 @@ const cardData = [
       </svg>
     ),
     title: "Organize and share all your brand assets",
-    description: "Stop searching—store and organize everything on our platform.",
+    description:
+      "Stop searching—store and organize everything on our platform.",
     imageUrl:
       "https://cdn.sanity.io/images/k0dlbavy/production/9a7d2896fcbbbe358decb25e3629b25e2b7d5db8-780x1356.png",
     className: "lg:col-span-4 lg:row-span-2",
@@ -69,7 +70,8 @@ const cardData = [
       </svg>
     ),
     title: "Integrate with your favorite platforms.",
-    description: "Already using platforms like Asana/Jira/Slack? They integrate too.",
+    description:
+      "Already using platforms like Asana/Jira/Slack? They integrate too.",
     imageUrl:
       "https://cdn.sanity.io/images/k0dlbavy/production/06c73269db2d7c929e816d2ffe0ac19439828293-1040x880.png",
     className: "lg:col-span-4",
@@ -78,21 +80,21 @@ const cardData = [
 
 export function TechEnabledSection() {
   return (
-    <section className="bg-white text-black py-20 md:py-28 lg:py-40">
+    <section className="bg-bor-background text-bor-foreground py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-20">
           <div className="max-w-3xl">
-            <span className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+            <span className="text-sm font-semibold uppercase tracking-widest text-bor-gray">
               easy & hassle-free
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mt-4 tracking-tight">
-              Tech enabled and made to{" "}
+              Tech Enabled and Made to{" "}
               <em className="font-serif font-normal not-italic">
-                work for you.
+                Work for You.
               </em>
             </h2>
           </div>
-          <p className="lg:max-w-md text-lg text-black/70">
+          <p className="lg:max-w-md text-lg text-bor-foreground/80">
             No matter your creative need, submitting and managing a project is
             effortless.
           </p>

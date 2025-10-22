@@ -12,9 +12,8 @@ const successStories = [
     badge: "success story",
     title: (
       <>
-        "It makes me look good:" How{" "}
-        <em className="font-serif font-normal not-italic">Forter</em> uses
-        Superside to turn ideas into reality super efficiently.
+        "A Game Changer:" How our creative solutions drive tangible results and
+        elevate brands.
       </>
     ),
     videoDesktopUrl:
@@ -27,11 +26,8 @@ const successStories = [
     badge: "success story",
     title: (
       <>
-        "Hassle-free:" Why{" "}
-        <em className="font-serif font-normal not-italic">
-          Palo Alto Networks
-        </em>{" "}
-        uses Superside for scale and creativity on social.
+        "Seamless Process:" Discover how we deliver exceptional creative work
+        with unmatched efficiency.
       </>
     ),
     videoDesktopUrl:
@@ -82,7 +78,7 @@ export function SuccessStoriesSection() {
   };
 
   return (
-    <section className="bg-[#101c1c] text-white py-20 md:py-28 lg:py-40">
+    <section className="bg-bor-background text-white py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center max-w-4xl mx-auto mb-12 lg:mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">

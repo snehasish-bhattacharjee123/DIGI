@@ -2,28 +2,29 @@ import { Button } from "@/components/ui/button";
 
 export function WorkWithTheBestSection() {
   return (
-    <section className="bg-[#f7f9f4] text-black py-16 md:py-24 lg:py-32 overflow-hidden">
+    <section className="bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left Side: Text Content */}
           <div className="order-2 lg:order-1">
-            <span className="font-semibold uppercase pb-3 border-b border-black/20 text-sm tracking-widest block mb-8">
-              Work with the best
+            <span className="font-semibold uppercase pb-3 border-b border-bor-foreground/20 text-sm tracking-widest block mb-8">
+              Work with the Best
             </span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight">
               <em className="font-serif font-normal not-italic">
-                World-class talent
+                Top-Tier Talent
               </em>{" "}
-              with no borders
+              for Every Project
             </h2>
-            <p className="text-lg md:text-xl text-black/70 mb-4 max-w-xl">
-              Work with the top 1% of global creative talent – elite designers,
-              project managers, animators, copywriters, AI technologists and
-              more, recruited from the best brands and agencies.
+            <p className="text-lg md:text-xl text-bor-foreground/80 mb-4 max-w-xl">
+              Our team consists of elite designers, project managers, animators,
+              and copywriters, recruited from the best brands and agencies
+              worldwide.
             </p>
-            <p className="text-base text-black/70 mb-8 max-w-xl">
-              Plus, a dedicated project manager to ensure your briefs stay on
-              track from start to finish.
+            <p className="text-base text-bor-foreground/80 mb-8 max-w-xl">
+              You'll get a dedicated project manager to ensure your briefs stay
+              on track from start to finish, delivering exceptional results
+              every time.
             </p>
             <Button
               size="lg"

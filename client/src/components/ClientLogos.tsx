@@ -1,20 +1,19 @@
 import { motion } from "framer-motion";
-import {
-  SiAmazon,
-  SiReddit,
-  SiAirbnb,
-  SiMeta,
-  SiSpotify,
-  SiNetflix,
-} from "react-icons/si";
-
 const clients = [
-  { name: "Amazon", icon: SiAmazon },
-  { name: "Reddit", icon: SiReddit },
-  { name: "Airbnb", icon: SiAirbnb },
-  { name: "Meta", icon: SiMeta },
-  { name: "Spotify", icon: SiSpotify },
-  { name: "Netflix", icon: SiNetflix },
+  "Parle",
+  "Naksha",
+  "MKT Rugs",
+  "Dhruwo Cabs",
+  "ASR Doctors Clinic",
+  "Kulina Entertainment",
+  "Mehakleen",
+  "Celestial Guidance",
+  "KODC",
+  "RedOchre",
+  "The Smash",
+  "Viracocha Little Learners",
+  "Teamax",
+  "Transformation & Strength",
 ];
 
 export function ClientLogos() {
@@ -35,21 +34,24 @@ export function ClientLogos() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 lg:gap-12 items-center justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-8 gap-y-10 items-center justify-items-center">
           {clients.map((client, index) => (
             <motion.div
-              key={client.name}
+              key={client}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex items-center justify-center"
+              transition={{ duration: 0.5, delay: index * 0.05 }}
+              className="flex items-center justify-center text-center"
             >
-              <client.icon
-                className="w-16 h-16 text-muted-foreground/60 hover:text-foreground transition-colors duration-300"
-                data-testid={`icon-client-${client.name.toLowerCase()}`}
-                aria-label={client.name}
-              />
+              <span
+                className="text-sm font-medium text-muted-foreground/80 hover:text-foreground transition-colors duration-300"
+                data-testid={`text-client-${client
+                  .toLowerCase()
+                  .replace(/\s+/g, "-")}`}
+              >
+                {client}
+              </span>
             </motion.div>
           ))}
         </div>

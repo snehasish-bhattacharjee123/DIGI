@@ -12,23 +12,36 @@ export function CTASection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-sm md:text-base text-primary uppercase tracking-wider font-semibold mb-6" data-testid="text-cta-overline">
+          <p
+            className="text-sm md:text-base text-primary uppercase tracking-wider font-semibold mb-6"
+            data-testid="text-cta-overline"
+          >
             Start creating today
           </p>
-          
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight" data-testid="text-cta-heading">
+
+          <h2
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight"
+            data-testid="text-cta-heading"
+          >
             Let's make something
             <br />
             <span className="text-primary">amazing together</span>
           </h2>
-          
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto" data-testid="text-cta-subtitle">
-            Book a demo to see how Superside can transform your creative workflow
-            and help you deliver exceptional work faster.
+
+          <p
+            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto"
+            data-testid="text-cta-subtitle"
+          >
+            Book a demo to see how DIGITELLER CREATIVE can transform your
+            creative workflow and help you deliver exceptional work faster.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="min-w-[220px] text-base group" data-testid="button-cta-book-demo">
+            <Button
+              size="lg"
+              className="min-w-[220px] text-base group"
+              data-testid="button-cta-book-demo"
+            >
               Book a demo
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>

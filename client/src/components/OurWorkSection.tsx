@@ -14,21 +14,21 @@ export function OurWorkSection() {
 
   const clipPath = useTransform(
     inset,
-    (latest) => `inset(${latest}% ${latest}% 0% round 10px)`
+    (latest) => `inset(${latest}% ${latest}% 0% round 10px)`,
   );
 
   const translateY = useTransform(inset, (latest) => `-${latest}%`);
 
   return (
-    <section className="bg-white text-black py-20 md:py-28 lg:py-40">
+    <section className="bg-bor-background text-bor-foreground py-20 md:py-28 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
-          <span className="text-sm font-semibold uppercase tracking-widest text-gray-500">
+          <span className="text-sm font-semibold uppercase tracking-widest text-bor-gray">
             OUR WORK
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mt-4 tracking-tight">
-            From high tech to high fashion{" "}
-            <em className="font-serif font-normal not-italic">and beyond</em>
+            From High Tech to High Fashion{" "}
+            <em className="font-serif font-normal not-italic">and Beyond</em>
           </h2>
         </div>
 
