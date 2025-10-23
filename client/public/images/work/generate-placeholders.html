@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Work Placeholders</title>
+    <style>
+        canvas { display: none; }
+        .preview { 
+            display: inline-block; 
+            margin: 10px;
+            text-align: center;
+        }
+        .preview img {
+            max-width: 200px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Work Portfolio Placeholder Images</h1>
+    <div id="previews"></div>
+    
+    <script>
+        const works = [
+            { name: 'reddit', color: '#FFE5D9', textColor: '#2D1B12', logo: 'reddit' },
+            { name: 'shopify', color: '#D4F4DD', textColor: '#0D3B1A', logo: 'Shopify' },
+            { name: 'opa', color: '#E8E4DF', textColor: '#2C2822', logo: 'Opa!' },
+            { name: 'gohenry', color: '#D4F4DD', textColor: '#0D3B1A', logo: 'GoHenry' },
+            { name: 'suzanne-kalan', color: '#E5E9F0', textColor: '#1A1F2E', logo: 'Suzanne Kalan' },
+            { name: 'amazon-pharmacy', color: '#D4E4F7', textColor: '#0F2847', logo: 'Amazon Pharmacy' },
+            { name: 'marqeta', color: '#FFE8E8', textColor: '#3D1616', logo: 'Marqeta' }
+        ];
+
+        const canvas = document.createElement('canvas');
+        canvas.width = 544;
+        canvas.height = 601;
+        const ctx = canvas.getContext('2d');
+        const previewsDiv = document.getElementById('previews');
+
+        works.forEach(work => {
+            // Clear canvas
+            ctx.fillStyle = work.color;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add company name
+            ctx.fillStyle = work.textColor;
+            ctx.font = 'bold 60px serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(work.logo, canvas.width / 2, canvas.height / 2);
+
+            // Add decorative elements
+            ctx.globalAlpha = 0.1;
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2, canvas.height / 2 - 100, 150, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(canvas.width / 2 + 100, canvas.height / 2 + 100, 100, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            // Convert to blob and create download link
+            canvas.toBlob(blob => {
+                const url = URL.createObjectURL(blob);
+                const preview = document.createElement('div');
+                preview.className = 'preview';
+                
+                const img = document.createElement('img');
+                img.src = url;
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${work.name}.png`;
+                link.textContent = `Download ${work.name}.png`;
+                
+                preview.appendChild(img);
+                preview.appendChild(document.createElement('br'));
+                preview.appendChild(link);
+                previewsDiv.appendChild(preview);
+            });
+        });
+    </script>
+</body>
+</html>

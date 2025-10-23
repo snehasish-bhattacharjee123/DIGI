@@ -1,44 +1,44 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const faqData = [
   {
-    title: 'What is “Creative-as a Service”?',
+    title: "What is “Creative-as a Service”?",
     content:
-      'Creative-as-a-Service (CaaS) is a subscription service model that gives organizations access to quality creative assets at scale. CaaS solutions like Superside combine top talent and technology with a DesignOps process and team structure that removes the limits on speed, capacity, and capabilities for creative execution.',
+      "Creative-as-a-Service (CaaS) is a subscription service model that gives organizations access to quality creative assets at scale. CaaS solutions like Superside combine top talent and technology with a DesignOps process and team structure that removes the limits on speed, capacity, and capabilities for creative execution.",
   },
   {
-    title: 'What makes Superside’s design services different?',
+    title: "What makes Superside’s design services different?",
     content:
-      'Superside subscriptions include a dedicated creative team onboarded to your brand and tailored for your specific needs, with specialized roles like Motion Designers, Design Directors, and Copywriters, along with in-plan hours to spend each month. Other “unlimited” design subscription services have hidden limits on output and speed. You can submit as many projects as you want, but they enter a queue to be worked on by 1 or 2, often freelance designers. Your next project only begins after your current project is fully completed, including any revisions.',
+      "Superside subscriptions include a dedicated creative team onboarded to your brand and tailored for your specific needs, with specialized roles like Motion Designers, Design Directors, and Copywriters, along with in-plan hours to spend each month. Other “unlimited” design subscription services have hidden limits on output and speed. You can submit as many projects as you want, but they enter a queue to be worked on by 1 or 2, often freelance designers. Your next project only begins after your current project is fully completed, including any revisions.",
   },
   {
-    title: 'How does a design subscription work?',
+    title: "How does a design subscription work?",
     content:
-      'You pick a monthly plan based on the capabilities you need and the volume you expect. For a predictable price, you get access to a dedicated project manager through a creative collaboration platform that lets you submit briefs, provide feedback, and access your finished assets and project files in a single place.',
+      "You pick a monthly plan based on the capabilities you need and the volume you expect. For a predictable price, you get access to a dedicated project manager through a creative collaboration platform that lets you submit briefs, provide feedback, and access your finished assets and project files in a single place.",
   },
   {
-    title: 'What is graphic design?',
+    title: "What is graphic design?",
     content:
-      'Graphic design is the art or practice of planning and arranging visual elements of a project to enhance or convey a message. A good graphic designer should be able to streamline communications and invoke emotion from their audience. Most people experience graphic design in their daily life from magazines and packaging to websites and social media.',
+      "Graphic design is the art or practice of planning and arranging visual elements of a project to enhance or convey a message. A good graphic designer should be able to streamline communications and invoke emotion from their audience. Most people experience graphic design in their daily life from magazines and packaging to websites and social media.",
   },
   {
-    title: 'What do graphic designers do?',
+    title: "What do graphic designers do?",
     content:
-      'By definition, graphic designers plan and arrange visual elements to convey a message that is pleasing to the eye. Our graphic designers specialize in the various areas of graphic design and are ready to assist with the creation of digital ads, marketing, motion graphics, print, merchandise, packaging, powerpoints, illustrations, infographics, and landing pages.',
+      "By definition, graphic designers plan and arrange visual elements to convey a message that is pleasing to the eye. Our graphic designers specialize in the various areas of graphic design and are ready to assist with the creation of digital ads, marketing, motion graphics, print, merchandise, packaging, powerpoints, illustrations, infographics, and landing pages.",
   },
   {
-    title: 'Who needs graphic design services?',
+    title: "Who needs graphic design services?",
     content:
-      'The simple answer: anyone who wants their brand, product, or service to invoke a response from their audience needs a graphic designer. Graphic design services use data and visual elements to streamline communication and easily convey your message in a comprehensive format.',
+      "The simple answer: anyone who wants their brand, product, or service to invoke a response from their audience needs a graphic designer. Graphic design services use data and visual elements to streamline communication and easily convey your message in a comprehensive format.",
   },
   {
-    title: 'Do you do custom plans?',
+    title: "Do you do custom plans?",
     content:
-      'Yes! We develop a budget that aligns if you have larger and more complex needs. Otherwise, all plans are identical, giving you full access to everything you need from Superside, regardless of the size of your monthly budget.',
+      "Yes! We develop a budget that aligns if you have larger and more complex needs. Otherwise, all plans are identical, giving you full access to everything you need from Superside, regardless of the size of your monthly budget.",
   },
   {
-    title: 'What billing options do you offer?',
-    content: 'We offer credit card billing or invoicing.',
+    title: "What billing options do you offer?",
+    content: "We offer credit card billing or invoicing.",
   },
 ];
 
@@ -61,14 +61,16 @@ const FaqItem = ({
         onClick={() => toggleFaq(index)}
         className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-70 transition-opacity"
       >
-        <span className="text-base md:text-lg lg:text-xl font-semibold flex-1">{faq.title}</span>
+        <span className="text-base md:text-lg lg:text-xl font-semibold flex-1">
+          {faq.title}
+        </span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
           height="20"
           fill="currentColor"
           viewBox="0 0 256 256"
-          className={`flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}
+          className={`flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
         >
           <rect width="256" height="256" fill="none"></rect>
           <line
@@ -97,10 +99,15 @@ const FaqItem = ({
       </button>
       <div
         className="overflow-hidden transition-all duration-500 ease-in-out"
-        style={{ maxHeight: isOpen ? '1000px' : '0px', opacity: isOpen ? 1 : 0 }}
+        style={{
+          maxHeight: isOpen ? "1000px" : "0px",
+          opacity: isOpen ? 1 : 0,
+        }}
       >
         <div className="pt-3 md:pt-4">
-          <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">{faq.content}</p>
+          <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">
+            {faq.content}
+          </p>
         </div>
       </div>
     </div>
@@ -119,14 +126,14 @@ export function FaqSection() {
   const secondHalf = faqData.slice(midIndex);
 
   return (
-    <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32 px-4 sm:px-6 md:px-8 lg:px-0">
-      <div className="max-w-7xl mx-auto">
+    <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="mb-12 md:mb-16 lg:mb-20">
           <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
             FAQS
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-            Frequently asked{' '}
+            Frequently asked{" "}
             <span className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal">
               <em>questions</em>
             </span>

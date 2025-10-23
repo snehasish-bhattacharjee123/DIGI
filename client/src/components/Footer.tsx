@@ -5,50 +5,62 @@ export function Footer() {
     {
       title: "Company",
       links: [
-        { label: "About", href: "#about" },
-        { label: "Careers", href: "#careers" },
-        { label: "Press", href: "#press" },
-        { label: "Contact", href: "#contact" },
+        { label: "About", href: "/about" },
+        { label: "Careers", href: "/careers" },
+        { label: "Press", href: "/press" },
+        { label: "Contact", href: "/contact" },
       ],
     },
     {
       title: "Services",
       links: [
-        { label: "Design", href: "#design" },
-        { label: "Video & Motion", href: "#video" },
-        { label: "Web Development", href: "#web" },
-        { label: "Creative Strategy", href: "#strategy" },
+        { label: "Design", href: "/services/graphic-design" },
+        { label: "Video & Motion", href: "/services/video-production" },
+        { label: "Web Development", href: "/services/ui-ux-design" },
+        { label: "Creative Strategy", href: "/services/brand-identity" },
       ],
     },
     {
       title: "Resources",
       links: [
-        { label: "Blog", href: "#blog" },
-        { label: "Case Studies", href: "#cases" },
-        { label: "Help Center", href: "#help" },
-        { label: "API Docs", href: "#api" },
+        { label: "Blog", href: "/blog" },
+        { label: "Case Studies", href: "/case-studies" },
+        { label: "Help Center", href: "/help" },
+        { label: "API Docs", href: "/api-docs" },
       ],
     },
     {
       title: "Legal",
       links: [
-        { label: "Privacy", href: "#privacy" },
-        { label: "Terms", href: "#terms" },
-        { label: "Security", href: "#security" },
-        { label: "Cookies", href: "#cookies" },
+        { label: "Privacy", href: "/privacy-policy" },
+        { label: "Terms", href: "/terms" },
+        { label: "Security", href: "/security" },
+        { label: "Cookies", href: "/cookies" },
       ],
     },
   ];
 
   const socialLinks = [
-    { icon: Twitter, href: "#twitter", label: "Twitter" },
-    { icon: Linkedin, href: "#linkedin", label: "LinkedIn" },
-    { icon: Instagram, href: "#instagram", label: "Instagram" },
+    {
+      icon: Twitter,
+      href: "https://twitter.com/digitellercreative",
+      label: "Twitter",
+    },
+    {
+      icon: Linkedin,
+      href: "https://linkedin.com/company/digitellercreative",
+      label: "LinkedIn",
+    },
+    {
+      icon: Instagram,
+      href: "https://instagram.com/digitellercreative",
+      label: "Instagram",
+    },
   ];
 
   return (
     <footer className="bg-background border-t border-border">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}

@@ -1,0 +1,7 @@
+<svg width="544" height="601" xmlns="http://www.w3.org/2000/svg">
+  <rect width="544" height="601" fill="#D4E4F7"/>
+  <circle cx="272" cy="200" r="150" fill="#0F2847" opacity="0.05"/>
+  <circle cx="372" cy="401" r="100" fill="#0F2847" opacity="0.05"/>
+  <text x="272" y="290" font-family="serif" font-size="56" font-weight="bold" fill="#0F2847" text-anchor="middle">Amazon</text>
+  <text x="272" y="350" font-family="serif" font-size="56" font-weight="bold" fill="#0F2847" text-anchor="middle">Pharmacy</text>
+</svg>

@@ -21,7 +21,7 @@ export function OurWorkSection() {
 
   return (
     <section className="bg-bor-background text-bor-foreground py-20 md:py-28 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
           <span className="text-sm font-semibold uppercase tracking-widest text-bor-gray">
             OUR WORK

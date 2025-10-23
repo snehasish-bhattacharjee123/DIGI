@@ -79,7 +79,7 @@ export function SuccessStoriesSection() {
 
   return (
     <section className="bg-bor-background text-white py-20 md:py-28 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="text-center max-w-4xl mx-auto mb-12 lg:mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">
             Driving creative success for{" "}
@@ -143,7 +143,7 @@ export function SuccessStoriesSection() {
 
       {selectedStory !== null && (
         <Dialog open={selectedStory !== null} onOpenChange={handleClose}>
-          <DialogContent className="max-w-5xl w-full max-h-[90vh] p-0 bg-black border-0">
+          <DialogContent className="max-w-7xl w-full max-h-[90vh] p-0 bg-black border-0">
             <DialogHeader className="sr-only">
               <DialogTitle>Video Player</DialogTitle>
             </DialogHeader>

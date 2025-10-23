@@ -31,7 +31,7 @@ export function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center bg-bor-background text-white overflow-hidden pt-24 pb-12 lg:py-0">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+      <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 w-full z-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
           {/* Left Side: Text Content */}
           <div className="lg:col-span-2 text-center lg:text-left">

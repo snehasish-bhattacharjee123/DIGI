@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 export function CTASection() {
   return (
     <section className="py-24 md:py-32 bg-gradient-to-b from-background via-primary/5 to-background">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

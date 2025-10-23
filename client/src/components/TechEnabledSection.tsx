@@ -81,7 +81,7 @@ const cardData = [
 export function TechEnabledSection() {
   return (
     <section className="bg-bor-background text-bor-foreground py-20 md:py-28 lg:py-40">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-20">
           <div className="max-w-3xl">
             <span className="text-sm font-semibold uppercase tracking-widest text-bor-gray">
