@@ -59,22 +59,36 @@ export function MadeToFlexSection() {
           </h2>
         </div>
 
+        {/* === CARD GRID === */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cardData.map((card, index) => (
             <div
               key={index}
-              className="group relative h-[600px] flex flex-col rounded-lg overflow-hidden bg-background/5 transition-all duration-300 hover:-translate-y-2"
+              className="group relative h-[600px] flex flex-col rounded-2xl overflow-hidden bg-background/10
+              backdrop-blur-sm border border-white/10 shadow-sm transition-all duration-500
+              hover:-translate-y-3 hover:shadow-2xl hover:scale-[1.02]"
             >
-              <div className="relative flex-grow h-2/3">
+              {/* Image Layer */}
+              <div className="relative flex-grow h-2/3 overflow-hidden">
                 <img
                   src={card.imageUrl}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
               </div>
-              <div className="p-6 flex flex-col justify-between h-1/3">
-                <h3 className="text-2xl font-bold">{card.title}</h3>
-                <p className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+
+              {/* Text Area */}
+              <div className="relative flex flex-col justify-end p-6 h-1/3">
+                <h3 className="text-2xl font-bold mb-2 transition-transform duration-500 group-hover:translate-y-[-6px]">
+                  {card.title}
+                </h3>
+
+                {/* Description Pop-up */}
+                <p
+                  className="text-sm text-gray-300 opacity-0 translate-y-4
+                  group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out"
+                >
                   {card.description}
                 </p>
               </div>
@@ -82,7 +96,7 @@ export function MadeToFlexSection() {
           ))}
         </div>
 
-        {/* Testimonial Carousel Section */}
+        {/* === Testimonial Carousel === */}
         <div className="mt-20 lg:mt-32">
           <TestimonialCarousel />
         </div>
@@ -127,19 +141,14 @@ export const CreativeServicesSection = () => {
     setScrollLeft(sliderRef.current.scrollLeft);
   };
 
-  const handleMouseLeave = () => {
-    setIsDown(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsDown(false);
-  };
+  const handleMouseLeave = () => setIsDown(false);
+  const handleMouseUp = () => setIsDown(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isDown || !sliderRef.current) return;
     e.preventDefault();
     const x = e.pageX - sliderRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // scroll-fast
+    const walk = (x - startX) * 2;
     sliderRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -153,20 +162,18 @@ export const CreativeServicesSection = () => {
               loading="lazy"
               className="hidden h-full w-full object-cover object-center md:block"
               src="https://cdn.sanity.io/images/k0dlbavy/production/2e6fc4afd008200fd365792091ceb4c629967f09-3840x1432.png?auto=format&fit=max&q=100&w=1920"
-              width="1920"
-              height="716"
             />
             <img
               alt=""
               loading="lazy"
               className="h-full w-full object-cover object-center md:hidden max-md:max-h-[800px]"
               src="https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=100&w=360"
-              width="360"
-              height="680"
             />
             <div className="absolute bottom-0 left-0 h-[100px] w-full bg-gradient-to-t from-bor-background to-transparent md:hidden"></div>
           </div>
+
           <div className="absolute inset-0 z-0 flex h-full w-full flex-col bg-gradient-to-t from-black/10 via-transparent to-transparent"></div>
+
           <div className="z-10 flex flex-col max-w-[850px] max-md:mt-[250px]">
             <span className="mb-2 font-semibold uppercase tracking-widest text-sm lg:mb-4">
               Creative services
@@ -181,11 +188,12 @@ export const CreativeServicesSection = () => {
               top global designers and an easy-to-use collaboration platform.
             </p>
             <div className="mt-4 flex w-full max-w-full flex-row gap-3 justify-stretch max-md:flex-col md:self-start lg:mt-8">
-              <button className="group/button relative overflow-hidden rounded-md bg-blue-600 px-6 py-4 text-center font-semibold text-white text-sm leading-5 transition-shadow hover:bg-blue-700">
+              <button className="group/button relative overflow-hidden rounded-md bg-blue-600 px-6 py-4 text-center font-semibold text-white text-sm leading-5 transition-all hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1">
                 <span className="block">Book a demo</span>
               </button>
             </div>
           </div>
+
           <div
             ref={sliderRef}
             className="relative -mx-4 sm:-mx-6 lg:-mx-8 xl:-mx-12 2xl:-mx-16 overflow-x-hidden select-none"
@@ -201,14 +209,12 @@ export const CreativeServicesSection = () => {
             >
               {[...creativeServices, ...creativeServices].map((item, index) => (
                 <div key={index} className="flex-shrink-0 px-2">
-                  <div className="flex h-[72px] flex-row items-center gap-4 rounded-lg bg-background/10 py-2 pl-2 pr-3 text-white backdrop-blur-sm">
+                  <div className="flex h-[72px] flex-row items-center gap-4 rounded-lg bg-background/10 py-2 pl-2 pr-3 text-white backdrop-blur-sm hover:bg-background/20 transition-all">
                     <img
                       alt={item.title}
                       loading="lazy"
                       className="h-14 w-14 rounded-md object-cover pointer-events-none"
                       src={item.imageUrl}
-                      width="88"
-                      height="56"
                     />
                     <span className="text-sm">{item.title}</span>
                   </div>

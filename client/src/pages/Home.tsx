@@ -108,6 +108,18 @@ const HowWeWorkSection = lazy(() =>
   })),
 );
 
+const OurPeopleSection = lazy(() =>
+  import("@/components/OurPeopleSection").then((module) => ({
+    default: module.OurPeopleSection,
+  })),
+);
+
+// const ScrollSections = lazy(() =>
+//   import("@/components/ScrollSections").then((module) => ({
+//     default: module.ScrollSections,
+//   })),
+// );
+
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((module) => ({
     default: module.VersatileDesignsSection,
@@ -352,6 +364,19 @@ export default function Home() {
               <WorkWithTheBestSection />
             </Suspense>
           </ErrorBoundary>
+
+          {/* Our People Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <OurPeopleSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/*<ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <ScrollSections />
+            </Suspense>
+          </ErrorBoundary>*/}
 
           {/* Tech Enabled Section */}
           <ErrorBoundary>

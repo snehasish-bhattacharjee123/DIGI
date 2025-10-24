@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
   { title: "Home", hasSubmenu: false, href: "/" },
@@ -89,32 +90,22 @@ export function Navigation() {
   const submenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, [isMobileMenuOpen]);
 
-  const toggleMobileMenu = () => {
-    setMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const toggleMobileMenu = () => setMobileMenuOpen(!isMobileMenuOpen);
 
   const handleDesktopSubmenuEnter = (index: number) => {
-    if (submenuTimeoutRef.current) {
-      clearTimeout(submenuTimeoutRef.current);
-    }
+    if (submenuTimeoutRef.current) clearTimeout(submenuTimeoutRef.current);
     setActiveDesktopSubmenu(index);
   };
 
@@ -130,6 +121,7 @@ export function Navigation() {
 
   return (
     <>
+      {/* HEADER */}
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
           isScrolled
@@ -146,7 +138,7 @@ export function Navigation() {
               </span>
             </a>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Nav */}
             <nav className="hidden lg:flex items-center space-x-1">
               {navItems.map((item, index) => (
                 <div
@@ -194,7 +186,7 @@ export function Navigation() {
               </a>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Toggle */}
             <button
               onClick={toggleMobileMenu}
               className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors duration-200"
@@ -205,24 +197,51 @@ export function Navigation() {
           </div>
         </div>
 
-        {/* Desktop Megamenu Dropdown */}
+        {/* DESKTOP DROPDOWN OVERLAY */}
+        <AnimatePresence>
+          {activeDesktopSubmenu !== null &&
+            navItems[activeDesktopSubmenu].hasSubmenu && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`absolute top-20 left-0 w-full h-[500px] z-[40] ${
+                  navItems[activeDesktopSubmenu].title === "Services"
+                    ? "bg-white"
+                    : "bg-black/95"
+                }`}
+              />
+            )}
+        </AnimatePresence>
+
+        {/* DESKTOP MEGAMENU */}
         {activeDesktopSubmenu !== null &&
           navItems[activeDesktopSubmenu].hasSubmenu && (
             <div
               onMouseEnter={() => {
-                if (submenuTimeoutRef.current) {
+                if (submenuTimeoutRef.current)
                   clearTimeout(submenuTimeoutRef.current);
-                }
               }}
               onMouseLeave={handleDesktopSubmenuLeave}
-              className="absolute top-20 left-0 w-full bg-black/95 backdrop-blur-md border-t border-white/10 shadow-2xl"
+              className={`absolute top-20 left-0 w-full border-t shadow-2xl z-[50] transition-all duration-500 ease-in-out ${
+                navItems[activeDesktopSubmenu].title === "Services"
+                  ? "bg-white text-black border-gray-200"
+                  : "bg-black/95 text-white border-white/10"
+              }`}
             >
               <div className="max-w-[1680px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-16 py-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {navItems[activeDesktopSubmenu].subsections?.map(
                     (subsection, sIndex) => (
                       <div key={sIndex} className="space-y-5">
-                        <h3 className="text-lg font-bold text-white pb-2 border-b border-primary/30">
+                        <h3
+                          className={`text-lg font-bold pb-2 border-b ${
+                            navItems[activeDesktopSubmenu].title === "Services"
+                              ? "border-primary/40 text-black"
+                              : "border-primary/30 text-white"
+                          }`}
+                        >
                           {subsection.title}
                         </h3>
                         <div className="space-y-3">
@@ -230,12 +249,31 @@ export function Navigation() {
                             <a
                               key={iIndex}
                               href={subItem.href || "#"}
-                              className="block p-3 rounded-lg hover:bg-white/5 transition-all duration-300 group"
+                              className={`block p-3 rounded-lg transition-all duration-300 group ${
+                                navItems[activeDesktopSubmenu].title ===
+                                "Services"
+                                  ? "hover:bg-gray-100"
+                                  : "hover:bg-white/5"
+                              }`}
                             >
-                              <h4 className="font-semibold text-white text-base group-hover:text-primary transition-colors duration-300">
+                              <h4
+                                className={`font-semibold text-base transition-colors duration-300 group-hover:text-primary ${
+                                  navItems[activeDesktopSubmenu].title ===
+                                  "Services"
+                                    ? "text-black"
+                                    : "text-white"
+                                }`}
+                              >
                                 {subItem.title}
                               </h4>
-                              <p className="text-gray-400 text-sm mt-1 group-hover:text-gray-300 transition-colors duration-300">
+                              <p
+                                className={`text-sm mt-1 transition-colors duration-300 ${
+                                  navItems[activeDesktopSubmenu].title ===
+                                  "Services"
+                                    ? "text-gray-600 group-hover:text-gray-800"
+                                    : "text-gray-400 group-hover:text-gray-300"
+                                }`}
+                              >
                                 {subItem.description}
                               </p>
                             </a>
@@ -250,7 +288,7 @@ export function Navigation() {
           )}
       </header>
 
-      {/* Mobile Menu Overlay */}
+      {/* MOBILE MENU OVERLAY */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
@@ -258,7 +296,7 @@ export function Navigation() {
         />
       )}
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU PANEL */}
       <div
         className={`fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-black/95 backdrop-blur-md border-t border-white/10 z-40 lg:hidden transition-all duration-500 ease-in-out overflow-y-auto ${
           isMobileMenuOpen
@@ -335,7 +373,7 @@ export function Navigation() {
             ))}
           </nav>
 
-          {/* Mobile CTA */}
+          {/* MOBILE CTA */}
           <div className="mt-6 pt-6 border-t border-white/10">
             <a
               href="https://wa.me/917998596948"
