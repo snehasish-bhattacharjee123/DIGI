@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { LiquidButton } from "@/components/LiquidButton";
 
 export function WorkWithTheBestSection() {
   return (
@@ -45,12 +46,12 @@ export function WorkWithTheBestSection() {
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto"
               >
-                <Button
-                  size="lg"
-                  className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-white rounded-lg px-8 py-6 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  Book a Demo
-                </Button>
+                <LiquidButton
+                  label="Book a Demo" // ✅ use `label` instead of children
+                  color="#646cff" // optional, primary color
+                  duration={700} // optional, animation duration in ms
+                  className="w-full sm:w-auto rounded-lg px-8 py-6 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+                />
               </a>
               <Button
                 variant="outline"

@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import type { PortfolioItem } from "@shared/schema";
 import { ScrollingImages } from "./aceternity/ScrollingImages";
-
+import { LiquidButton } from "./LiquidButton";
 // Import actual images from attached_assets
 const images = [
   "/generated_images/Amazon_Pharmacy_app_mockup_8bf3e1d7.png",
@@ -48,13 +48,12 @@ export function Hero() {
                 Tailor of Tales
               </p>
 
-              <Button
-                size="lg"
-                className="bg-bor-orange text-bor-black hover:bg-bor-orange/90 rounded-full px-8 py-6 text-base font-semibold"
-                data-testid="button-hero-book-demo"
-              >
-                Book a demo
-              </Button>
+              <LiquidButton
+                label="Book a demo"
+                color="#646cff"
+                duration={1000}
+                className="mt-2"
+              />
             </motion.div>
           </div>
 

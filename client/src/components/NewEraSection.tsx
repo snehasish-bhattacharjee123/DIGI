@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
 import { VideoPlayer } from "@/components/VideoPlayer";
+import { LiquidButton } from "@/components/LiquidButton";
 
 export function NewEraSection() {
   return (
     <section className="bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32 overflow-hidden">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Right Side: Video/Image (Order changed for mobile) */}
+          {/* Video */}
           <div className="order-1 lg:order-2">
             <div className="relative aspect-video rounded-lg overflow-hidden shadow-lg">
               <VideoPlayer
@@ -15,7 +15,8 @@ export function NewEraSection() {
               />
             </div>
           </div>
-          {/* Left Side: Text Content */}
+
+          {/* Text + Button */}
           <div className="order-2 lg:order-1">
             <span className="font-semibold uppercase pb-3 border-b border-bor-foreground/20 text-sm tracking-widest block mb-8">
               A new era of creative work
@@ -33,12 +34,13 @@ export function NewEraSection() {
               See us as an extension of your team, freeing you to focus on your
               most impactful and creative work.
             </p>
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 py-6 text-base font-semibold"
-            >
-              Book a demo
-            </Button>
+
+            <LiquidButton
+              label="Book a demo"
+              color="#646cff"
+              duration={1000}
+              className="mt-2"
+            />
           </div>
         </div>
       </div>

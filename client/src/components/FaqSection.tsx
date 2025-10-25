@@ -1,110 +1,193 @@
-import { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
-const faqData = [
+/**
+ * FaqSection.tsx
+ *
+ * Features:
+ * - Multi-open accordion (Set<number>) so multiple items can be expanded at once.
+ * - Roving tabindex + keyboard navigation (ArrowUp, ArrowDown, Home, End, Enter, Space).
+ * - Each item measures its content height using ResizeObserver (with window.resize fallback)
+ *   so max-height animations are accurate and smooth.
+ * - Respects prefers-reduced-motion.
+ * - Accessible: buttons have aria-expanded/controls, panels have role="region" and aria-labelledby.
+ */
+
+/* FAQ content */
+const faqData: { title: string; content: string }[] = [
   {
-    title: "What is “Creative-as a Service”?",
+    title: "What is “Creative-as-a-Service” (CaaS)?",
     content:
-      "Creative-as-a-Service (CaaS) is a subscription service model that gives organizations access to quality creative assets at scale. CaaS solutions like Superside combine top talent and technology with a DesignOps process and team structure that removes the limits on speed, capacity, and capabilities for creative execution.",
+      "Creative-as-a-Service (CaaS) is a subscription model that provides on-demand, scalable creative output — design, motion, copy, and more — through a dedicated team and streamlined production process. DIGITELLER CREATIVE bundles talent, tooling, and reliable workflows so teams can get high-quality creative work consistently and predictably.",
   },
   {
-    title: "What makes Superside’s design services different?",
+    title: "What makes DIGITELLER CREATIVE’s services different?",
     content:
-      "Superside subscriptions include a dedicated creative team onboarded to your brand and tailored for your specific needs, with specialized roles like Motion Designers, Design Directors, and Copywriters, along with in-plan hours to spend each month. Other “unlimited” design subscription services have hidden limits on output and speed. You can submit as many projects as you want, but they enter a queue to be worked on by 1 or 2, often freelance designers. Your next project only begins after your current project is fully completed, including any revisions.",
+      "Our subscriptions include a dedicated creative team aligned to your brand, tailored workflows, and a single collaboration platform to submit briefs, review work, and manage assets. We combine specialized roles (design directors, motion designers, copywriters) with a DesignOps approach so output is predictable, high quality, and scalable.",
   },
   {
     title: "How does a design subscription work?",
     content:
-      "You pick a monthly plan based on the capabilities you need and the volume you expect. For a predictable price, you get access to a dedicated project manager through a creative collaboration platform that lets you submit briefs, provide feedback, and access your finished assets and project files in a single place.",
+      "Select a plan based on the volume and capabilities you need. You receive a dedicated point of contact, access to a creative team, and a collaboration workspace to submit briefs, provide feedback, and download final assets and source files.",
   },
   {
     title: "What is graphic design?",
     content:
-      "Graphic design is the art or practice of planning and arranging visual elements of a project to enhance or convey a message. A good graphic designer should be able to streamline communications and invoke emotion from their audience. Most people experience graphic design in their daily life from magazines and packaging to websites and social media.",
+      "Graphic design is the craft of arranging visual elements—typography, imagery, color, and layout—to communicate a message. It’s used across packaging, websites, marketing materials, presentations, and social media to shape perception and drive action.",
   },
   {
     title: "What do graphic designers do?",
     content:
-      "By definition, graphic designers plan and arrange visual elements to convey a message that is pleasing to the eye. Our graphic designers specialize in the various areas of graphic design and are ready to assist with the creation of digital ads, marketing, motion graphics, print, merchandise, packaging, powerpoints, illustrations, infographics, and landing pages.",
+      "Graphic designers create visual content for digital and print channels: social creatives, marketing collateral, presentations, packaging, infographics, illustrations, and more. They translate strategy and brand into assets that communicate clearly and attract attention.",
   },
   {
     title: "Who needs graphic design services?",
     content:
-      "The simple answer: anyone who wants their brand, product, or service to invoke a response from their audience needs a graphic designer. Graphic design services use data and visual elements to streamline communication and easily convey your message in a comprehensive format.",
+      "Any organization that wants to present a clear, consistent, and compelling message benefits from graphic design—startups, enterprises, nonprofits, and individual creators. Design helps build trust, communicate offers, and move people toward desired actions.",
   },
   {
-    title: "Do you do custom plans?",
+    title: "Do you offer custom plans?",
     content:
-      "Yes! We develop a budget that aligns if you have larger and more complex needs. Otherwise, all plans are identical, giving you full access to everything you need from Superside, regardless of the size of your monthly budget.",
+      "Yes. If your needs are larger or more complex, we can create a custom plan with tailored SLAs, dedicated staffing, and enterprise-grade support to match your operating model.",
   },
   {
     title: "What billing options do you offer?",
-    content: "We offer credit card billing or invoicing.",
+    content:
+      "We offer credit-card billing and invoicing options for monthly and annual agreements.",
   },
 ];
 
-const FaqItem = ({
-  faq,
-  index,
-  openIndex,
-  toggleFaq,
-}: {
+/* Hook: prefers-reduced-motion (SSR-safe) */
+function usePrefersReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia === "undefined"
+    )
+      return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handler = () => setPrefersReducedMotion(mq.matches);
+    handler();
+    if (mq.addEventListener) mq.addEventListener("change", handler);
+    else mq.addListener(handler);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", handler);
+      else mq.removeListener(handler);
+    };
+  }, []);
+  return prefersReducedMotion;
+}
+
+/* Individual FAQ item component */
+const FaqItem: React.FC<{
   faq: { title: string; content: string };
   index: number;
-  openIndex: number | null;
-  toggleFaq: (index: number) => void;
+  isOpen: boolean;
+  toggle: (index: number) => void;
+  // Accept a function ref so callers can assign into our shared ref array.
+  // This avoids mismatches between RefObject and callback refs.
+  buttonRef: (el: HTMLButtonElement | null) => void;
+  tabIndex: number;
+  prefersReducedMotion: boolean;
+}> = ({
+  faq,
+  index,
+  isOpen,
+  toggle,
+  buttonRef,
+  tabIndex,
+  prefersReducedMotion,
 }) => {
-  const isOpen = index === openIndex;
+  const innerRef = useRef<HTMLDivElement | null>(null);
+  const [contentHeight, setContentHeight] = useState<number>(0);
+
+  useEffect(() => {
+    const el = innerRef.current;
+    if (!el) return;
+
+    const update = () => setContentHeight(el.scrollHeight || 0);
+
+    update();
+
+    let ro: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(() => update());
+      ro.observe(el);
+    } else {
+      // fallback
+      window.addEventListener("resize", update);
+    }
+
+    return () => {
+      if (ro) ro.disconnect();
+      else window.removeEventListener("resize", update);
+    };
+  }, [faq.content]);
+
+  const panelId = `faq-panel-${index}`;
+  const buttonId = `faq-button-${index}`;
+
+  const panelStyle: React.CSSProperties = prefersReducedMotion
+    ? { maxHeight: isOpen ? undefined : 0, opacity: isOpen ? 1 : 0 }
+    : {
+        maxHeight: isOpen ? `${contentHeight}px` : 0,
+        opacity: isOpen ? 1 : 0,
+        transition:
+          "max-height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease",
+        overflow: "hidden",
+      };
 
   return (
     <div className="border-b border-bor-foreground/20 pb-4 md:pb-6 lg:pb-8 last:border-b-0">
-      <button
-        onClick={() => toggleFaq(index)}
-        className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-70 transition-opacity"
-      >
-        <span className="text-base md:text-lg lg:text-xl font-semibold flex-1">
-          {faq.title}
-        </span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="currentColor"
-          viewBox="0 0 256 256"
-          className={`flex-shrink-0 mt-1 transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
+      <h3 className="mb-0">
+        <button
+          id={buttonId}
+          ref={buttonRef}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          onClick={() => toggle(index)}
+          tabIndex={tabIndex}
+          className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
         >
-          <rect width="256" height="256" fill="none"></rect>
-          <line
-            x1="40"
-            y1="128"
-            x2="216"
-            y2="128"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="16"
-          ></line>
-          <line
-            x1="128"
-            y1="40"
-            x2="128"
-            y2="216"
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="16"
-          ></line>
-        </svg>
-      </button>
+          <span className="text-base md:text-lg lg:text-xl font-semibold flex-1 text-left">
+            {faq.title}
+          </span>
+
+          <span
+            aria-hidden
+            className={`ml-2 flex-shrink-0 mt-1 transform transition-transform duration-300 ${
+              isOpen ? "rotate-45" : "rotate-0"
+            }`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="text-primary"
+              aria-hidden="true"
+            >
+              <path
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 5v14M5 12h14"
+              />
+            </svg>
+          </span>
+        </button>
+      </h3>
+
       <div
-        className="overflow-hidden transition-all duration-500 ease-in-out"
-        style={{
-          maxHeight: isOpen ? "1000px" : "0px",
-          opacity: isOpen ? 1 : 0,
-        }}
+        id={panelId}
+        role="region"
+        aria-labelledby={buttonId}
+        aria-hidden={!isOpen}
+        style={panelStyle}
       >
-        <div className="pt-3 md:pt-4">
+        <div ref={innerRef} className="pt-3 md:pt-4">
           <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">
             {faq.content}
           </p>
@@ -114,13 +197,89 @@ const FaqItem = ({
   );
 };
 
+/* Parent FAQ section with multi-open, keyboard navigation, roving tabindex */
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  // multi-open set
+  const [openSet, setOpenSet] = useState<Set<number>>(() => new Set<number>());
 
-  const toggleFaq = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
+  // focused index for roving tabindex
+  const [focusedIndex, setFocusedIndex] = useState<number>(0);
+
+  // refs for each button to support programmatic focus
+  const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  // toggle item in the set (multi-open)
+  const toggle = useCallback((index: number) => {
+    setOpenSet((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+    // when toggled via click, move focus to that item so roving tabindex aligns
+    setFocusedIndex(index);
+    // ensure the element receives focus (use setTimeout to allow click to finish)
+    setTimeout(() => {
+      buttonRefs.current[index]?.focus();
+    }, 0);
+  }, []);
+
+  // Keyboard navigation handler (attached to buttons via onKeyDown)
+  const onKeyDown = useCallback(
+    (event: React.KeyboardEvent, index: number) => {
+      const key = event.key;
+      const count = faqData.length;
+      let nextIndex = -1;
+
+      const focusAt = (i: number) => {
+        const clamped = (i + count) % count;
+        setFocusedIndex(clamped);
+        buttonRefs.current[clamped]?.focus();
+      };
+
+      if (key === "ArrowDown") {
+        event.preventDefault();
+        nextIndex = index + 1;
+        focusAt(nextIndex);
+      } else if (key === "ArrowUp") {
+        event.preventDefault();
+        nextIndex = index - 1;
+        focusAt(nextIndex);
+      } else if (key === "Home") {
+        event.preventDefault();
+        focusAt(0);
+      } else if (key === "End") {
+        event.preventDefault();
+        focusAt(count - 1);
+      } else if (key === "Enter" || key === " ") {
+        event.preventDefault();
+        // toggle the item
+        toggle(index);
+      }
+    },
+    [toggle],
+  );
+
+  // Initialize refs length
+  useEffect(() => {
+    buttonRefs.current = Array(faqData.length)
+      .fill(null)
+      .map((_, i) => buttonRefs.current[i] || null);
+  }, []);
+
+  // When focusedIndex changes, ensure only that button is tabbable; others have tabIndex -1.
+  // We'll pass tabIndex value to each item (0 for focusedIndex, -1 otherwise).
+  const getTabIndex = (i: number) => (i === focusedIndex ? 0 : -1);
+
+  // Ensure keyboard clicks set focused index correctly (for keyboard users who click via Enter/Space)
+  const handleButtonFocus = (i: number) => {
+    setFocusedIndex(i);
   };
 
+  // Render
+  // Split into two halves for larger screens
   const midIndex = Math.ceil(faqData.length / 2);
   const firstHalf = faqData.slice(0, midIndex);
   const secondHalf = faqData.slice(midIndex);
@@ -140,42 +299,80 @@ export function FaqSection() {
           </h2>
         </div>
 
-        {/* Mobile view - single column */}
+        {/* Mobile: single column */}
         <div className="flex flex-col md:hidden gap-4 sm:gap-6">
-          {faqData.map((faq, index) => (
-            <FaqItem
-              key={index}
-              faq={faq}
-              index={index}
-              openIndex={openIndex}
-              toggleFaq={toggleFaq}
-            />
+          {faqData.map((faq, i) => (
+            <div key={i}>
+              <div
+                onKeyDown={(e) => onKeyDown(e as any, i)}
+                onFocus={() => handleButtonFocus(i)}
+              >
+                <FaqItem
+                  faq={faq}
+                  index={i}
+                  isOpen={openSet.has(i)}
+                  toggle={toggle}
+                  buttonRef={(el: HTMLButtonElement | null) => {
+                    buttonRefs.current[i] = el;
+                  }}
+                  tabIndex={getTabIndex(i)}
+                  prefersReducedMotion={prefersReducedMotion}
+                />
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Desktop view - two columns */}
+        {/* Desktop: two columns */}
         <div className="hidden md:grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           <div className="flex flex-col gap-6 lg:gap-8">
-            {firstHalf.map((faq, index) => (
-              <FaqItem
-                key={index}
-                faq={faq}
-                index={index}
-                openIndex={openIndex}
-                toggleFaq={toggleFaq}
-              />
-            ))}
+            {firstHalf.map((faq, idx) => {
+              const globalIndex = idx;
+              return (
+                <div
+                  key={globalIndex}
+                  onKeyDown={(e) => onKeyDown(e as any, globalIndex)}
+                  onFocus={() => handleButtonFocus(globalIndex)}
+                >
+                  <FaqItem
+                    faq={faq}
+                    index={globalIndex}
+                    isOpen={openSet.has(globalIndex)}
+                    toggle={toggle}
+                    buttonRef={(el: HTMLButtonElement | null) => {
+                      buttonRefs.current[globalIndex] = el;
+                    }}
+                    tabIndex={getTabIndex(globalIndex)}
+                    prefersReducedMotion={prefersReducedMotion}
+                  />
+                </div>
+              );
+            })}
           </div>
+
           <div className="flex flex-col gap-6 lg:gap-8">
-            {secondHalf.map((faq, index) => (
-              <FaqItem
-                key={midIndex + index}
-                faq={faq}
-                index={midIndex + index}
-                openIndex={openIndex}
-                toggleFaq={toggleFaq}
-              />
-            ))}
+            {secondHalf.map((faq, idx) => {
+              const globalIndex = midIndex + idx;
+              return (
+                <div
+                  key={globalIndex}
+                  onKeyDown={(e) => onKeyDown(e as any, globalIndex)}
+                  onFocus={() => handleButtonFocus(globalIndex)}
+                >
+                  <FaqItem
+                    faq={faq}
+                    index={globalIndex}
+                    isOpen={openSet.has(globalIndex)}
+                    toggle={toggle}
+                    buttonRef={(el: HTMLButtonElement | null) => {
+                      buttonRefs.current[globalIndex] = el;
+                    }}
+                    tabIndex={getTabIndex(globalIndex)}
+                    prefersReducedMotion={prefersReducedMotion}
+                  />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
