@@ -1,110 +1,62 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export const CreativePowerSection = () => {
   return (
-    <section className="flex max-w-full flex-col bg-bor-background text-bor-foreground dark overflow-hidden relative">
-      <div className="max-w-layout mx-auto h-full w-full">
-        <div className="max-w-container mx-container-overflow flex flex-col w-full transition-colors pt-12 md:pt-16 lg:pt-24 pb-16 md:pb-20 lg:pb-32 gap-12 lg:gap-20">
-          <div className="flex flex-col-reverse lg:flex-row relative lg:min-h-[362px] xl:min-h-[394px] lg:grid lg:grid-cols-2 rounded-md overflow-hidden min-h-[500px] md:min-h-0 lg:h-auto justify-start bg-bor-background text-bor-foreground dark">
-            <div className="z-1 py-10 lg:py-12 xl:py-16 px-4 md:px-8 lg:px-12 xl:px-16">
-              <div className="flex max-w-full flex-col gap-4 mb-6">
-                <h3 className="font-heading box-border tracking-[0.1px] text-3xl md:text-6xl lg:text-7xl xl:text-8xl">
-                  Now imagine this{" "}
-                  <span className="font-serif text-[calc(100%+4px)] font-normal italic">
-                    creative power
-                  </span>{" "}
-                  behind your next project
-                </h3>
-                <p className="text-base md:text-lg">
-                  This is just one of many creative services—what you do with
-                  them is up to you. Let's chat.
-                </p>
-              </div>
-              <div className="flex max-w-full flex-col justify-start items-start">
-                <div className="flex max-w-full flex-row gap-3 w-fit max-md:w-full">
-                  <button className="group/button overflow-hidden rounded-md font-semibold text-center inline-block bg-bor-primary text-bor-foreground-inverted text-sm leading-5 transition-shadow px-6 py-4 opacity-100">
-                    <div className="relative">
-                      <span
-                        className="block"
-                        aria-disabled="false"
-                        style={{ transform: "none" }}
-                      >
-                        Book a demo
-                      </span>
-                      <span
-                        className="absolute inset-0"
-                        aria-hidden="true"
-                        aria-disabled="false"
-                        style={{ transform: "translateY(200%)" }}
-                      >
-                        Book a demo
-                      </span>
-                    </div>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="lg:m-0 h-[200px] md:h-[400px] lg:h-full lg:flex-1 relative overflow-hidden lg:rounded-none md:hidden lg:flex rounded-md lg:absolute lg:inset-0 max-lg:absolute max-lg:inset-0 max-lg:h-full">
-              <div className="w-full h-full relative">
-                <div className="mx-auto flex h-full w-full flex-col gap-3 max-w-full">
-                  {/* Mobile Image */}
-                  <div className="md:hidden">
-                    <img
-                      alt="Creative power visual"
-                      loading="lazy"
-                      src="https://cdn.sanity.io/images/k0dlbavy/production/430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png?q=100&auto=format&fit=min"
-                      className="object-cover absolute inset-0 h-full w-full"
-                    />
-                  </div>
-                  {/* Tablet Image */}
-                  <div className="hidden md:block lg:hidden">
-                    <img
-                      alt="Creative power visual"
-                      loading="lazy"
-                      src="https://cdn.sanity.io/images/k0dlbavy/production/430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png?q=100&auto=format&fit=min"
-                      className="object-cover absolute inset-0 h-full w-full"
-                    />
-                  </div>
-                  {/* Desktop Image */}
-                  <div className="relative hidden lg:block h-full">
-                    <img
-                      alt="Creative power visual"
-                      loading="lazy"
-                      src="https://cdn.sanity.io/images/k0dlbavy/production/30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png?q=100&auto=format&fit=min"
-                      className="object-cover absolute inset-0 h-full w-full"
-                    />
-                  </div>
-                </div>
+    <section
+      aria-labelledby="creative-power-heading"
+      className="relative w-full overflow-hidden bg-bor-background text-bor-foreground"
+    >
+      {/* Image container with margin, rounding, and shadow */}
+      <div className="relative mx-4 sm:mx-8 lg:mx-16 my-8 sm:my-12 lg:my-20 rounded-xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+        {/* Background Images */}
+        <img
+          alt="Creative power visual"
+          loading="lazy"
+          srcSet="
+            https://cdn.sanity.io/images/k0dlbavy/production/430e7f03ca2bad360d64fe6402111cb3daf585ea-720x1000.png?q=100&auto=format&fit=min 720w,
+            https://cdn.sanity.io/images/k0dlbavy/production/30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png?q=100&auto=format&fit=min 1920w
+          "
+          sizes="(max-width: 1024px) 100vw, 1920px"
+          src="https://cdn.sanity.io/images/k0dlbavy/production/30428773e4435b802644bd16c9216f7f84ff6cb7-3216x1090.png?q=100&auto=format&fit=min"
+          className="object-cover w-full h-full absolute inset-0"
+        />
 
-                {/* Text Overlay */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="relative w-48 h-48 lg:w-64 lg:h-64">
-                    <svg
-                      className="w-full h-full animate-spin-slow"
-                      viewBox="0 0 100 100"
-                    >
-                      <defs>
-                        <path
-                          id="circlePath"
-                          fill="none"
-                          d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                        />
-                      </defs>
-                      <text fill="white">
-                        <textPath
-                          href="#circlePath"
-                          className="text-xs font-semibold uppercase tracking-widest"
-                        >
-                          Creative Services • Creative Services •
-                        </textPath>
-                      </text>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {/* Optional dark overlay for contrast */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Foreground Text Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="relative z-10 max-w-layout mx-auto px-6 md:px-12 lg:px-24 py-24 md:py-32 text-center lg:text-left flex flex-col items-center lg:items-start"
+        >
+          <h3
+            id="creative-power-heading"
+            className="font-heading text-3xl md:text-6xl lg:text-7xl xl:text-8xl text-white max-w-5xl"
+          >
+            Now imagine this{" "}
+            <span className="font-serif font-normal italic text-[calc(100%+4px)]">
+              creative power
+            </span>{" "}
+            behind your next project
+          </h3>
+
+          <p className="mt-6 text-base md:text-lg text-white/90 max-w-2xl">
+            This is just one of many creative services — what you do with them
+            is up to you. Let’s chat.
+          </p>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 250 }}
+            className="mt-10 rounded-md font-semibold bg-bor-primary text-bor-foreground-inverted text-sm leading-5 px-8 py-4"
+          >
+            Book a demo
+          </motion.button>
+        </motion.div>
       </div>
     </section>
   );
