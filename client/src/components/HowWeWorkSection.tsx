@@ -56,7 +56,6 @@ export function HowWeWorkSection() {
     const handleScroll = () => {
       if (!timelineRef.current) return;
 
-      const timelineTop = timelineRef.current.getBoundingClientRect().top;
       const windowHeight = window.innerHeight;
 
       stepRefs.current.forEach((ref, index) => {
@@ -77,7 +76,7 @@ export function HowWeWorkSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-black text-white py-16 md:py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-[#0a0a0a] text-gray-100 py-16 md:py-20 lg:py-32">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="flex flex-col md:flex-row gap-10 lg:gap-16 justify-between">
           {/* Left Side - Sticky Content */}
@@ -89,11 +88,11 @@ export function HowWeWorkSection() {
               transition={{ duration: 0.6 }}
               className="space-y-4 lg:space-y-8"
             >
-              <span className="text-sm font-semibold uppercase tracking-widest text-gray-400 block">
+              <span className="text-sm font-medium uppercase tracking-[0.2em] text-gray-500 block">
                 How we work with you
               </span>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-semibold tracking-tight leading-[1.1]">
                 A process built to give your brand{" "}
                 <span className="font-serif italic text-primary">
                   the support it deserves
@@ -132,19 +131,19 @@ export function HowWeWorkSection() {
               className="hidden md:grid grid-cols-2 gap-8"
             >
               <div className="border-b border-white/10 pb-4 lg:pb-6 space-y-1">
-                <h3 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif">
+                <h3 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-light">
                   750+
                 </h3>
-                <p className="text-sm md:text-base text-gray-400">
+                <p className="text-sm md:text-base text-gray-500 font-light">
                   Talented creatives around the globe
                 </p>
               </div>
 
               <div className="border-b border-white/10 pb-4 lg:pb-6 space-y-1">
-                <h3 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif">
+                <h3 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-light">
                   9.6/10
                 </h3>
-                <p className="text-sm md:text-base text-gray-400">
+                <p className="text-sm md:text-base text-gray-500 font-light">
                   Average customer satisfaction rating
                 </p>
               </div>
@@ -158,13 +157,20 @@ export function HowWeWorkSection() {
           >
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-white/15">
+              <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
                 <motion.div
-                  className="absolute top-0 left-0 w-full bg-primary shadow-lg shadow-primary/50"
+                  className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-primary/80 to-primary shadow-lg shadow-primary/30"
                   style={{
                     height: `${((activeStep + 1) / timelineItems.length) * 100}%`,
                   }}
-                  transition={{ duration: 0.3 }}
+                  animate={{
+                    opacity: [0.8, 1, 0.8],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
                 />
               </div>
 
@@ -176,48 +182,58 @@ export function HowWeWorkSection() {
                     ref={(el) => (stepRefs.current[index] = el)}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: "-100px" }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="relative flex items-start gap-6 lg:gap-8"
+                    whileHover={{
+                      x: 6,
+                      transition: { duration: 0.3, ease: "easeOut" },
+                    }}
+                    className="relative flex items-start gap-6 lg:gap-8 group"
                   >
                     {/* Number Circle */}
                     <div className="relative flex-shrink-0">
                       <div
-                        className={`relative flex items-center justify-center w-14 h-14 rounded-full font-serif text-2xl transition-all duration-300 ${
+                        className={`relative flex items-center justify-center w-14 h-14 rounded-full font-serif text-2xl transition-all duration-500 ${
                           activeStep >= index
-                            ? "text-white"
-                            : "text-gray-500"
+                            ? "text-gray-100"
+                            : "text-gray-600"
                         }`}
                       >
                         {/* Background circles */}
-                        <div className="absolute inset-0 bg-white/15 rounded-full"></div>
+                        <div className="absolute inset-0 bg-gray-800/50 rounded-full backdrop-blur-sm"></div>
                         <div
-                          className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                          className={`absolute inset-0 rounded-full transition-all duration-500 ${
                             activeStep >= index
-                              ? "bg-primary shadow-lg shadow-primary/50 scale-100"
+                              ? "bg-gradient-to-br from-primary to-primary/70 shadow-lg shadow-primary/30 scale-100"
                               : "bg-transparent scale-0"
                           }`}
                         ></div>
-                        <div className="absolute inset-0.5 bg-black rounded-full"></div>
-                        <span className="relative z-10">{item.number}</span>
+                        <div className="absolute inset-0.5 bg-[#0a0a0a] rounded-full"></div>
+                        <span className="relative z-10 font-light">
+                          {item.number}
+                        </span>
                       </div>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1 pt-2 space-y-2">
-                      <span className="text-xs font-semibold uppercase tracking-widest text-gray-500 block">
+                      <span className="text-xs font-medium uppercase tracking-[0.15em] text-gray-600 block">
                         {item.label}
                       </span>
                       <h3
-                        className={`text-xl md:text-2xl font-bold transition-colors duration-300 ${
-                          activeStep >= index ? "text-white" : "text-gray-400"
+                        className={`text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-500 ${
+                          activeStep >= index
+                            ? "text-gray-100"
+                            : "text-gray-500"
                         }`}
                       >
                         {item.title}
                       </h3>
                       <p
-                        className={`text-base md:text-lg leading-relaxed transition-colors duration-300 ${
-                          activeStep >= index ? "text-gray-300" : "text-gray-500"
+                        className={`text-base md:text-lg leading-relaxed font-light transition-colors duration-500 ${
+                          activeStep >= index
+                            ? "text-gray-400"
+                            : "text-gray-600"
                         }`}
                       >
                         {item.description}
@@ -232,9 +248,31 @@ export function HowWeWorkSection() {
       </div>
 
       {/* Background Decorations */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 -left-64 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-64 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-50">
+        <motion.div
+          className="absolute top-1/4 -left-64 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, 30, 0],
+            y: [0, -20, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 -right-64 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+          animate={{
+            x: [0, -30, 0],
+            y: [0, 20, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
     </section>
   );

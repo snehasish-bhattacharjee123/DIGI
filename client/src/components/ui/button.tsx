@@ -5,32 +5,43 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0" +
-    " hover-elevate active-elevate-2",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
+        // Default: Brand blue background, beige text, orange hover
         default:
-          "bg-primary text-primary-foreground border border-primary-border",
+          "bg-brand-blue-900 text-brand-beige-100 border border-brand-blue-800 hover:bg-brand-orange hover:border-brand-orange shadow-brand hover:shadow-brand-lg",
+
+        // Destructive: Red background for destructive actions
         destructive:
-          "bg-destructive text-destructive-foreground border border-destructive-border",
+          "bg-destructive text-destructive-foreground border border-destructive hover:bg-destructive/90 shadow-brand hover:shadow-brand-lg",
+
+        // Outline: Transparent with border, inherits text color
         outline:
-          // Shows the background color of whatever card / sidebar / accent background it is inside of.
-          // Inherits the current text color.
-          " border [border-color:var(--button-outline)]  shadow-xs active:shadow-none ",
+          "border-2 border-brand-gray bg-transparent hover:bg-brand-beige-100 hover:border-brand-blue-900 hover:text-brand-blue-900 shadow-brand-sm hover:shadow-brand",
+
+        // Secondary: Neutral gray background
         secondary:
-          "border bg-secondary text-secondary-foreground border border-secondary-border ",
-        // Add a transparent border so that when someone toggles a border on later, it doesn't shift layout/size.
-        ghost: "border border-transparent",
+          "bg-brand-gray text-white border border-brand-gray-600 hover:bg-brand-gray-600 shadow-brand hover:shadow-brand-lg",
+
+        // Ghost: No background, minimal styling
+        ghost:
+          "border border-transparent hover:bg-brand-beige-100 hover:text-brand-blue-900",
+
+        // Success: Highlight green for positive actions
+        success:
+          "bg-brand-green text-brand-blue-900 border border-brand-green-400 hover:bg-brand-green-400 shadow-brand hover:shadow-brand-lg font-semibold",
+
+        // Orange: Direct orange button for CTAs
+        cta: "bg-brand-orange text-white border border-brand-orange-600 hover:bg-brand-orange-600 shadow-brand-lg hover:shadow-brand-xl hover:scale-105 font-semibold",
       },
-      // Heights are set as "min" heights, because sometimes Ai will place large amount of content
-      // inside buttons. With a min-height they will look appropriate with small amounts of content,
-      // but will expand to fit large amounts of content.
       size: {
-        default: "min-h-9 px-4 py-2",
-        sm: "min-h-8 rounded-md px-3 text-xs",
-        lg: "min-h-10 rounded-md px-8",
-        icon: "h-9 w-9",
+        default: "h-10 px-4 py-2",
+        sm: "h-8 rounded-md px-3 text-xs",
+        lg: "h-12 rounded-md px-8 text-base",
+        xl: "h-14 rounded-lg px-10 text-lg",
+        icon: "h-10 w-10",
       },
     },
     defaultVariants: {
@@ -46,13 +57,18 @@ export interface ButtonProps
   asChild?: boolean;
   /**
    * Optional fill color used by the liquid overlay when hovering.
-   * If not provided, the button styling (variant) will remain unchanged.
+   * Defaults to brand orange (#ff751f) for interactive feedback.
    */
   fillColor?: string;
   /**
    * Animation duration in milliseconds for the liquid overlay transitions.
    */
   animationDuration?: number;
+  /**
+   * Whether to enable the liquid animation effect.
+   * Set to false for simpler button interactions.
+   */
+  enableLiquidEffect?: boolean;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -62,8 +78,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant,
       size,
       asChild = false,
-      fillColor = "#646cff",
+      fillColor = "#ff751f", // Brand orange
       animationDuration = 700,
+      enableLiquidEffect = true,
       ...props
     },
     ref,
@@ -77,8 +94,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       transitionTimingFunction: "cubic-bezier(0.77, 0, 0.175, 1)",
     };
 
-    // If using `asChild`, we don't render internal overlays because the child owns markup.
-    if (asChild) {
+    // If using `asChild` or liquid effect is disabled, render simple button
+    if (asChild || !enableLiquidEffect) {
       return (
         <Comp
           className={cn(buttonVariants({ variant, size, className }))}
@@ -88,12 +105,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       );
     }
 
-    // When rendering a native button, include the liquid overlays scoped to this button.
+    // When rendering with liquid effect, include overlays
     return (
       <Comp
         className={cn(
           buttonVariants({ variant, size, className }),
-          "relative overflow-hidden group rounded-md",
+          "relative overflow-hidden group",
         )}
         ref={ref}
         {...(props as any)}
@@ -116,7 +133,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           className="liquid-gloss absolute inset-0 transform translate-y-[120%] group-hover:translate-y-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.22), transparent 60%)",
+              "radial-gradient(circle at 50% 0%, rgba(255,255,255,0.25), transparent 60%)",
             mixBlendMode: "overlay",
             ...transitionStyle,
             willChange: "transform, opacity",

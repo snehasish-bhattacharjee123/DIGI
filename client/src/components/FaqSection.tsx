@@ -133,7 +133,7 @@ const FaqItem: React.FC<{
         maxHeight: isOpen ? `${contentHeight}px` : 0,
         opacity: isOpen ? 1 : 0,
         transition:
-          "max-height 420ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease",
+          "max-height 400ms cubic-bezier(0.4, 0, 0.2, 1), opacity 300ms ease-out",
         overflow: "hidden",
       };
 
@@ -147,15 +147,15 @@ const FaqItem: React.FC<{
           aria-controls={panelId}
           onClick={() => toggle(index)}
           tabIndex={tabIndex}
-          className="flex w-full items-start justify-between gap-4 md:gap-6 text-left hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded"
+          className="before:content-none flex w-full items-start justify-between gap-4 md:gap-6 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded hover:text-primary"
         >
-          <span className="text-base md:text-lg lg:text-xl font-semibold flex-1 text-left">
+          <span className="before:content-none text-base md:text-lg lg:text-xl font-semibold flex-1 text-left">
             {faq.title}
           </span>
 
           <span
             aria-hidden
-            className={`ml-2 flex-shrink-0 mt-1 transform transition-transform duration-300 ${
+            className={`ml-2 flex-shrink-0 mt-1 transform transition-transform duration-200 ease-out text-primary ${
               isOpen ? "rotate-45" : "rotate-0"
             }`}
           >

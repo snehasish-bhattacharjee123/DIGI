@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Helmet } from "react-helmet-async";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { demoSlides } from "@/data/demoSlides";
 
 // ============================================================================
 // EAGER LOAD: Above-the-fold components (visible immediately)
@@ -102,6 +103,12 @@ const FaqSection = lazy(() =>
   })),
 );
 
+const ServicesSection = lazy(() =>
+  import("@/components/ServicesSection").then((module) => ({
+    default: (module as any).ServicesSection ?? (module as any).default,
+  })),
+);
+
 const HowWeWorkSection = lazy(() =>
   import("@/components/HowWeWorkSection").then((module) => ({
     default: (module as any).HowWeWorkSection ?? (module as any).default,
@@ -114,15 +121,17 @@ const OurPeopleSection = lazy(() =>
   })),
 );
 
-const ScrollSections = lazy(() =>
-  import("@/components/ScrollSections").then((module) => ({
-    default: (module as any).ScrollSections ?? (module as any).default,
-  })),
-);
+const ScrollSections = lazy(() => import("@/components/ScrollSections"));
 
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((module) => ({
     default: (module as any).VersatileDesignsSection ?? (module as any).default,
+  })),
+);
+
+const TeamSection = lazy(() =>
+  import("@/components/TeamSection").then((module) => ({
+    default: (module as any).TeamSection ?? (module as any).default,
   })),
 );
 
@@ -312,6 +321,13 @@ export default function Home() {
           <Hero />
           <StatsSection />
 
+          {/* Team Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <TeamSection />
+            </Suspense>
+          </ErrorBoundary>
+
           {/* ========================================================== */}
           {/* BELOW THE FOLD - Lazy loaded for performance */}
           {/* ========================================================== */}
@@ -374,7 +390,7 @@ export default function Home() {
 
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
-              <ScrollSections />
+              <ScrollSections slides={demoSlides} />
             </Suspense>
           </ErrorBoundary>
 
@@ -435,6 +451,13 @@ export default function Home() {
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <FaqSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Services Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <ServicesSection />
             </Suspense>
           </ErrorBoundary>
 

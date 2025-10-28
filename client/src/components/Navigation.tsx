@@ -74,7 +74,7 @@ const navItems = [
   },
   { title: "Why Us?", hasSubmenu: false, href: "/why-us" },
   { title: "Our Work", hasSubmenu: false, href: "/our-work" },
-  { title: "Enterprise", hasSubmenu: false, href: "/enterprise" },
+  { title: "Contact", hasSubmenu: false, href: "/contact" },
 ];
 
 export function Navigation() {
@@ -125,15 +125,15 @@ export function Navigation() {
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-in-out ${
           isScrolled
-            ? "bg-black/95 backdrop-blur-sm shadow-lg"
-            : "bg-black/80 backdrop-blur-sm"
+            ? "bg-brand-blue-900/98 backdrop-blur-sm shadow-brand-lg"
+            : "bg-brand-blue-900/90 backdrop-blur-sm"
         }`}
       >
         <div className="max-w-[1680px] mx-auto">
           <div className="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
             {/* Logo */}
             <a href="/" className="flex items-center space-x-2 group">
-              <span className="text-xl sm:text-2xl font-bold text-white tracking-tight group-hover:text-primary transition-colors duration-300">
+              <span className="text-xl sm:text-2xl font-bold text-brand-beige-100 tracking-tight group-hover:text-brand-orange transition-colors duration-300">
                 DIGITELLER CREATIVE
               </span>
             </a>
@@ -153,9 +153,9 @@ export function Navigation() {
                 >
                   <a
                     href={item.href || "#"}
-                    className={`flex items-center gap-1 px-4 py-2 text-white text-sm font-medium rounded-lg hover:bg-white/10 transition-all duration-300 ${
+                    className={`flex items-center gap-1 px-4 py-2 text-brand-beige-100 text-sm font-medium rounded-lg hover:bg-brand-orange/20 hover:text-brand-orange transition-all duration-300 ${
                       activeDesktopSubmenu === index
-                        ? "bg-white/10 text-primary"
+                        ? "bg-brand-orange/20 text-brand-orange"
                         : ""
                     }`}
                   >
@@ -180,7 +180,10 @@ export function Navigation() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                <Button
+                  variant="cta"
+                  className="font-semibold shadow-brand-lg hover:shadow-brand-xl transition-all duration-300"
+                >
                   Book a Demo
                 </Button>
               </a>
@@ -189,7 +192,7 @@ export function Navigation() {
             {/* Mobile Toggle */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden p-2 text-white hover:bg-white/10 rounded-lg transition-colors duration-200"
+              className="lg:hidden p-2 text-brand-beige-100 hover:bg-brand-orange/20 hover:text-brand-orange rounded-lg transition-colors duration-200"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -208,8 +211,8 @@ export function Navigation() {
                 transition={{ duration: 0.3 }}
                 className={`absolute top-20 left-0 w-full h-[500px] z-[40] ${
                   navItems[activeDesktopSubmenu].title === "Services"
-                    ? "bg-white"
-                    : "bg-black/95"
+                    ? "bg-brand-beige-100"
+                    : "bg-brand-blue-900/95"
                 }`}
               />
             )}
@@ -226,8 +229,8 @@ export function Navigation() {
               onMouseLeave={handleDesktopSubmenuLeave}
               className={`absolute top-20 left-0 w-full border-t shadow-2xl z-[50] transition-all duration-500 ease-in-out ${
                 navItems[activeDesktopSubmenu].title === "Services"
-                  ? "bg-white text-black border-gray-200"
-                  : "bg-black/95 text-white border-white/10"
+                  ? "bg-brand-beige-100 text-brand-blue-900 border-brand-gray"
+                  : "bg-brand-blue-900/95 text-brand-beige-100 border-brand-gray/30"
               }`}
             >
               <div className="max-w-[1680px] mx-auto px-6 lg:px-8 xl:px-12 2xl:px-16 py-10">
@@ -238,8 +241,8 @@ export function Navigation() {
                         <h3
                           className={`text-lg font-bold pb-2 border-b ${
                             navItems[activeDesktopSubmenu].title === "Services"
-                              ? "border-primary/40 text-black"
-                              : "border-primary/30 text-white"
+                              ? "border-brand-orange/40 text-brand-blue-900"
+                              : "border-brand-orange/30 text-brand-beige-100"
                           }`}
                         >
                           {subsection.title}
@@ -252,16 +255,16 @@ export function Navigation() {
                               className={`block p-3 rounded-lg transition-all duration-300 group ${
                                 navItems[activeDesktopSubmenu].title ===
                                 "Services"
-                                  ? "hover:bg-gray-100"
-                                  : "hover:bg-white/5"
+                                  ? "hover:bg-brand-beige-200"
+                                  : "hover:bg-brand-blue-800/50"
                               }`}
                             >
                               <h4
-                                className={`font-semibold text-base transition-colors duration-300 group-hover:text-primary ${
+                                className={`font-semibold text-base transition-colors duration-300 group-hover:text-brand-orange ${
                                   navItems[activeDesktopSubmenu].title ===
                                   "Services"
-                                    ? "text-black"
-                                    : "text-white"
+                                    ? "text-brand-blue-900"
+                                    : "text-brand-beige-100"
                                 }`}
                               >
                                 {subItem.title}
@@ -270,8 +273,8 @@ export function Navigation() {
                                 className={`text-sm mt-1 transition-colors duration-300 ${
                                   navItems[activeDesktopSubmenu].title ===
                                   "Services"
-                                    ? "text-gray-600 group-hover:text-gray-800"
-                                    : "text-gray-400 group-hover:text-gray-300"
+                                    ? "text-brand-gray-600 group-hover:text-brand-gray-800"
+                                    : "text-brand-gray-400 group-hover:text-brand-gray-300"
                                 }`}
                               >
                                 {subItem.description}
@@ -291,14 +294,14 @@ export function Navigation() {
       {/* MOBILE MENU OVERLAY */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+          className="fixed inset-0 bg-brand-blue-950/80 backdrop-blur-sm z-40 lg:hidden"
           onClick={toggleMobileMenu}
         />
       )}
 
       {/* MOBILE MENU PANEL */}
       <div
-        className={`fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-black/95 backdrop-blur-md border-t border-white/10 z-40 lg:hidden transition-all duration-500 ease-in-out overflow-y-auto ${
+        className={`fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-brand-blue-900/95 backdrop-blur-md border-t border-brand-gray/30 z-40 lg:hidden transition-all duration-500 ease-in-out overflow-y-auto ${
           isMobileMenuOpen
             ? "translate-x-0 opacity-100 visible"
             : "-translate-x-full opacity-0 invisible"
@@ -312,7 +315,7 @@ export function Navigation() {
                   <div>
                     <button
                       onClick={() => handleMobileSubmenu(index)}
-                      className="flex items-center justify-between w-full px-4 py-4 text-white text-lg font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
+                      className="flex items-center justify-between w-full px-4 py-4 text-brand-beige-100 text-lg font-semibold rounded-lg hover:bg-brand-orange/20 hover:text-brand-orange transition-all duration-300"
                     >
                       {item.title}
                       <ChevronDown
@@ -333,9 +336,9 @@ export function Navigation() {
                         {item.subsections?.map((subsection, sIndex) => (
                           <div
                             key={sIndex}
-                            className="bg-white/5 rounded-lg p-4 border-l-4 border-primary"
+                            className="bg-brand-blue-800/30 rounded-lg p-4 border-l-4 border-brand-orange"
                           >
-                            <h3 className="text-base font-bold text-primary mb-3">
+                            <h3 className="text-base font-bold text-brand-orange mb-3">
                               {subsection.title}
                             </h3>
                             <div className="space-y-2">
@@ -343,13 +346,13 @@ export function Navigation() {
                                 <a
                                   key={iIndex}
                                   href={subItem.href || "#"}
-                                  className="block p-3 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300"
+                                  className="block p-3 rounded-lg bg-brand-blue-800/20 hover:bg-brand-orange/20 transition-all duration-300 group"
                                   onClick={toggleMobileMenu}
                                 >
-                                  <h4 className="font-semibold text-white text-sm">
+                                  <h4 className="font-semibold text-brand-beige-100 text-sm group-hover:text-brand-orange transition-colors">
                                     {subItem.title}
                                   </h4>
-                                  <p className="text-gray-400 text-xs mt-1">
+                                  <p className="text-brand-gray-400 text-xs mt-1 group-hover:text-brand-gray-300 transition-colors">
                                     {subItem.description}
                                   </p>
                                 </a>
@@ -363,7 +366,7 @@ export function Navigation() {
                 ) : (
                   <a
                     href={item.href}
-                    className="block px-4 py-4 text-white text-lg font-semibold rounded-lg hover:bg-white/10 transition-all duration-300"
+                    className="block px-4 py-4 text-brand-beige-100 text-lg font-semibold rounded-lg hover:bg-brand-orange/20 hover:text-brand-orange transition-all duration-300"
                     onClick={toggleMobileMenu}
                   >
                     {item.title}
@@ -374,14 +377,18 @@ export function Navigation() {
           </nav>
 
           {/* MOBILE CTA */}
-          <div className="mt-6 pt-6 border-t border-white/10">
+          <div className="mt-6 pt-6 border-t border-brand-gray/30">
             <a
               href="https://wa.me/917998596948"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full"
             >
-              <Button className="w-full bg-primary hover:bg-primary/90 text-white font-semibold text-base py-6 shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button
+                variant="cta"
+                size="lg"
+                className="w-full font-semibold text-base shadow-brand-lg hover:shadow-brand-xl transition-all duration-300"
+              >
                 Book a Demo
               </Button>
             </a>

@@ -59,33 +59,36 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-background border-t border-border">
+    <footer className="bg-brand-blue-900 border-t border-brand-blue-800">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
             <h3
-              className="text-2xl font-bold mb-4"
+              className="text-2xl font-bold mb-4 text-brand-beige-100"
               data-testid="text-footer-brand"
             >
               DIGITELLER CREATIVE
             </h3>
             <p
-              className="text-muted-foreground text-sm mb-6"
+              className="text-brand-green text-sm mb-6 font-medium"
               data-testid="text-footer-tagline"
             >
               Tailor of Tales
             </p>
-            <div className="text-sm text-muted-foreground space-y-2 mb-6">
-              <p>
-                <strong>Phone:</strong> +91-7998596948
+            <div className="text-sm text-brand-gray-400 space-y-2 mb-6">
+              <p className="hover:text-brand-beige-100 transition-colors">
+                <strong className="text-brand-beige-100">Phone:</strong>{" "}
+                +91-7998596948
               </p>
-              <p>
-                <strong>Email:</strong> digitellercreative@gmail.com
+              <p className="hover:text-brand-beige-100 transition-colors">
+                <strong className="text-brand-beige-100">Email:</strong>{" "}
+                digitellercreative@gmail.com
               </p>
-              <p>
-                <strong>Address:</strong> E-79, Ramgarh, Kolkata 700047
+              <p className="hover:text-brand-beige-100 transition-colors">
+                <strong className="text-brand-beige-100">Address:</strong> E-79,
+                Ramgarh, Kolkata 700047
               </p>
             </div>
 
@@ -95,7 +98,7 @@ export function Footer() {
                 <a
                   key={social.label}
                   href={social.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-brand-gray-400 hover:text-brand-orange transition-colors duration-300 hover:scale-110 transform"
                   aria-label={social.label}
                   data-testid={`link-social-${social.label.toLowerCase()}`}
                 >
@@ -109,7 +112,7 @@ export function Footer() {
           {footerSections.map((section) => (
             <div key={section.title}>
               <h4
-                className="font-semibold mb-4"
+                className="font-semibold mb-4 text-brand-beige-100"
                 data-testid={`text-footer-section-${section.title.toLowerCase()}`}
               >
                 {section.title}
@@ -119,7 +122,7 @@ export function Footer() {
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-sm text-brand-gray-400 hover:text-brand-orange transition-colors duration-300 hover:translate-x-1 inline-block transform"
                       data-testid={`link-footer-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
                     >
                       {link.label}
@@ -132,19 +135,23 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-brand-blue-800 flex flex-col md:flex-row justify-between items-center gap-4">
           <p
-            className="text-sm text-muted-foreground"
+            className="text-sm text-brand-gray-400"
             data-testid="text-footer-copyright"
           >
             © {new Date().getFullYear()} DIGITELLER CREATIVE. All rights
             reserved.
           </p>
           <p
-            className="text-sm text-muted-foreground"
+            className="text-sm text-brand-gray-400 flex items-center gap-2"
             data-testid="text-footer-location"
           >
-            Made with creativity worldwide
+            Made with{" "}
+            <span className="text-brand-orange" aria-label="love">
+              ❤️
+            </span>{" "}
+            worldwide
           </p>
         </div>
       </div>

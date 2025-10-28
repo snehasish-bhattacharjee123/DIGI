@@ -62,65 +62,94 @@
 
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 222.2 84% 4.9%;
+        /* Light theme - Brand color system */
 
-        --card: 0 0% 100%;
-        --card-foreground: 222.2 84% 4.9%;
+        /* Backgrounds */
+        --background: 30 14% 93%; /* #efeeec - Light beige background */
+        --foreground: 228 65% 14%; /* #0d123c - Brand blue for text */
 
-        --popover: 0 0% 100%;
-        --popover-foreground: 222.2 84% 4.9%;
+        /* Cards & Elevated Surfaces */
+        --card: 0 0% 100%; /* Pure white for cards */
+        --card-foreground: 228 65% 14%; /* Brand blue text on cards */
 
-        --primary: 222.2 47.4% 11.2%;
-        --primary-foreground: 210 40% 98%;
+        /* Popovers & Dropdowns */
+        --popover: 0 0% 100%; /* White background */
+        --popover-foreground: 228 65% 14%; /* Brand blue text */
 
-        --secondary: 210 40% 96.1%;
-        --secondary-foreground: 222.2 47.4% 11.2%;
+        /* Primary - Brand Blue (#0d123c) */
+        --primary: 228 65% 14%; /* Brand blue for buttons, links */
+        --primary-foreground: 30 14% 93%; /* Light beige text on primary */
 
-        --muted: 210 40% 96.1%;
-        --muted-foreground: 215.4 16.3% 46.9%;
+        /* Secondary - Neutral Gray (#a6a6a6) */
+        --secondary: 0 0% 65%; /* Neutral gray */
+        --secondary-foreground: 228 65% 14%; /* Brand blue text on secondary */
 
-        --accent: 210 40% 96.1%;
-        --accent-foreground: 222.2 47.4% 11.2%;
+        /* Muted - Subtle elements */
+        --muted: 0 0% 96%; /* Very light gray */
+        --muted-foreground: 0 0% 45%; /* Medium gray for muted text (WCAG AA compliant) */
 
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 40% 98%;
+        /* Accent - Highlight Green (#c2f087) */
+        --accent: 88 78% 74%; /* Highlight green */
+        --accent-foreground: 228 65% 14%; /* Brand blue text on accent */
 
-        --border: 214.3 31.8% 91.4%;
-        --input: 214.3 31.8% 91.4%;
-        --ring: 222.2 84% 4.9%;
+        /* Destructive - Error states */
+        --destructive: 0 84% 60%; /* Red for errors */
+        --destructive-foreground: 0 0% 98%; /* White text on destructive */
 
+        /* Borders & Inputs */
+        --border: 0 0% 65%; /* Neutral gray for borders */
+        --input: 0 0% 89%; /* Light gray for input backgrounds */
+        --ring: 22 100% 56%; /* Orange accent for focus rings */
+
+        /* Border radius */
         --radius: 0.5rem;
+
+        /* Button outline border - uses neutral gray */
+        --button-outline: #a6a6a6;
     }
 
     .dark {
-        --background: 222.2 84% 4.9%;
-        --foreground: 210 40% 98%;
+        /* Dark theme - Inverted brand color system */
 
-        --card: 222.2 84% 4.9%;
-        --card-foreground: 210 40% 98%;
+        /* Backgrounds */
+        --background: 228 65% 14%; /* Brand blue background */
+        --foreground: 30 14% 93%; /* Light beige text */
 
-        --popover: 222.2 84% 4.9%;
-        --popover-foreground: 210 40% 98%;
+        /* Cards & Elevated Surfaces */
+        --card: 228 60% 18%; /* Slightly lighter blue for cards */
+        --card-foreground: 30 14% 93%; /* Light beige text */
 
-        --primary: 210 40% 98%;
-        --primary-foreground: 222.2 47.4% 11.2%;
+        /* Popovers & Dropdowns */
+        --popover: 228 60% 18%; /* Slightly lighter blue */
+        --popover-foreground: 30 14% 93%; /* Light beige text */
 
-        --secondary: 217.2 32.6% 17.5%;
-        --secondary-foreground: 210 40% 98%;
+        /* Primary - Light Beige in dark mode */
+        --primary: 30 14% 93%; /* Light beige for primary actions */
+        --primary-foreground: 228 65% 14%; /* Brand blue text */
 
-        --muted: 217.2 32.6% 17.5%;
-        --muted-foreground: 215 20.2% 65.1%;
+        /* Secondary - Darker blue-gray */
+        --secondary: 228 40% 25%; /* Darker blue-gray */
+        --secondary-foreground: 30 14% 93%; /* Light beige text */
 
-        --accent: 217.2 32.6% 17.5%;
-        --accent-foreground: 210 40% 98%;
+        /* Muted */
+        --muted: 228 40% 25%; /* Darker blue-gray */
+        --muted-foreground: 0 0% 65%; /* Neutral gray text */
 
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 40% 98%;
+        /* Accent - Highlight Green */
+        --accent: 88 78% 74%; /* Highlight green */
+        --accent-foreground: 228 65% 14%; /* Brand blue text */
 
-        --border: 217.2 32.6% 17.5%;
-        --input: 217.2 32.6% 17.5%;
-        --ring: 212.7 26.8% 83.9%;
+        /* Destructive */
+        --destructive: 0 63% 31%; /* Darker red for dark mode */
+        --destructive-foreground: 30 14% 93%; /* Light beige text */
+
+        /* Borders & Inputs */
+        --border: 228 40% 25%; /* Darker border */
+        --input: 228 40% 25%; /* Darker input background */
+        --ring: 22 100% 56%; /* Orange accent for focus rings */
+
+        /* Button outline border */
+        --button-outline: #6e6e6e;
     }
 }
 
@@ -128,11 +157,33 @@
     * {
         @apply border-border;
     }
+
     body {
         @apply bg-background text-foreground;
+        font-feature-settings:
+            "rlig" 1,
+            "calt" 1;
+    }
+
+    /* Enhanced focus styles for accessibility */
+    *:focus-visible {
+        outline: 2px solid hsl(var(--ring));
+        outline-offset: 2px;
+    }
+
+    /* Smooth scrolling */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
     }
 }
 
+/* Custom animations */
 @keyframes scroll {
     0% {
         transform: translateX(0);
@@ -165,4 +216,59 @@
 
 .animate-scroll-rtl {
     animation: scroll-rtl 40s linear infinite;
+}
+
+/* Elevation utilities for interactive elements */
+@layer utilities {
+    .hover-elevate {
+        transition:
+            transform 0.2s ease-out,
+            box-shadow 0.2s ease-out;
+    }
+
+    .hover-elevate:hover {
+        transform: translateY(-2px);
+        box-shadow:
+            0 10px 25px -5px rgba(0, 0, 0, 0.1),
+            0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    }
+
+    .active-elevate-2:active {
+        transform: translateY(0);
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Shadow utilities using brand colors */
+    .shadow-brand-sm {
+        box-shadow: 0 1px 2px 0 rgba(13, 18, 60, 0.05);
+    }
+
+    .shadow-brand {
+        box-shadow:
+            0 4px 6px -1px rgba(13, 18, 60, 0.1),
+            0 2px 4px -2px rgba(13, 18, 60, 0.1);
+    }
+
+    .shadow-brand-lg {
+        box-shadow:
+            0 10px 15px -3px rgba(13, 18, 60, 0.1),
+            0 4px 6px -4px rgba(13, 18, 60, 0.1);
+    }
+
+    .shadow-brand-xl {
+        box-shadow:
+            0 20px 25px -5px rgba(13, 18, 60, 0.1),
+            0 8px 10px -6px rgba(13, 18, 60, 0.1);
+    }
+
+    /* Accent glow effect */
+    .glow-accent {
+        box-shadow: 0 0 20px rgba(255, 117, 31, 0.3);
+    }
+
+    .glow-accent-lg {
+        box-shadow: 0 0 40px rgba(255, 117, 31, 0.4);
+    }
 }

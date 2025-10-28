@@ -54,25 +54,26 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="group"
     >
       <Card
-        className="p-8 h-full hover-elevate"
+        className="p-8 h-full hover-elevate hover:border-brand-orange/40 transition-all duration-300"
         data-testid={`card-service-${index}`}
       >
         <div
-          className="text-primary mb-4"
+          className="text-brand-orange mb-4 group-hover:scale-110 transition-transform duration-300"
           data-testid={`icon-service-${index}`}
         >
           {service.icon}
         </div>
         <h3
-          className="text-xl font-bold mb-3"
+          className="text-xl font-bold mb-3 text-brand-blue-900 group-hover:text-brand-orange transition-colors duration-300"
           data-testid={`text-service-title-${index}`}
         >
           {service.title}
         </h3>
         <p
-          className="text-muted-foreground"
+          className="text-brand-gray-700 leading-relaxed"
           data-testid={`text-service-description-${index}`}
         >
           {service.description}
@@ -84,7 +85,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export function Services() {
   return (
-    <section id="services" className="py-24 bg-background">
+    <section id="services" className="py-24 md:py-32 bg-brand-beige-100">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <motion.div
@@ -93,27 +94,55 @@ export function Services() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          <p
+            className="text-sm md:text-base text-brand-orange uppercase tracking-wider font-semibold mb-4"
+            data-testid="text-services-overline"
+          >
+            What We Do
+          </p>
           <h2
-            className="text-4xl lg:text-5xl font-bold mb-4"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-brand-blue-900"
             data-testid="text-services-heading"
           >
-            Our Core Services
+            Our Core <span className="text-brand-orange">Services</span>
           </h2>
           <p
-            className="text-xl text-muted-foreground max-w-2xl mx-auto"
+            className="text-lg md:text-xl text-brand-gray-700 max-w-3xl mx-auto leading-relaxed"
             data-testid="text-services-subtitle"
           >
             A complete suite of creative and digital marketing solutions to
-            elevate your brand.
+            elevate your brand and drive meaningful results.
           </p>
         </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} index={index} />
           ))}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
+          <p className="text-brand-gray-700 mb-4">
+            Looking for something specific?
+          </p>
+          <a
+            href="/contact"
+            className="inline-block text-brand-orange font-semibold hover:text-brand-orange-600 transition-colors duration-300 group"
+          >
+            Let's discuss your project{" "}
+            <span className="inline-block group-hover:translate-x-1 transition-transform duration-300">
+              →
+            </span>
+          </a>
+        </motion.div>
       </div>
     </section>
   );
