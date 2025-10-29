@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useAnimationControls } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import TestimonialCarousel from "./TestimonialCarousel";
 
 interface WorkItem {
   id: string;
@@ -200,7 +201,7 @@ export function WorkCarouselSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-black text-white py-16 md:py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-white text-[#003366] py-16 md:py-20 lg:py-32">
       <div className="max-w-[1680px] mx-auto">
         <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-12 lg:mb-20">
           <motion.h2
@@ -217,7 +218,7 @@ export function WorkCarouselSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-lg md:text-xl text-gray-400 mt-4 max-w-3xl"
+            className="text-lg md:text-xl text-green-700 mt-4 max-w-3xl"
           >
             Explore our portfolio of creative campaigns and brand experiences
           </motion.p>
@@ -304,7 +305,15 @@ export function WorkCarouselSection() {
                             onError={(e) => {
                               // Fallback to placeholder if image fails to load
                               const target = e.target as HTMLImageElement;
-                              target.src = `https://placehold.co/400x450/${item.colorMood === "peach" ? "FFE5D9" : item.colorMood === "minty-leaf" ? "D4F4DD" : "E8E4DF"}/2D1B12/png?text=${encodeURIComponent(item.company)}`;
+                              target.src = `https://placehold.co/400x450/${
+                                item.colorMood === "peach"
+                                  ? "FFE5D9"
+                                  : item.colorMood === "minty-leaf"
+                                  ? "D4F4DD"
+                                  : "E8E4DF"
+                              }/2D1B12/png?text=${encodeURIComponent(
+                                item.company
+                              )}`;
                             }}
                           />
                         </div>
@@ -372,6 +381,10 @@ export function WorkCarouselSection() {
               : "Auto-playing - Hover to pause"}
           </div>
         </div>
+      </div>
+
+      <div className="mt-20 lg:mt-32">
+        <TestimonialCarousel />
       </div>
     </section>
   );

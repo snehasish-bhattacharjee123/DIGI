@@ -63,27 +63,34 @@ const LogoScroller: React.FC<LogoScrollerProps> = ({ clients, direction }) => {
     direction === "ltr" ? "animate-scroll" : "animate-scroll-rtl";
 
   return (
-    <div
-      ref={scrollerRef}
-      className={`relative overflow-hidden select-none ${
-        isDown ? "cursor-grabbing" : "cursor-grab"
-      }`}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUpOrLeave}
-      onMouseLeave={handleMouseUpOrLeave}
-      onMouseMove={handleMouseMove}
-    >
+    <div className="relative overflow-hidden select-none">
+      {/* Left fade */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-24 bg-gradient-to-r from-white via-white/80 to-transparent z-10" />
+      {/* Right fade */}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-white via-white/80 to-transparent z-10" />
+
       <div
-        ref={contentRef}
-        className={`flex w-max hover:animate-pause ${animationClass}`}
+        ref={scrollerRef}
+        className={`relative overflow-hidden ${
+          isDown ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        onMouseMove={handleMouseMove}
       >
-        {[...clients, ...clients].map((client, index) => (
-          <div key={`${client}-${index}`} className="flex-shrink-0 mx-8 py-2">
-            <span className="text-lg font-medium text-muted-foreground/80 hover:text-foreground transition-colors duration-300 whitespace-nowrap">
-              {client}
-            </span>
-          </div>
-        ))}
+        <div
+          ref={contentRef}
+          className={`flex w-max hover:animate-pause ${animationClass}`}
+        >
+          {[...clients, ...clients].map((client, index) => (
+            <div key={`${client}-${index}`} className="flex-shrink-0 mx-8 py-2">
+              <span className="text-lg font-medium text-brand-blue-700 hover:text-brand-blue-900 transition-colors duration-300 whitespace-nowrap">
+                {client}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -91,7 +98,7 @@ const LogoScroller: React.FC<LogoScrollerProps> = ({ clients, direction }) => {
 
 export function ClientLogos() {
   return (
-    <section className="py-16 bg-background border-y border-border overflow-hidden">
+    <section className="py-16 bg-white border-border overflow-hidden">
       <div className="max-w-[1680px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -99,7 +106,7 @@ export function ClientLogos() {
           viewport={{ once: true }}
           className="text-center mb-12 px-4"
         >
-          <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+          <p className="text-sm font-medium text-brand-blue-700 uppercase tracking-wider">
             Trusted by leading brands
           </p>
         </motion.div>

@@ -1,4 +1,6 @@
-import React, { useRef, useState, MouseEvent } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import { useRef, useState, MouseEvent } from "react";
 import TestimonialCarousel from "./TestimonialCarousel";
 
 const cardData = [
@@ -15,6 +17,7 @@ const cardData = [
       "We're not restricted by borders. Top-tier talent, powered by AI means consistently high-quality work for your brand.",
     imageUrl:
       "https://cdn.sanity.io/images/k0dlbavy/production/71dc609798d4610f6a3a3b2759e07075e0692331-1050x1200.png",
+    color: "bg-emerald-700/90",
   },
   {
     title: (
@@ -27,6 +30,7 @@ const cardData = [
       "With dedicated project managers, collaborative online tools and the expert use of AI, projects can be completed in as little as 12 hours.",
     imageUrl:
       "https://cdn.sanity.io/images/k0dlbavy/production/fcd887306fb2cd40740214fecf88069f9ff51111-1050x1200.png",
+    color: "bg-orange-600/90",
   },
   {
     title: (
@@ -39,13 +43,25 @@ const cardData = [
       "Access a broad range of services, pivot as needed and work more efficiently with AI-enhanced creative, so that you never waste a dollar.",
     imageUrl:
       "https://cdn.sanity.io/images/k0dlbavy/production/e7cb5871b7cc27d276a749bc86e848cf9056ca16-1050x1200.png",
+    color: "bg-neutral-100 text-black", // white bottom card
   },
 ];
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.2 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+};
 
 export function MadeToFlexSection() {
   return (
     <section className="bg-bor-background text-white py-20 md:py-28 lg:py-40">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
           <span className="text-sm font-semibold uppercase tracking-widest text-bor-gray">
             made to flex
@@ -59,51 +75,67 @@ export function MadeToFlexSection() {
           </h2>
         </div>
 
-        {/* === CARD GRID === */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Card Grid */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           {cardData.map((card, index) => (
-            <div
+            <motion.div
               key={index}
-              className="group relative h-[600px] flex flex-col rounded-2xl overflow-hidden bg-background/10
-              backdrop-blur-sm border border-white/10 shadow-sm transition-all duration-500
-              hover:-translate-y-3 hover:shadow-2xl hover:scale-[1.02]"
+              variants={cardVariants}
+              className={`group relative h-[580px] flex flex-col rounded-2xl overflow-hidden border border-white/10 
+              bg-black/20 backdrop-blur-md shadow-md 
+              transition-all duration-500 hover:-translate-y-3 hover:shadow-xl hover:scale-[1.02]`}
             >
-              {/* Image Layer */}
-              <div className="relative flex-grow h-2/3 overflow-hidden">
+              {/* Image Section */}
+              <div className="relative overflow-hidden transition-all duration-500 h-[72%] group-hover:h-[62%]">
                 <img
                   src={card.imageUrl}
                   alt=""
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent transition-all duration-500"></div>
               </div>
 
-              {/* Text Area */}
-              <div className="relative flex flex-col justify-end p-6 h-1/3">
-                <h3 className="text-2xl font-bold mb-2 transition-transform duration-500 group-hover:translate-y-[-6px]">
+              {/* Text Section */}
+              <div
+                className={`relative flex flex-col justify-end p-6 transition-all duration-500 
+                h-[28%] group-hover:h-[38%] ${card.color}`}
+              >
+                <h3
+                  className={`text-2xl font-bold mb-3 transition-all duration-500 group-hover:-translate-y-2 ${
+                    card.color.includes("neutral") ? "text-black" : "text-white"
+                  }`}
+                >
                   {card.title}
                 </h3>
 
-                {/* Description Pop-up */}
                 <p
-                  className="text-sm text-gray-300 opacity-0 translate-y-4
-                  group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-out"
+                  className={`text-base leading-relaxed opacity-0 translate-y-3 
+                  group-hover:opacity-100 group-hover:translate-y-0 
+                  transition-all duration-500 ease-out ${
+                    card.color.includes("neutral")
+                      ? "text-gray-800"
+                      : "text-gray-100"
+                  }`}
                 >
                   {card.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-
-        {/* === Testimonial Carousel === */}
-        <div className="mt-20 lg:mt-32">
-          <TestimonialCarousel />
-        </div>
+        </motion.div>
       </div>
     </section>
   );
 }
+{/* <div className="mt-20 lg:mt-32">
+  <TestimonialCarousel />
+</div>; */}
 
 const creativeServices = [
   {

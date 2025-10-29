@@ -16,109 +16,109 @@ import { StatsSection } from "@/components/StatsSection";
 const CreativeServicesSection = lazy(() =>
   import("@/components/MadeToFlexSection").then((module) => ({
     default: (module as any).CreativeServicesSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const SuccessStoriesSection = lazy(() =>
   import("@/components/SuccessStoriesSection").then((module) => ({
     default: (module as any).SuccessStoriesSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const OurWorkSection = lazy(() =>
   import("@/components/OurWorkSection").then((module) => ({
     default: (module as any).OurWorkSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const PortfolioGrid = lazy(() =>
   import("@/components/PortfolioGrid").then((module) => ({
     default: (module as any).PortfolioGrid ?? (module as any).default,
-  })),
+  }))
 );
 
 const NewEraSection = lazy(() =>
   import("@/components/NewEraSection").then((module) => ({
     default: (module as any).NewEraSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const MadeToFlexSection = lazy(() =>
   import("@/components/MadeToFlexSection").then((module) => ({
     default: (module as any).MadeToFlexSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const WorkWithTheBestSection = lazy(() =>
   import("@/components/WorkWithTheBestSection").then((module) => ({
     default: (module as any).WorkWithTheBestSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const TechEnabledSection = lazy(() =>
   import("@/components/TechEnabledSection").then((module) => ({
     default: (module as any).TechEnabledSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const QuoteSection = lazy(() =>
   import("@/components/QuoteSection").then((module) => ({
     default: (module as any).QuoteSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const Services = lazy(() =>
   import("@/components/Services").then((module) => ({
     default: (module as any).Services ?? (module as any).default,
-  })),
+  }))
 );
 
 const CreativePowerSection = lazy(() =>
   import("@/components/CreativePowerSection").then((module) => ({
     default: (module as any).CreativePowerSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const ClientLogos = lazy(() =>
   import("@/components/ClientLogos").then((module) => ({
     default: (module as any).ClientLogos ?? (module as any).default,
-  })),
+  }))
 );
 
 const Testimonials = lazy(() =>
   import("@/components/Testimonials").then((module) => ({
     default: (module as any).Testimonials ?? (module as any).default,
-  })),
+  }))
 );
 
 const CTASection = lazy(() =>
   import("@/components/CTASection").then((module) => ({
     default: (module as any).CTASection ?? (module as any).default,
-  })),
+  }))
 );
 
 const FaqSection = lazy(() =>
   import("@/components/FaqSection").then((module) => ({
     default: (module as any).FaqSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const ServicesSection = lazy(() =>
   import("@/components/ServicesSection").then((module) => ({
     default: (module as any).ServicesSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const HowWeWorkSection = lazy(() =>
   import("@/components/HowWeWorkSection").then((module) => ({
     default: (module as any).HowWeWorkSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const OurPeopleSection = lazy(() =>
   import("@/components/OurPeopleSection").then((module) => ({
     default: (module as any).OurPeopleSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const ScrollSections = lazy(() => import("@/components/ScrollSections"));
@@ -126,31 +126,31 @@ const ScrollSections = lazy(() => import("@/components/ScrollSections"));
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((module) => ({
     default: (module as any).VersatileDesignsSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const TeamSection = lazy(() =>
   import("@/components/TeamSection").then((module) => ({
     default: (module as any).TeamSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const GlobalTeamSection = lazy(() =>
   import("@/components/GlobalTeamSection").then((module) => ({
     default: (module as any).GlobalTeamSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const WorkCarouselSection = lazy(() =>
   import("@/components/WorkCarouselSection").then((module) => ({
     default: (module as any).WorkCarouselSection ?? (module as any).default,
-  })),
+  }))
 );
 
 const Footer = lazy(() =>
   import("@/components/Footer").then((module) => ({
     default: (module as any).Footer ?? (module as any).default,
-  })),
+  }))
 );
 
 // ============================================================================
@@ -319,44 +319,10 @@ export default function Home() {
           {/* ABOVE THE FOLD - Eager loaded for immediate render */}
           {/* ========================================================== */}
           <Hero />
-          <StatsSection />
 
-          {/* Team Section */}
           <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <TeamSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* ========================================================== */}
-          {/* BELOW THE FOLD - Lazy loaded for performance */}
-          {/* ========================================================== */}
-
-          {/* Creative Services Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <CreativeServicesSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Success Stories Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <SuccessStoriesSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Our Work Video Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <OurWorkSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Portfolio Grid - Main showcase */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="xl" />}>
-              <PortfolioGrid />
+            <Suspense fallback={<SectionSkeleton height="sm" />}>
+              <ClientLogos />
             </Suspense>
           </ErrorBoundary>
 
@@ -374,97 +340,47 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          {/* Work With The Best Section */}
+          <StatsSection />
+
+          {/* Success Stories Section */}
           <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <WorkWithTheBestSection />
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <SuccessStoriesSection />
             </Suspense>
           </ErrorBoundary>
 
-          {/* Our People Section */}
+          {/* Portfolio Grid - Main showcase */}
           <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <OurPeopleSection />
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <PortfolioGrid />
             </Suspense>
           </ErrorBoundary>
 
+          {/* Our Work Video Section */}
           <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <ScrollSections slides={demoSlides} />
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <OurWorkSection />
             </Suspense>
           </ErrorBoundary>
+
+          {/* Work Carousel Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <WorkCarouselSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Testimonials Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <Testimonials />
+            </Suspense>
+          </ErrorBoundary> */}
 
           {/* Tech Enabled Section */}
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <TechEnabledSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Quote Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="sm" />}>
-              <QuoteSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Services Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <Services />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Creative Power Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <CreativePowerSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Client Logos - Social proof */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="sm" />}>
-              <ClientLogos />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Testimonials Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <Testimonials />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* CTA Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="sm" />}>
-              <CTASection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* ========================================================== */}
-          {/* PREVIOUSLY OUTSIDE MAIN - Now properly inside */}
-          {/* ========================================================== */}
-
-          {/* FAQ Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="xl" />}>
-              <FaqSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* Services Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <ServicesSection />
-            </Suspense>
-          </ErrorBoundary>
-
-          {/* How We Work Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="xl" />}>
-              <HowWeWorkSection />
             </Suspense>
           </ErrorBoundary>
 
@@ -475,19 +391,103 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          {/* Global Team Section */}
+          {/* Work With The Best Section */}
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
-              <GlobalTeamSection />
+              <WorkWithTheBestSection />
             </Suspense>
           </ErrorBoundary>
 
-          {/* Work Carousel Section */}
-          <ErrorBoundary>
+          {/* Team Section */}
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <WorkCarouselSection />
+              <TeamSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
+
+          {/* ========================================================== */}
+          {/* BELOW THE FOLD - Lazy loaded for performance */}
+          {/* ========================================================== */}
+
+          {/* Creative Services Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <CreativeServicesSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Our People Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <OurPeopleSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <ScrollSections slides={demoSlides} />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Quote Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="sm" />}>
+              <QuoteSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Services Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <Services />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Creative Power Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <CreativePowerSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* CTA Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="sm" />}>
+              <CTASection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* ========================================================== */}
+          {/* PREVIOUSLY OUTSIDE MAIN - Now properly inside */}
+          {/* ========================================================== */}
+
+          {/* FAQ Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <FaqSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Services Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <ServicesSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* How We Work Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <HowWeWorkSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Global Team Section */}
+          {/* <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
+              <GlobalTeamSection />
+            </Suspense>
+          </ErrorBoundary> */}
         </main>
 
         {/* ========================================================== */}

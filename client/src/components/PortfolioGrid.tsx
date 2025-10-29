@@ -24,7 +24,9 @@ function PortfolioCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className={`group relative overflow-hidden rounded-xl cursor-pointer bg-muted ${spanClass || ""}`}
+      className={`group relative overflow-hidden rounded-xl cursor-pointer bg-muted ${
+        spanClass || ""
+      }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       data-testid={`card-portfolio-${item.id}`}

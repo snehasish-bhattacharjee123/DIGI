@@ -4,7 +4,6 @@ import type { PortfolioItem } from "@shared/schema";
 import { ScrollingImages } from "./aceternity/ScrollingImages";
 import { LiquidButton } from "./LiquidButton";
 
-// Import actual images from attached_assets
 const images = [
   "/generated_images/Amazon_Pharmacy_app_mockup_8bf3e1d7.png",
   "/generated_images/Brand_identity_system_8af1f13b.png",
@@ -14,7 +13,7 @@ const images = [
   "/generated_images/Reddit_campaign_creative_1b23ce70.png",
 ];
 
-// Create a list of 15 portfolio items cycling through actual images
+// 15 portfolio items cycling through the actual images
 const portfolioItems: PortfolioItem[] = Array.from({ length: 15 }, (_, i) => ({
   id: String(i + 1),
   imageUrl: images[i % images.length],
@@ -25,37 +24,36 @@ const portfolioItems: PortfolioItem[] = Array.from({ length: 15 }, (_, i) => ({
 }));
 
 export function Hero() {
-  // Split portfolio items for three columns.
   const items1 = portfolioItems.slice(0, 5);
   const items2 = portfolioItems.slice(5, 10);
   const items3 = portfolioItems.slice(10, 15);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-brand-blue-900 text-brand-beige-100 overflow-hidden pt-24 pb-12 lg:py-0">
-      {/* Subtle gradient overlay for depth */}
+    <section
+      className="relative min-h-screen flex items-center bg-brand-blue-900 text-brand-beige-100 overflow-hidden pt-24 pb-12 lg:py-0"
+      aria-label="Hero section showcasing portfolio and brand introduction"
+    >
+      {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-blue-900 opacity-50" />
 
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-center">
-          {/* Left Side: Text Content */}
-          <div className="lg:col-span-2 text-center lg:text-left">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          {/* LEFT SIDE — Text Content */}
+          <div className="text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              {/* Main Heading - Using brand gray for subtle contrast */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-brand-beige-100 leading-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 leading-tight">
                 <span className="block text-brand-gray-400">DIGITELLER</span>
                 <span className="block text-brand-beige-100">CREATIVE</span>
               </h1>
 
-              {/* Tagline with highlight green accent */}
               <p className="text-lg md:text-xl text-brand-beige-200 max-w-xl mx-auto lg:mx-0 mb-4">
                 Tailor of Tales
               </p>
 
-              {/* Supporting text */}
               <p className="text-base md:text-lg text-brand-gray-400 max-w-xl mx-auto lg:mx-0 mb-8">
                 Crafting digital experiences that tell your story with
                 creativity, precision, and purpose.
@@ -67,19 +65,19 @@ export function Hero() {
                   label="Book a Demo"
                   color="#ff751f"
                   duration={1000}
-                  className="shadow-brand-lg hover:shadow-brand-xl"
+                  className="shadow-brand-lg hover:shadow-brand-xl focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2 focus:ring-offset-brand-blue-900"
                 />
 
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-brand-beige-100 text-brand-beige-100 hover:bg-brand-beige-100 hover:text-brand-blue-900 transition-all duration-300"
+                  className="border-2 border-brand-beige-100 text-brand-beige-100 hover:bg-brand-beige-100 hover:text-brand-blue-900 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-brand-green focus:ring-offset-2 focus:ring-offset-brand-blue-900"
                 >
                   View Our Work
                 </Button>
               </div>
 
-              {/* Trust indicators with brand colors */}
+              {/* Trust indicators */}
               <div className="mt-12 flex flex-wrap gap-8 justify-center lg:justify-start items-center">
                 <div className="text-center lg:text-left">
                   <p className="text-3xl font-bold text-brand-green">500+</p>
@@ -103,37 +101,55 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Side: Scrolling Images */}
-          <div className="relative h-[50vh] lg:h-[600px] lg:col-span-3">
-            <div className="absolute inset-0 flex gap-2 sm:gap-4 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)]">
+          {/* RIGHT SIDE — Scrolling Images */}
+          <div className="relative h-[65vh] lg:h-[700px] overflow-hidden">
+            <div className="absolute inset-0 flex gap-4 justify-center items-center overflow-hidden">
+              {/* Columns with softened translate offsets */}
               <div
                 className="flex-1"
-                style={{ transform: "translateY(-3rem)" }}
+                style={{ transform: "translateY(-1rem)" }}
               >
-                <ScrollingImages items={items1} direction="up" speed="slow" />
+                <ScrollingImages
+                  items={items1}
+                  direction="up"
+                  speed="slow"
+                  imgProps={{ loading: "lazy" }}
+                />
               </div>
-              <div className="flex-1" style={{ transform: "translateY(3rem)" }}>
+              <div className="flex-1" style={{ transform: "translateY(1rem)" }}>
                 <ScrollingImages
                   items={items2}
                   direction="down"
                   speed="normal"
+                  imgProps={{ loading: "lazy" }}
                 />
               </div>
               <div
                 className="flex-1"
-                style={{ transform: "translateY(-5rem)" }}
+                style={{ transform: "translateY(-1rem)" }}
               >
-                <ScrollingImages items={items3} direction="up" speed="slow" />
+                <ScrollingImages
+                  items={items3}
+                  direction="up"
+                  speed="slow"
+                  imgProps={{ loading: "lazy" }}
+                />
               </div>
             </div>
 
-            {/* Accent glow effect on images */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-brand-blue-900 via-transparent to-brand-blue-900 opacity-60" />
+            {/* Subtle soft overlay for cinematic tone */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(13,18,60,0.45), rgba(13,18,60,0.1) 35%, rgba(13,18,60,0.5) 100%)",
+              }}
+            />
           </div>
         </div>
       </div>
 
-      {/* Bottom gradient fade */}
+      {/* Bottom fade-out gradient for depth */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-brand-beige-100 to-transparent opacity-10" />
     </section>
   );
