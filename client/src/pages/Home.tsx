@@ -321,7 +321,7 @@ export default function Home() {
           <Hero />
 
           <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="sm" />}>
+            <Suspense fallback={<SectionSkeleton height="md" />}>
               <ClientLogos />
             </Suspense>
           </ErrorBoundary>

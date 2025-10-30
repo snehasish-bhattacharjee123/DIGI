@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 
@@ -51,6 +51,15 @@ export function HowWeWorkSection() {
   const [activeStep, setActiveStep] = useState(0);
   const timelineRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // ✅ Smooth scroll tracking for the line
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Smoothly map progress (0 → 1) to percentage height (0% → 100%)
+  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,7 +131,7 @@ export function HowWeWorkSection() {
               </div>
             </motion.div>
 
-            {/* Stats - Hidden on Mobile */}
+            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -151,28 +160,30 @@ export function HowWeWorkSection() {
           </div>
 
           {/* Right Side - Timeline */}
-          <div
-            ref={timelineRef}
-            className="xl:w-[54%] lg:w-[50%] md:w-[47%] w-full"
-          >
+          <div ref={timelineRef} className="xl:w-[54%] lg:w-[50%] md:w-[47%] w-full">
             <div className="relative">
-              {/* Timeline Line */}
-              <div className="absolute left-7 top-0 bottom-0 w-0.5 bg-gradient-to-b from-gray-800 via-gray-700 to-gray-800">
-                <motion.div
-                  className="absolute top-0 left-0 w-full bg-gradient-to-b from-primary via-primary/80 to-primary shadow-lg shadow-primary/30"
-                  style={{
-                    height: `${((activeStep + 1) / timelineItems.length) * 100}%`,
-                  }}
-                  animate={{
-                    opacity: [0.8, 1, 0.8],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-              </div>
+              {/* ✅ Dynamic Timeline Line */}
+              {/* ✅ Dynamic Timeline Line (no glow version) */}
+{/* ✅ Dynamic Timeline Line (pulsating effect, no glow) */}
+{/* ✅ Clean, Flat Dynamic Timeline Line (no glow, no gradient) */}
+<div className="absolute left-7 top-0 bottom-0 w-0.5 bg-gray-700 overflow-hidden">
+  <motion.div
+    className="absolute top-0 left-0 w-full bg-primary"
+    style={{ height: lineHeight }}
+    animate={{
+      opacity: [0.6, 1, 0.6],
+      scaleX: [1, 1.04, 1],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+  />
+</div>
+
+
+
 
               {/* Timeline Items */}
               <div className="space-y-12 lg:space-y-20">
@@ -199,7 +210,6 @@ export function HowWeWorkSection() {
                             : "text-gray-600"
                         }`}
                       >
-                        {/* Background circles */}
                         <div className="absolute inset-0 bg-gray-800/50 rounded-full backdrop-blur-sm"></div>
                         <div
                           className={`absolute inset-0 rounded-full transition-all duration-500 ${
@@ -251,27 +261,13 @@ export function HowWeWorkSection() {
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden opacity-50">
         <motion.div
           className="absolute top-1/4 -left-64 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            x: [0, 30, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute bottom-1/4 -right-64 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-          animate={{
-            x: [0, -30, 0],
-            y: [0, 20, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
     </section>
