@@ -38,7 +38,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
       </span>
 
       {/* Gloss reflection overlay */}
-      <style jsx>{`
+      {/* <style jsx>{`
         button {
           position: relative;
           isolation: isolate;
@@ -61,7 +61,7 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
         button:hover::before {
           transform: translateY(0);
         }
-      `}</style>
+      `}</style> */}
     </button>
   );
 };

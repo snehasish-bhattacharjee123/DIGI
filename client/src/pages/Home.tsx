@@ -16,109 +16,115 @@ import { StatsSection } from "@/components/StatsSection";
 const CreativeServicesSection = lazy(() =>
   import("@/components/MadeToFlexSection").then((module) => ({
     default: (module as any).CreativeServicesSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const SuccessStoriesSection = lazy(() =>
   import("@/components/SuccessStoriesSection").then((module) => ({
     default: (module as any).SuccessStoriesSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const OurWorkSection = lazy(() =>
   import("@/components/OurWorkSection").then((module) => ({
     default: (module as any).OurWorkSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const PortfolioGrid = lazy(() =>
   import("@/components/PortfolioGrid").then((module) => ({
     default: (module as any).PortfolioGrid ?? (module as any).default,
-  }))
+  })),
 );
 
 const NewEraSection = lazy(() =>
   import("@/components/NewEraSection").then((module) => ({
     default: (module as any).NewEraSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const MadeToFlexSection = lazy(() =>
   import("@/components/MadeToFlexSection").then((module) => ({
     default: (module as any).MadeToFlexSection ?? (module as any).default,
-  }))
+  })),
+);
+
+const FreshAdsFuelSection = lazy(() =>
+  import("@/components/FreshAdsFuelSection").then((module) => ({
+    default: (module as any).FreshAdsFuelSection ?? (module as any).default,
+  })),
 );
 
 const WorkWithTheBestSection = lazy(() =>
   import("@/components/WorkWithTheBestSection").then((module) => ({
     default: (module as any).WorkWithTheBestSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const TechEnabledSection = lazy(() =>
   import("@/components/TechEnabledSection").then((module) => ({
     default: (module as any).TechEnabledSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const QuoteSection = lazy(() =>
   import("@/components/QuoteSection").then((module) => ({
     default: (module as any).QuoteSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const Services = lazy(() =>
   import("@/components/Services").then((module) => ({
     default: (module as any).Services ?? (module as any).default,
-  }))
+  })),
 );
 
 const CreativePowerSection = lazy(() =>
   import("@/components/CreativePowerSection").then((module) => ({
     default: (module as any).CreativePowerSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const ClientLogos = lazy(() =>
   import("@/components/ClientLogos").then((module) => ({
     default: (module as any).ClientLogos ?? (module as any).default,
-  }))
+  })),
 );
 
 const Testimonials = lazy(() =>
   import("@/components/Testimonials").then((module) => ({
     default: (module as any).Testimonials ?? (module as any).default,
-  }))
+  })),
 );
 
 const CTASection = lazy(() =>
   import("@/components/CTASection").then((module) => ({
     default: (module as any).CTASection ?? (module as any).default,
-  }))
+  })),
 );
 
 const FaqSection = lazy(() =>
   import("@/components/FaqSection").then((module) => ({
     default: (module as any).FaqSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const ServicesSection = lazy(() =>
   import("@/components/ServicesSection").then((module) => ({
     default: (module as any).ServicesSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const HowWeWorkSection = lazy(() =>
   import("@/components/HowWeWorkSection").then((module) => ({
     default: (module as any).HowWeWorkSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const OurPeopleSection = lazy(() =>
   import("@/components/OurPeopleSection").then((module) => ({
     default: (module as any).OurPeopleSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const ScrollSections = lazy(() => import("@/components/ScrollSections"));
@@ -126,31 +132,31 @@ const ScrollSections = lazy(() => import("@/components/ScrollSections"));
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((module) => ({
     default: (module as any).VersatileDesignsSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const TeamSection = lazy(() =>
   import("@/components/TeamSection").then((module) => ({
     default: (module as any).TeamSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const GlobalTeamSection = lazy(() =>
   import("@/components/GlobalTeamSection").then((module) => ({
     default: (module as any).GlobalTeamSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const WorkCarouselSection = lazy(() =>
   import("@/components/WorkCarouselSection").then((module) => ({
     default: (module as any).WorkCarouselSection ?? (module as any).default,
-  }))
+  })),
 );
 
 const Footer = lazy(() =>
   import("@/components/Footer").then((module) => ({
     default: (module as any).Footer ?? (module as any).default,
-  }))
+  })),
 );
 
 // ============================================================================
@@ -341,6 +347,13 @@ export default function Home() {
           </ErrorBoundary>
 
           <StatsSection />
+
+          {/* Fresh Ads Fuel Performance Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <FreshAdsFuelSection />
+            </Suspense>
+          </ErrorBoundary>
 
           {/* Success Stories Section */}
           <ErrorBoundary>
