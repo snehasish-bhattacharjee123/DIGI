@@ -1,309 +1,169 @@
-import React, { useRef, useState, MouseEvent, TouchEvent } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect } from "react";
+import Splide from "@splidejs/splide";
+import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+import "@splidejs/splide/dist/css/splide.min.css";
 
+// === Brand Arrays ===
 const clientsTop = [
   "Parle",
+  "ASR Doctors Clinic",
   "Naksha",
   "MKT Rugs",
   "Dhruwo Cabs",
-  "ASR Doctors Clinic",
   "Kulina Entertainment",
   "Mehakleen",
 ];
+
 const clientsBottom = [
   "Celestial Guidance",
   "KODC",
   "RedOchre",
-  "The Smash",
   "Viracocha Little Learners",
+  "The Smash",
   "Teamax",
   "Transformation & Strength",
 ];
 
-interface LogoScrollerProps {
-  clients: string[];
-  direction: "ltr" | "rtl";
-}
+const ClientLogos: React.FC = () => {
+  useEffect(() => {
+    // Destroy any existing Splide instances
+    document.querySelectorAll(".splide").forEach((el) => {
+      const instance = (el as any).splide;
+      if (instance) instance.destroy(true);
+    });
 
-const LogoScroller: React.FC<LogoScrollerProps> = ({ clients, direction }) => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [isDown, setIsDown] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+    // Top slider - Left → Right
+    const topSplide = new Splide("#splide-top", {
+      type: "loop",
+      drag: "free",
+      arrows: false,
+      pagination: false,
+      perPage: 5,
+      gap: "1rem",
+      autoScroll: {
+        speed: 1.1,
+        pauseOnHover: true,
+      },
+      breakpoints: {
+        1536: { perPage: 5, gap: "2.5rem" },
+        1280: { perPage: 4, gap: "2rem" },
+        1024: { perPage: 4, gap: "1.5rem" },
+        768: { perPage: 4, gap: "1rem" },
+        480: { perPage: 3, gap: "0.5rem" },
+      },
+    });
+    topSplide.mount({ AutoScroll });
 
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    const content = contentRef.current;
-    if (!scroller || !content) return;
+    // Bottom slider - Right → Left
+    const bottomSplide = new Splide("#splide-bottom", {
+      type: "loop",
+      drag: "free",
+      arrows: false,
+      pagination: false,
+      perPage: 5,
+      gap: "3rem",
+      autoScroll: {
+        speed: -1.3,
+        pauseOnHover: true,
+      },
+      breakpoints: {
+        1536: { perPage: 5, gap: "2.5rem" },
+        1280: { perPage: 4, gap: "2rem" },
+        1024: { perPage: 4, gap: "1.5rem" },
+        768: { perPage: 4, gap: "1rem" },
+        480: { perPage: 3, gap: "0.5rem" },
+      },
+    });
+    bottomSplide.mount({ AutoScroll });
 
-    setIsDown(true);
-    content.classList.add("animate-pause");
-    setStartX(e.pageX - scroller.offsetLeft);
-    setScrollLeft(scroller.scrollLeft);
-  };
-
-  const handleMouseUpOrLeave = () => {
-    const content = contentRef.current;
-    if (!content) return;
-
-    setIsDown(false);
-    content.classList.remove("animate-pause");
-  };
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDown || !scrollerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    scrollerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    const content = contentRef.current;
-    if (!scroller || !content) return;
-
-    setIsDown(true);
-    content.classList.add("animate-pause");
-    setStartX(e.touches[0].pageX - scroller.offsetLeft);
-    setScrollLeft(scroller.scrollLeft);
-  };
-
-  const handleTouchEnd = () => {
-    const content = contentRef.current;
-    if (!content) return;
-
-    setIsDown(false);
-    content.classList.remove("animate-pause");
-  };
-
-  const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    if (!isDown || !scrollerRef.current) return;
-    const x = e.touches[0].pageX - scrollerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    scrollerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const animationClass =
-    direction === "ltr" ? "animate-scroll-logos" : "animate-scroll-logos-rtl";
+    // Cleanup
+    return () => {
+      topSplide.destroy(true);
+      bottomSplide.destroy(true);
+    };
+  }, []);
 
   return (
-    <div className="gradient-mask-horizontal relative overflow-hidden select-none">
-      <div
-        ref={scrollerRef}
-        className={`relative overflow-hidden ${
-          isDown ? "cursor-grabbing" : "cursor-grab"
-        }`}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUpOrLeave}
-        onMouseLeave={handleMouseUpOrLeave}
-        onMouseMove={handleMouseMove}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
-      >
-        <div className="flex flex-row">
-          {/* First copy - visible */}
-          <div
-            ref={contentRef}
-            className={`shrink-0 will-change-transform flex hover:animate-pause ${animationClass}`}
-            aria-hidden="false"
-          >
-            <div className="flex my-auto">
-              <div className="flex shrink-0 flex-row items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 md:px-8 lg:gap-16 lg:px-10 xl:gap-20 xl:px-12">
-                {clients.map((client, index) => (
-                  <div
-                    key={`${client}-${index}`}
-                    className="flex-shrink-0 transition-all duration-300"
-                  >
-                    <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-brand-blue-700 hover:text-brand-blue-900 hover:scale-110 transition-all duration-300 whitespace-nowrap inline-block">
-                      {client}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Second copy - for seamless loop */}
-          <div
-            className={`shrink-0 will-change-transform flex hover:animate-pause ${animationClass}`}
-            aria-hidden="true"
-          >
-            <div className="flex my-auto">
-              <div className="flex shrink-0 flex-row items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 md:px-8 lg:gap-16 lg:px-10 xl:gap-20 xl:px-12">
-                {clients.map((client, index) => (
-                  <div
-                    key={`${client}-${index}-copy2`}
-                    className="flex-shrink-0 transition-all duration-300"
-                  >
-                    <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-brand-blue-700 hover:text-brand-blue-900 hover:scale-110 transition-all duration-300 whitespace-nowrap inline-block">
-                      {client}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Third copy - for extra smoothness */}
-          <div
-            className={`shrink-0 will-change-transform flex hover:animate-pause ${animationClass}`}
-            aria-hidden="true"
-          >
-            <div className="flex my-auto">
-              <div className="flex shrink-0 flex-row items-center gap-8 px-4 sm:gap-10 sm:px-6 md:gap-12 md:px-8 lg:gap-16 lg:px-10 xl:gap-20 xl:px-12">
-                {clients.map((client, index) => (
-                  <div
-                    key={`${client}-${index}-copy3`}
-                    className="flex-shrink-0 transition-all duration-300"
-                  >
-                    <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-brand-blue-700 hover:text-brand-blue-900 hover:scale-110 transition-all duration-300 whitespace-nowrap inline-block">
-                      {client}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export function ClientLogos() {
-  return (
-    <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-white border-border overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
       <div className="max-w-[1680px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 px-4"
-        >
+        <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
           <p className="text-xs sm:text-sm md:text-base font-semibold text-brand-blue-700 uppercase tracking-wider">
             Trusted by leading brands
           </p>
-        </motion.div>
+        </div>
 
-        <div className="flex flex-col gap-6 sm:gap-8 md:gap-10 lg:gap-12 overflow-hidden -mx-4 sm:-mx-6 lg:mx-0">
-          <LogoScroller clients={clientsTop} direction="ltr" />
-          <LogoScroller clients={clientsBottom} direction="rtl" />
+        {/* === Top Scroller === */}
+        <div
+          id="splide-top"
+          className="splide client-logo-slider gradient-mask-horizontal"
+          aria-label="Top client logo scroller"
+        >
+          <div className="splide__track">
+            <ul className="splide__list">
+              {clientsTop.map((client, index) => (
+                <li
+                  key={`top-${index}`}
+                  className="splide__slide flex justify-center items-center"
+                >
+                  <span className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 hover:text-brand-blue-700 hover:scale-110 transition-all duration-300 whitespace-nowrap">
+                    {client}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* === Bottom Scroller === */}
+        <div
+          id="splide-bottom"
+          className="splide client-logo-slider mt-10 gradient-mask-horizontal"
+          aria-label="Bottom client logo scroller"
+        >
+          <div className="splide__track">
+            <ul className="splide__list">
+              {clientsBottom.map((client, index) => (
+                <li
+                  key={`bottom-${index}`}
+                  className="splide__slide flex justify-center items-center"
+                >
+                  <span className="text-lg sm:text-xl md:text-2xl font-semibold text-gray-800 hover:text-brand-blue-700 hover:scale-110 transition-all duration-300 whitespace-nowrap">
+                    {client}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-          @keyframes scroll-logos {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-33.333%);
-            }
-          }
-
-          @keyframes scroll-logos-rtl {
-            0% {
-              transform: translateX(-33.333%);
-            }
-            100% {
-              transform: translateX(0);
-            }
-          }
-
-          .animate-scroll-logos {
-            animation: scroll-logos 60s linear infinite;
-          }
-
-          .animate-scroll-logos-rtl {
-            animation: scroll-logos-rtl 60s linear infinite;
-          }
-
-          .animate-pause {
-            animation-play-state: paused !important;
-          }
-
-          /* Gradient mask for smooth fade on edges */
-          .gradient-mask-horizontal {
-            -webkit-mask-image: linear-gradient(
-              to right,
-              transparent 0%,
-              black 10%,
-              black 90%,
-              transparent 100%
-            );
-            mask-image: linear-gradient(
-              to right,
-              transparent 0%,
-              black 10%,
-              black 90%,
-              transparent 100%
-            );
-          }
-
-          /* Performance optimizations */
-          .will-change-transform {
-            will-change: transform;
-          }
-
-          /* Mobile optimizations */
-          @media (max-width: 640px) {
-            .animate-scroll-logos {
-              animation: scroll-logos 40s linear infinite;
-            }
-
-            .animate-scroll-logos-rtl {
-              animation: scroll-logos-rtl 40s linear infinite;
-            }
-
-            .gradient-mask-horizontal {
-              -webkit-mask-image: linear-gradient(
-                to right,
-                transparent 0%,
-                black 5%,
-                black 95%,
-                transparent 100%
-              );
-              mask-image: linear-gradient(
-                to right,
-                transparent 0%,
-                black 5%,
-                black 95%,
-                transparent 100%
-              );
-            }
-          }
-
-          /* Touch device active states */
-          @media (hover: none) and (pointer: coarse) {
-            .flex-shrink-0:active span {
-              transform: scale(1.05);
-            }
-          }
-
-          /* Smooth scrolling */
-          @media (prefers-reduced-motion: no-preference) {
-            .animate-scroll-logos,
-            .animate-scroll-logos-rtl {
-              animation-timing-function: linear;
-            }
-          }
-
-          /* Reduce motion for accessibility */
-          @media (prefers-reduced-motion: reduce) {
-            .animate-scroll-logos,
-            .animate-scroll-logos-rtl {
-              animation: none;
-            }
-          }
-        `,
-        }}
-      />
+      {/* Gradient Mask Styles */}
+      <style>{`
+        .gradient-mask-horizontal {
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+          );
+        }
+        .splide__slide {
+          transition: transform 0.3s ease;
+        }
+        .splide__slide:hover {
+          transform: scale(1.05);
+        }
+      `}</style>
     </section>
   );
-}
+};
+
+export default ClientLogos;
