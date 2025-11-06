@@ -2,167 +2,183 @@
 
 import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import type { PortfolioItem } from "@shared/schema";
 
 interface ScrollingImagesProps {
   items: PortfolioItem[];
+  direction?: "up" | "down";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
   className?: string;
+  imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
 }
 
 export const ScrollingImages = ({
   items,
+  direction = "up",
   speed = "normal",
   pauseOnHover = true,
   className,
+  imgProps,
 }: ScrollingImagesProps) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [scrollingItems, setScrollingItems] = useState<PortfolioItem[]>([]);
 
-  // ✅ Detect mobile/tablet up to 1280px
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1280);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // ✅ Duplicate items for infinite scroll
-  useEffect(() => {
-    if (items.length > 0) {
-      setScrollingItems([...items, ...items]);
-    }
-  }, [items]);
-
-  // ✅ Duration control
-  const duration = speed === "fast" ? 25 : speed === "normal" ? 50 : 100;
+  const duration = speed === "fast" ? 30 : speed === "normal" ? 50 : 80;
 
   if (!items.length) return null;
 
-  // ✅ MOBILE — Two horizontal rows
+  const animationStyle = isHovering && pauseOnHover ? "paused" : "running";
+
+  // MOBILE - Horizontal scrolling
   if (isMobile) {
     return (
       <div
-        className={cn(
-          "relative w-full overflow-hidden flex flex-col gap-6",
-          "[mask-image:linear-gradient(to_right,transparent,white_15%,white_85%,transparent)]",
-          className
-        )}
-        onMouseEnter={() => pauseOnHover && setIsHovering(true)}
-        onMouseLeave={() => pauseOnHover && setIsHovering(false)}
+        className={cn("relative h-full w-full overflow-hidden", className)}
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
+        }}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
-        {/* Row 1 → Left to Right */}
-        <motion.div
-          className="flex gap-4"
-          initial={{ x: "0%" }}
-          animate={
-            isHovering
-              ? { x: "0%" }
-              : {
-                  x: "-50%",
-                  transition: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration,
-                    ease: "linear",
-                  },
-                }
-          }
+        <div
+          className="flex flex-row gap-3"
+          style={{
+            animation: `scrollHorizontal ${duration}s linear infinite`,
+            animationPlayState: animationStyle,
+          }}
         >
-          {[...scrollingItems, ...scrollingItems].map((item, idx) => (
+          {items.map((item, index) => (
             <div
-              key={`row1-${item.id}-${idx}`}
-              className="relative w-[200px] aspect-square flex-shrink-0 overflow-hidden rounded-[10px] shadow-lg"
+              key={`${item.id}-${index}`}
+              className="flex-shrink-0 w-[180px] sm:w-[200px]"
             >
-              <img
-                src={item.imageUrl}
-                alt={item.title || "Portfolio item"}
-                className="w-full h-full object-cover"
-              />
+              <div className="group relative h-[240px] sm:h-[260px] w-full overflow-hidden rounded-lg bg-gray-900">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title || "Portfolio item"}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  {...imgProps}
+                />
+              </div>
             </div>
           ))}
-        </motion.div>
+          {items.map((item, index) => (
+            <div
+              key={`${item.id}-${index}-dup`}
+              className="flex-shrink-0 w-[180px] sm:w-[200px]"
+            >
+              <div className="group relative h-[240px] sm:h-[260px] w-full overflow-hidden rounded-lg bg-gray-900">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title || "Portfolio item"}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  {...imgProps}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
 
-        {/* Row 2 → Right to Left */}
-        <motion.div
-          className="flex gap-4"
-          initial={{ x: "-50%" }}
-          animate={
-            isHovering
-              ? { x: "-50%" }
-              : {
-                  x: "0%",
-                  transition: {
-                    repeat: Infinity,
-                    repeatType: "loop",
-                    duration,
-                    ease: "linear",
-                  },
-                }
-          }
-        >
-          {[...scrollingItems, ...scrollingItems].map((item, idx) => (
-            <div
-              key={`row2-${item.id}-${idx}`}
-              className="relative w-[200px] aspect-square flex-shrink-0 overflow-hidden rounded-[10px] shadow-lg"
-            >
-              <img
-                src={item.imageUrl}
-                alt={item.title || "Portfolio item"}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-        </motion.div>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            @keyframes scrollHorizontal {
+              0% { transform: translateX(0); }
+              100% { transform: translateX(-50%); }
+            }
+          `,
+          }}
+        />
       </div>
     );
   }
 
-  // ✅ DESKTOP — Vertical scrolling, fixed image cut issue
+  // DESKTOP - Vertical scrolling
+  const verticalAnimation =
+    direction === "up" ? "scrollVerticalUp" : "scrollVerticalDown";
+
   return (
     <div
-      className={cn(
-        "relative h-full overflow-hidden",
-        // 👇 Softer fade top/bottom
-        "[mask-image:linear-gradient(to_bottom,transparent_5%,white_20%,white_80%,transparent_95%)]",
-        className
-      )}
-      onMouseEnter={() => pauseOnHover && setIsHovering(true)}
-      onMouseLeave={() => pauseOnHover && setIsHovering(false)}
+      className={cn("relative h-full w-full overflow-hidden", className)}
+      style={{
+        maskImage:
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+        WebkitMaskImage:
+          "linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%)",
+      }}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
     >
-      <motion.div
-        className="flex flex-col gap-4 py-12" // 👈 extra padding top/bottom
-        initial={{ y: "0%" }}
-        animate={
-          isHovering
-            ? { y: "0%" }
-            : {
-                y: "-50%",
-                transition: {
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  duration,
-                  ease: "linear",
-                },
-              }
-        }
+      <div
+        className="flex flex-col gap-4"
+        style={{
+          animation: `${verticalAnimation} ${duration}s linear infinite`,
+          animationPlayState: animationStyle,
+        }}
       >
-        {[...scrollingItems, ...scrollingItems].map((item, idx) => (
-          <div
-            key={`col-${item.id}-${idx}`}
-            className="relative aspect-[4/5] w-full overflow-hidden rounded-[12px] shadow-lg"
-          >
-            <img
-              src={item.imageUrl}
-              alt={item.title || "Portfolio item"}
-              className="w-full h-full object-cover object-center"
-            />
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}`} className="w-full">
+            <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
+              <img
+                src={item.imageUrl}
+                alt={item.title || "Portfolio item"}
+                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                {...imgProps}
+              />
+            </div>
           </div>
         ))}
-      </motion.div>
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}-dup`} className="w-full">
+            <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
+              <img
+                src={item.imageUrl}
+                alt={item.title || "Portfolio item"}
+                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                {...imgProps}
+              />
+            </div>
+          </div>
+        ))}
+        {items.map((item, index) => (
+          <div key={`${item.id}-${index}-dup2`} className="w-full">
+            <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
+              <img
+                src={item.imageUrl}
+                alt={item.title || "Portfolio item"}
+                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                {...imgProps}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+          @keyframes scrollVerticalUp {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-66.666%); }
+          }
+          @keyframes scrollVerticalDown {
+            0% { transform: translateY(-66.666%); }
+            100% { transform: translateY(0); }
+          }
+        `,
+        }}
+      />
     </div>
   );
 };

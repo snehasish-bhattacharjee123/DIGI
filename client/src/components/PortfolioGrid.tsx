@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { PortfolioItem } from "@shared/schema";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -17,112 +17,85 @@ function PortfolioCard({
   spanClass?: string;
 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
+
+  // Detect touch devices
+  useEffect(() => {
+    if ("ontouchstart" in window || navigator.maxTouchPoints > 0) {
+      setIsTouch(true);
+    }
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
+    <motion.a
+      href={item.href || "#"}
+      target="_blank"
+      rel="noopener noreferrer"
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.05 }}
-      className={`group relative overflow-hidden rounded-xl cursor-pointer bg-muted ${
+      className={`group relative overflow-hidden rounded-xl bg-muted cursor-pointer block ${
         spanClass || ""
       }`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      data-testid={`card-portfolio-${item.id}`}
+      onMouseEnter={() => !isTouch && setIsHovered(true)}
+      onMouseLeave={() => !isTouch && setIsHovered(false)}
+      onClick={() => isTouch && setIsHovered((prev) => !prev)}
     >
-      {/* Image Layer */}
-      <div className="absolute inset-0 w-full h-full">
-        <motion.img
-          src={item.imageUrl}
-          alt={`${item.client} - ${item.title}`}
-          className="w-full h-full object-cover"
-          animate={{ scale: isHovered ? 1.1 : 1 }}
-          transition={{ duration: 0.6, ease: [0.43, 0.13, 0.23, 0.96] }}
-          loading="lazy"
-        />
-      </div>
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent md:from-black/60 md:via-black/20 md:to-transparent" />
-
-      {/* Hover Overlay */}
-      <motion.div
-        className="hidden md:block absolute inset-0 bg-gradient-to-t from-background/95 via-background/70 to-transparent"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
+      {/* Background Image */}
+      <img
+        src={item.imageUrl}
+        alt={`${item.client} - ${item.title}`}
+        className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Content */}
-      <div className="absolute inset-0 flex flex-col justify-end">
-        <div className="relative z-10 p-4 sm:p-5 md:p-6 lg:p-8">
-          {/* Category */}
-          <motion.p
-            className="text-xs sm:text-sm text-primary font-bold uppercase tracking-wider mb-2 sm:mb-3"
-            animate={{ y: isHovered ? -5 : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {item.category}
-          </motion.p>
-
-          {/* Client */}
+      {/* Overlay gradient + content */}
+      <div className="absolute inset-0 flex flex-col justify-between p-4 sm:p-6 md:p-8 z-10 bg-gradient-to-t from-black/70 via-black/40 to-transparent">
+        {/* Top Text */}
+        <div>
           <motion.h3
-            className="text-xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-white transition-colors duration-300 line-clamp-2"
-            animate={{ y: isHovered ? -5 : 0 }}
-            transition={{ duration: 0.3 }}
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white leading-tight mb-2"
+            animate={{ y: isHovered ? -3 : 0 }}
           >
             {item.client}
           </motion.h3>
 
-          {/* Title */}
           <motion.p
-            className="text-sm sm:text-base md:text-base lg:text-lg text-white/90 transition-colors duration-300 line-clamp-2 md:line-clamp-3"
-            animate={{ y: isHovered ? -5 : 0 }}
-            transition={{ duration: 0.3 }}
+            className="text-xs sm:text-sm md:text-base text-white/80 max-w-sm leading-relaxed"
+            animate={{ y: isHovered ? -3 : 0 }}
           >
             {item.title}
           </motion.p>
-
-          {/* View Project */}
-          <motion.div
-            className="hidden md:flex items-center gap-2 mt-4 text-sm text-primary font-semibold"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{
-              opacity: isHovered ? 1 : 0,
-              y: isHovered ? 0 : 10,
-            }}
-            transition={{ duration: 0.3, delay: 0.1 }}
-          >
-            <span>View Project</span>
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </motion.div>
         </div>
-      </div>
 
-      {/* Border hover */}
-      <motion.div
-        className="hidden md:block absolute inset-0 border-2 border-primary/0 rounded-xl pointer-events-none"
-        animate={{
-          borderColor: isHovered
-            ? "rgba(var(--primary), 0.3)"
-            : "rgba(var(--primary), 0)",
-        }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.div>
+        {/* Bottom link — animated underline */}
+        <motion.div
+          className={`inline-flex items-center gap-2 text-sm sm:text-base font-semibold text-white mt-4 transition-all duration-300 ${
+            isHovered || isTouch
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-2"
+          }`}
+          animate={{ opacity: isHovered ? 1 : 0.8 }}
+        >
+          <span className="relative after:absolute after:left-0 after:-bottom-[2px] after:h-[2px] after:w-0 after:bg-white after:transition-[width] after:duration-500 after:ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:after:w-full">
+            Learn more
+          </span>
+          <svg
+            className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </motion.div>
+      </div>
+    </motion.a>
   );
 }
 
@@ -131,24 +104,10 @@ function PortfolioCard({
 // =====================
 function PortfolioGridSkeleton() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 lg:auto-rows-[300px] grid-flow-dense">
-      {[...Array(6)].map((_, i) => {
-        const pattern = i % 6;
-        const spanMap: Record<number, string> = {
-          0: "lg:col-span-4 lg:row-span-2",
-          1: "lg:col-span-2",
-          2: "lg:col-span-3 lg:row-span-2",
-          3: "lg:col-span-3",
-          4: "lg:col-span-2",
-          5: "lg:col-span-4",
-        };
-        return (
-          <Skeleton
-            key={i}
-            className={`rounded-xl h-[280px] ${spanMap[pattern]}`}
-          />
-        );
-      })}
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 auto-rows-[220px] sm:auto-rows-[260px] lg:auto-rows-[300px] grid-flow-dense">
+      {[...Array(6)].map((_, i) => (
+        <Skeleton key={i} className="rounded-xl h-full w-full" />
+      ))}
     </div>
   );
 }
@@ -157,107 +116,112 @@ function PortfolioGridSkeleton() {
 // PORTFOLIO GRID
 // =====================
 export function PortfolioGrid() {
-  const {
-    data: portfolioItems,
-    isLoading,
-    error,
-  } = useQuery<PortfolioItem[]>({
+  const { data, isLoading, error } = useQuery<PortfolioItem[]>({
     queryKey: ["/api/portfolio"],
+    queryFn: async () => {
+      const res = await fetch("/api/portfolio");
+      if (!res.ok) {
+        // fallback demo data
+        return [
+          {
+            id: "1",
+            client: "Nike",
+            title: "New Season Campaign",
+            imageUrl:
+              "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?w=800",
+            category: "Branding",
+          },
+          {
+            id: "2",
+            client: "Apple",
+            title: "Product Launch Creative",
+            imageUrl:
+              "https://images.unsplash.com/photo-1506765515384-028b60a970df?w=800",
+            category: "Digital",
+          },
+          {
+            id: "3",
+            client: "Spotify",
+            title: "Soundwave Experience Design",
+            imageUrl:
+              "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800",
+            category: "UX/UI",
+          },
+        ];
+      }
+      return res.json();
+    },
   });
 
-  // Define a visually balanced span pattern (dense grid)
+  const portfolioItems = data ?? [];
+
   const getGridSpanClass = (index: number) => {
     const pattern = index % 7;
     switch (pattern) {
       case 0:
-        return "lg:col-span-4 lg:row-span-2"; // Big wide
+        return "md:col-span-2 md:row-span-2 lg:col-span-4 lg:row-span-2";
       case 1:
-        return "lg:col-span-2"; // Small
+        return "md:col-span-1 lg:col-span-2";
       case 2:
-        return "lg:col-span-3 lg:row-span-2"; // Tall medium
+        return "md:col-span-2 md:row-span-2 lg:col-span-3 lg:row-span-2";
       case 3:
-        return "lg:col-span-3"; // Medium wide
+        return "md:col-span-1 lg:col-span-3";
       case 4:
       case 5:
-        return "lg:col-span-2"; // Two smalls
+        return "md:col-span-1 lg:col-span-2";
       case 6:
-        return "lg:col-span-4"; // Medium wide
+        return "md:col-span-2 lg:col-span-4";
       default:
-        return "lg:col-span-2";
+        return "md:col-span-1 lg:col-span-2";
     }
   };
 
   return (
     <section
       id="work"
-      className="relative py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 bg-background overflow-hidden"
+      className="relative py-12 sm:py-16 md:py-20 lg:py-28 bg-background overflow-hidden"
     >
-      <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        {/* Section Header */}
+      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-10 sm:mb-12 md:mb-14 lg:mb-16"
+          transition={{ duration: 0.6 }}
+          className="mb-10 sm:mb-14 md:mb-16"
         >
-          <div className="max-w-4xl">
-            <h2
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 leading-tight"
-              data-testid="text-portfolio-heading"
-            >
-              Featured work
-            </h2>
-            <p
-              className="text-base sm:text-lg md:text-xl lg:text-2xl text-muted-foreground max-w-3xl leading-relaxed"
-              data-testid="text-portfolio-subtitle"
-            >
-              From Fortune 500 brands to high-growth startups, we deliver
-              creative excellence at scale.
-            </p>
-          </div>
+          <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4">
+            Featured work
+          </h2>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground max-w-3xl leading-relaxed">
+            From Fortune 500 brands to high-growth startups, we deliver creative
+            excellence at scale.
+          </p>
         </motion.div>
 
-        {/* Loading State */}
+        {/* Loading */}
         {isLoading && <PortfolioGridSkeleton />}
 
-        {/* Error State */}
+        {/* Error */}
         {error && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16 sm:py-20 px-4"
-            data-testid="error-portfolio"
-          >
-            <div className="max-w-md mx-auto">
-              <div className="mb-4 text-destructive">
-                <svg
-                  className="w-12 h-12 sm:w-16 sm:h-16 mx-auto"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </div>
-              <p className="text-destructive text-base sm:text-lg font-semibold mb-2">
-                Unable to load portfolio
-              </p>
-              <p className="text-muted-foreground text-sm sm:text-base">
-                Please try again later.
-              </p>
-            </div>
-          </motion.div>
+          <div className="text-center py-16 text-destructive">
+            <p className="text-lg font-semibold">Unable to load portfolio</p>
+            <p className="text-sm opacity-70">Please try again later.</p>
+          </div>
         )}
 
-        {/* Portfolio Items */}
-        {portfolioItems && portfolioItems.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 lg:auto-rows-[300px] grid-flow-dense">
+        {/* Portfolio Grid */}
+        {!isLoading && portfolioItems.length > 0 && (
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 auto-rows-[220px] sm:auto-rows-[260px] lg:auto-rows-[300px] grid-flow-dense"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.08 } },
+            }}
+          >
             {portfolioItems.map((item, index) => (
               <PortfolioCard
                 key={item.id}
@@ -266,37 +230,17 @@ export function PortfolioGrid() {
                 spanClass={getGridSpanClass(index)}
               />
             ))}
-          </div>
+          </motion.div>
         )}
 
-        {/* Empty State */}
-        {portfolioItems && portfolioItems.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-center py-16 sm:py-20 px-4"
-            data-testid="empty-portfolio"
-          >
-            <div className="max-w-md mx-auto text-muted-foreground">
-              <svg
-                className="w-16 h-16 sm:w-20 sm:h-20 mx-auto mb-4 opacity-60"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-              <p className="text-lg font-medium mb-2">No portfolio items yet</p>
-              <p className="opacity-75">
-                Check back soon for our latest creative projects.
-              </p>
-            </div>
-          </motion.div>
+        {/* Empty */}
+        {!isLoading && portfolioItems.length === 0 && (
+          <div className="text-center py-16 text-muted-foreground">
+            <p className="text-lg font-medium">No portfolio items yet</p>
+            <p className="opacity-75">
+              Check back soon for our latest creative projects.
+            </p>
+          </div>
         )}
       </div>
     </section>

@@ -19,9 +19,10 @@ const servicesData: Service[] = [
     category: "Design & Development",
     title: "Websites",
     description:
-      "Websites are a reflection of the brands, which can help convert website visitors into customers. All that is done under the digital marketing strategy ultimately directs guests to your website. A well-designed and managed website can be used as an effective marketing tool that will help generate authentic leads. Fonts, graphics, layouts, interface and much more are what need to be restructured so that your website serves as an extension of your voice.",
+      "Websites are a reflection of the brands, which can help convert website visitors into customers. A well-designed and managed website can be used as an effective marketing tool that will help generate authentic leads.",
     link: "/services/website-design-development",
-    image: "/assets/images/devlop-design.webp",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Website Design and Development Services",
   },
   {
@@ -30,9 +31,10 @@ const servicesData: Service[] = [
     category: "Design & Development",
     title: "Email Marketing",
     description:
-      "Whoever said email was a dying medium did not know how to use it to their benefit. A smartly designed email will always help you win over current and potential customers. Wish them during festival season, send them coupons and keep them updated with company news to encourage customer loyalty. The idea is to promote your business and the right words can get you your next lead.",
+      "Smartly designed emails help you win over customers. Send greetings, coupons, or updates to build loyalty and engagement.",
     link: "/services/email-marketing",
-    image: "/assets/images/email-marketing.webp",
+    image:
+      "https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Email Marketing Services",
   },
   {
@@ -41,9 +43,10 @@ const servicesData: Service[] = [
     category: "Content & Design",
     title: "Social Media",
     description:
-      "In today's world, social media strategies are driving business strategies. Social listening has changed the way people make their decisions. Be where your customers are! People talk and they will talk – about your product. Brands have their own identity and customers should be able to connect to their brands as and when they require. Get your brand on social media now. This is no passing trend!",
+      "Be where your customers are! Social media strategies are essential for brand connection and visibility.",
     link: "/services/social-media-marketing",
-    image: "/assets/images/social-media.webp",
+    image:
+      "https://images.unsplash.com/photo-1611162617213-7d7bdf073ba1?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Social Media Marketing Services",
   },
   {
@@ -52,9 +55,10 @@ const servicesData: Service[] = [
     category: "Strategy",
     title: "ORM",
     description:
-      "How often do you enter a search online and form an opinion based on what you have read? Your potential and current customers do exactly the same and ORM is ahead of it. ORM is about crafting and formulating online strategies that will influence the public perception of a brand. By establishing an online presence, you can get into conversations and leave a positive impression of your brand for your customers to see. Choose the ORM way!",
+      "Online Reputation Management (ORM) is about shaping how your brand is perceived online through proactive engagement.",
     link: "/services/online-reputation-management",
-    image: "/assets/images/orm.jpg",
+    image:
+      "https://images.unsplash.com/photo-1612832021084-0e2c4a9f1df9?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Online Reputation Management Services",
   },
   {
@@ -63,9 +67,10 @@ const servicesData: Service[] = [
     category: "Filming & Editing",
     title: "Video Marketing",
     description:
-      "Video Marketing is just the right medium to truly convey your brand's messaging, while picking up some sentiment along the way. It's the ideal way to increase awareness about your product, increase engagement on various channels and communicate with your online customers in a witty way. An engaging video can really help build strong customer rapport. Get creative and make your product or service stand out!",
+      "Video is the ideal medium to convey your brand message, increase engagement, and build trust creatively.",
     link: "/services/video-marketing",
-    image: "/assets/images/video-marketing.webp",
+    image:
+      "https://images.unsplash.com/photo-1585314062604-1f0ec3f2b1ca?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Video Marketing Services",
   },
   {
@@ -74,9 +79,10 @@ const servicesData: Service[] = [
     category: "Strategy & Marketing",
     title: "Programmatic Advertising",
     description:
-      "You can't expect even the best ads to reach their true potential if they don't target the right audience. This is where the power of Programmatic Advertising comes in! Transform your targeting strategy by analysing many user signals to ensure that ads serve the right person, in the right place, at the right time. Optimise your budgets by paying only for your best users. Jump on the bandwagon and put your brand on the map.",
+      "Leverage data-driven ad automation to reach the right audience at the right time, maximizing ROI.",
     link: "/services/programmatic-advertising",
-    image: "/assets/images/programmatic-advertising-thumb.webp",
+    image:
+      "https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Programmatic Advertising Services",
   },
   {
@@ -85,9 +91,10 @@ const servicesData: Service[] = [
     category: "Strategy & Marketing",
     title: "Search Engine Marketing",
     description:
-      "From a 10-year-old to a 60-year-old, everyone is online. Whether it is for maths tuitions or the tastiest pickle, everyone is looking for products and services online. The SEM team knows how to build brand awareness and increase sales across platforms that are most visited by your customers. The team has many years of experience in generating relevant leads through PPC or search engine marketing techniques.",
+      "Boost visibility and sales through paid search campaigns designed to capture intent and convert leads.",
     link: "/services/search-engine-marketing",
-    image: "/assets/images/search-engine-marketing-thumb.webp",
+    image:
+      "https://images.unsplash.com/photo-1508830524289-0adcbe822b40?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Search Engine Marketing Services",
   },
   {
@@ -96,9 +103,10 @@ const servicesData: Service[] = [
     category: "Strategy & Marketing",
     title: "Content Marketing",
     description:
-      "In the digital world, content marketing is that friend who goes shopping with you and convinces you that a particular product or service is good for you. If your friend sounds genuine, you go ahead and buy the product or service, or else you look for something else. True, right?",
+      "Create compelling content that informs, engages, and persuades — helping customers connect to your brand.",
     link: "/services/content-marketing",
-    image: "/assets/images/content-marketing-thumb.jpg",
+    image:
+      "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Content Marketing Services",
   },
   {
@@ -107,9 +115,10 @@ const servicesData: Service[] = [
     category: "Strategy & Marketing",
     title: "Search Engine Optimisation",
     description:
-      "On average, Google processes over 8.5 billion searches every day. How does a brand stand out in the market and reach out to its audience without spending much? The answer is different SEO (Search Engine Optimisation) techniques. That is because a website with a high ranking is more likely to attract more organic traffic and boost revenues. Best SEO agencies offer SEO specialist services to do just that. The SEO team uses on-page and off-page techniques to gain popularity and rank high on search engines.",
+      "Enhance your brand visibility through expert SEO techniques that drive traffic and improve rankings.",
     link: "/services/search-engine-optimization",
-    image: "/assets/images/search-engine-optimization-thumb.webp",
+    image:
+      "https://images.unsplash.com/photo-1554774853-b414d2a2b090?auto=format&fit=crop&w=1600&q=80",
     imageAlt: "Search Engine Optimization Services",
   },
 ];
@@ -127,7 +136,7 @@ function ProgressIndicator({
   const scaleX = useTransform(
     scrollYProgress,
     [index / total, (index + 1) / total],
-    [0, 1],
+    [0, 1]
   );
 
   return (
@@ -152,7 +161,7 @@ export function ServicesSection() {
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", `-${(servicesData.length - 1) * 100}%`],
+    ["0%", `-${(servicesData.length - 1) * 100}%`]
   );
 
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);

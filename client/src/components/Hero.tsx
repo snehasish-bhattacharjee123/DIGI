@@ -30,14 +30,14 @@ export function Hero() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center bg-brand-blue-900 text-brand-beige-100 overflow-hidden pt-24 pb-12 lg:py-0"
+      className="relative min-h-screen flex items-center bg-brand-blue-900 text-brand-beige-100 overflow-hidden pt-24 pb-12 lg:py-24"
       aria-label="Hero section showcasing portfolio and brand introduction"
     >
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-blue-900 opacity-50" />
 
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* LEFT SIDE — Text Content */}
           <div className="text-center lg:text-left">
             <motion.div
@@ -102,13 +102,37 @@ export function Hero() {
           </div>
 
           {/* RIGHT SIDE — Scrolling Images */}
-          <div className="relative h-[65vh] lg:h-[700px] overflow-hidden">
-            <div className="absolute inset-0 flex gap-4 justify-center items-center overflow-hidden">
-              {/* Columns with softened translate offsets */}
-              <div
-                className="flex-1"
-                style={{ transform: "translateY(-1rem)" }}
-              >
+          {/* RIGHT SIDE — Scrolling Images */}
+          <div className="relative w-full h-96 sm:h-[500px] lg:h-[700px] overflow-hidden">
+            {/* Mobile: horizontal row, Desktop: vertical columns */}
+            {/* ── < 1280 px : two horizontal rows, long enough to scroll ── */}
+            <div className="flex lg:hidden gap-3 h-full">
+              {/* Row 1 → scroll right (10 items) */}
+              <div className="flex-shrink-0 h-full">
+                <ScrollingImages
+                  items={[...items1, ...items2]} // 10 items
+                  direction="right"
+                  speed="slow"
+                  imgProps={{ loading: "lazy" }}
+                  className="h-full"
+                />
+              </div>
+
+              {/* Row 2 ← scroll left (10 items) */}
+              <div className="flex-shrink-0 h-full">
+                <ScrollingImages
+                  items={[...items3, ...items1]} // 10 items (re-use items1 to fill)
+                  direction="left"
+                  speed="normal"
+                  imgProps={{ loading: "lazy" }}
+                  className="h-full"
+                />
+              </div>
+            </div>
+
+            {/* Desktop: original 3-column vertical layout */}
+            <div className="hidden lg:flex gap-3 lg:gap-4 h-full">
+              <div className="flex-1 h-full">
                 <ScrollingImages
                   items={items1}
                   direction="up"
@@ -116,7 +140,7 @@ export function Hero() {
                   imgProps={{ loading: "lazy" }}
                 />
               </div>
-              <div className="flex-1" style={{ transform: "translateY(1rem)" }}>
+              <div className="flex-1 h-full">
                 <ScrollingImages
                   items={items2}
                   direction="down"
@@ -124,10 +148,7 @@ export function Hero() {
                   imgProps={{ loading: "lazy" }}
                 />
               </div>
-              <div
-                className="flex-1"
-                style={{ transform: "translateY(-1rem)" }}
-              >
+              <div className="flex-1 h-full">
                 <ScrollingImages
                   items={items3}
                   direction="up"
@@ -136,15 +157,6 @@ export function Hero() {
                 />
               </div>
             </div>
-
-            {/* Subtle soft overlay for cinematic tone */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(13,18,60,0.45), rgba(13,18,60,0.1) 35%, rgba(13,18,60,0.5) 100%)",
-              }}
-            />
           </div>
         </div>
       </div>

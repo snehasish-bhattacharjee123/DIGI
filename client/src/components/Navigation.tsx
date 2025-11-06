@@ -1,5 +1,18 @@
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Menu, X } from "lucide-react";
+import {
+  ChevronDown,
+  Menu,
+  X,
+  LayoutGrid,
+  FileText,
+  Lightbulb,
+  Video,
+  Move,
+  Layers,
+  Sparkles,
+  Brain,
+  LineChart,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,19 +24,23 @@ const navItems = [
     href: "/services",
     subsections: [
       {
-        title: "Creative & Design",
+        title: "Creative design services",
+        href: "/services/creative-design",
         items: [
           {
+            icon: LayoutGrid,
             title: "Brand Identity",
             description: "Complete brand design and identity systems",
             href: "/services/brand-identity",
           },
           {
+            icon: FileText,
             title: "Graphic Design",
             description: "Visual content for all your needs",
             href: "/services/graphic-design",
           },
           {
+            icon: Lightbulb,
             title: "UI/UX Design",
             description: "Beautiful and intuitive user experiences",
             href: "/services/ui-ux-design",
@@ -31,19 +48,23 @@ const navItems = [
         ],
       },
       {
-        title: "Digital Marketing",
+        title: "Specialized production services",
+        href: "/services/production",
         items: [
           {
+            icon: Video,
             title: "Social Media Marketing",
             description: "Engage your audience on social platforms",
             href: "/services/social-media-marketing",
           },
           {
+            icon: Move,
             title: "Content Marketing",
             description: "Strategic content that drives results",
             href: "/services/content-marketing",
           },
           {
+            icon: Layers,
             title: "SEO & Analytics",
             description: "Data-driven digital strategies",
             href: "/services/seo-analytics",
@@ -51,19 +72,23 @@ const navItems = [
         ],
       },
       {
-        title: "Video & Production",
+        title: "AI & marketing services",
+        href: "/services/ai-marketing",
         items: [
           {
+            icon: Sparkles,
             title: "Video Production",
             description: "Professional videos that tell your story",
             href: "/services/video-production",
           },
           {
+            icon: Brain,
             title: "Animation",
             description: "Engaging animated content",
             href: "/services/animation",
           },
           {
+            icon: LineChart,
             title: "Photography",
             description: "High-quality visual storytelling",
             href: "/services/photography",
@@ -120,7 +145,9 @@ export function Navigation() {
 
   return (
     <>
-      {/* HEADER */}
+      {/* ===========================
+          HEADER
+      ============================ */}
       <motion.header
         initial={{ backgroundColor: "rgba(255,255,255,0)" }}
         animate={{
@@ -194,7 +221,7 @@ export function Navigation() {
               ))}
             </nav>
 
-            {/* Desktop CTA */}
+            {/* CTA */}
             <div className="hidden lg:flex items-center gap-3">
               <a
                 href="https://wa.me/917998596948"
@@ -244,30 +271,39 @@ export function Navigation() {
                 onMouseLeave={handleDesktopSubmenuLeave}
                 className="absolute top-20 left-0 w-full bg-white border-t border-gray-200 shadow-xl z-[50]"
               >
-                <div className="max-w-[1680px] mx-auto px-8 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="max-w-[1680px] mx-auto px-10 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
                   {navItems[activeDesktopSubmenu].subsections?.map(
-                    (subsection, sIndex) => (
+                    (section, sIndex) => (
                       <div key={sIndex} className="space-y-5">
-                        <h3 className="text-lg font-bold text-[#001F54] border-b border-[#001F54]/20 pb-2">
-                          {subsection.title}
+                        <h3 className="inline-block text-lg font-bold text-[#001F54] bg-[#E8F5E9] px-3 py-1 rounded-md">
+                          {section.title}
                         </h3>
-                        <div className="space-y-3">
-                          {subsection.items?.map((subItem, iIndex) => (
-                            <motion.a
-                              key={iIndex}
-                              href={subItem.href || "#"}
-                              whileHover={{ x: 6 }}
-                              transition={{ type: "spring", stiffness: 200 }}
-                              className="block p-3 rounded-lg group hover:bg-blue-50 transition-all duration-300"
-                            >
-                              <h4 className="font-semibold text-base text-[#001F54] group-hover:text-[#0033A0] transition-colors">
-                                {subItem.title}
-                              </h4>
-                              <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors">
-                                {subItem.description}
-                              </p>
-                            </motion.a>
-                          ))}
+                        <div className="space-y-2">
+                          {section.items?.map((item, iIndex) => {
+                            const Icon = item.icon;
+                            return (
+                              <motion.a
+                                key={iIndex}
+                                href={item.href || "#"}
+                                whileHover={{ x: 6 }}
+                                transition={{ type: "spring", stiffness: 200 }}
+                                className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition-all duration-300 group"
+                              >
+                                <Icon
+                                  size={18}
+                                  className="text-[#0033A0] mt-1"
+                                />
+                                <div>
+                                  <h4 className="font-semibold text-base text-[#001F54] group-hover:text-[#0033A0] transition-colors">
+                                    {item.title}
+                                  </h4>
+                                  <p className="text-sm text-gray-600 group-hover:text-gray-800 transition-colors">
+                                    {item.description}
+                                  </p>
+                                </div>
+                              </motion.a>
+                            );
+                          })}
                         </div>
                       </div>
                     )
@@ -276,108 +312,148 @@ export function Navigation() {
               </motion.div>
             )}
         </AnimatePresence>
-      </motion.header>
 
-      {/* Mobile Overlay */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
-          onClick={toggleMobileMenu}
-        />
-      )}
+        {/* ===========================
+            MOBILE MENU (Slide-in)
+        ============================ */}
+        {/* Mobile Overlay */}
+        {/* Mobile Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
+              onClick={toggleMobileMenu}
+            />
+          )}
+        </AnimatePresence>
 
-      {/* Mobile Panel */}
-      <div
-        className={`fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-white text-[#001F54] border-t border-gray-200 z-40 lg:hidden transition-all duration-500 ease-in-out overflow-y-auto ${
-          isMobileMenuOpen
-            ? "translate-x-0 opacity-100 visible"
-            : "-translate-x-full opacity-0 invisible"
-        }`}
-      >
-        <div className="px-4 sm:px-6 py-6">
-          <nav className="space-y-2">
-            {navItems.map((item, index) => (
-              <div key={index}>
-                {item.hasSubmenu ? (
-                  <div>
-                    <button
-                      onClick={() => handleMobileSubmenu(index)}
-                      className="flex items-center justify-between w-full px-4 py-4 text-lg font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300"
-                    >
-                      {item.title}
-                      <ChevronDown
-                        size={20}
-                        className={`transition-transform duration-300 ${
-                          activeMobileSubmenu === index ? "rotate-180" : ""
-                        }`}
-                      />
-                    </button>
-                    <div
-                      className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                        activeMobileSubmenu === index
-                          ? "max-h-[1000px] opacity-100 mt-2"
-                          : "max-h-0 opacity-0"
-                      }`}
-                    >
-                      <div className="space-y-4 px-2">
-                        {item.subsections?.map((subsection, sIndex) => (
-                          <div
-                            key={sIndex}
-                            className="bg-blue-50 rounded-lg p-4 border-l-4 border-[#001F54]"
-                          >
-                            <h3 className="text-base font-bold text-[#001F54] mb-3">
-                              {subsection.title}
-                            </h3>
-                            <div className="space-y-2">
-                              {subsection.items?.map((subItem, iIndex) => (
-                                <a
-                                  key={iIndex}
-                                  href={subItem.href || "#"}
-                                  className="block p-3 rounded-lg hover:bg-blue-100 transition-all duration-300"
-                                  onClick={toggleMobileMenu}
-                                >
-                                  <h4 className="font-semibold text-[#001F54] text-sm">
-                                    {subItem.title}
-                                  </h4>
-                                  <p className="text-gray-600 text-xs mt-1">
-                                    {subItem.description}
-                                  </p>
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <a
-                    href={item.href}
-                    className="block px-4 py-4 text-lg font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300"
-                    onClick={toggleMobileMenu}
-                  >
-                    {item.title}
-                  </a>
-                )}
-              </div>
-            ))}
-          </nav>
-
-          {/* Mobile CTA */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <a
-              href="https://wa.me/917998596948"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full"
+        {/* Mobile Panel */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ x: "100%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: "100%", opacity: 0 }}
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+              className="fixed top-20 left-0 w-full h-[calc(100vh-5rem)] bg-white text-[#001F54] border-t border-gray-200 z-50 lg:hidden overflow-y-auto shadow-lg"
             >
-              <Button className="w-full bg-[#001F54] hover:bg-[#0033A0] text-white font-semibold text-base py-6 shadow-md hover:shadow-lg transition-all duration-300">
-                Book a Demo
-              </Button>
-            </a>
-          </div>
-        </div>
-      </div>
+              <div className="px-4 sm:px-6 py-6">
+                <nav className="space-y-2">
+                  {navItems.map((item, index) => (
+                    <div key={index}>
+                      {item.hasSubmenu ? (
+                        <div>
+                          {/* Main Parent Button */}
+                          <button
+                            onClick={() => handleMobileSubmenu(index)}
+                            className="flex items-center justify-between w-full px-4 py-4 text-lg font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300"
+                          >
+                            {item.title}
+                            <ChevronDown
+                              size={20}
+                              className={`transition-transform duration-300 ${
+                                activeMobileSubmenu === index
+                                  ? "rotate-180"
+                                  : ""
+                              }`}
+                            />
+                          </button>
+
+                          {/* Submenu Animation */}
+                          <AnimatePresence>
+                            {activeMobileSubmenu === index && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.4 }}
+                                className="overflow-hidden mt-2"
+                              >
+                                <div className="space-y-4 px-2">
+                                  {item.subsections?.map(
+                                    (subsection, sIndex) => (
+                                      <div
+                                        key={sIndex}
+                                        className="bg-blue-50 rounded-lg p-4 border-l-4 border-[#001F54]"
+                                      >
+                                        <h3 className="text-base font-bold text-[#001F54] mb-3">
+                                          {subsection.title}
+                                        </h3>
+                                        <div className="space-y-2">
+                                          {subsection.items?.map(
+                                            (subItem, iIndex) => {
+                                              const Icon = subItem.icon;
+                                              return (
+                                                <a
+                                                  key={iIndex}
+                                                  href={subItem.href || "#"}
+                                                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-100 transition-all duration-300"
+                                                  onClick={toggleMobileMenu}
+                                                >
+                                                  {Icon && (
+                                                    <Icon
+                                                      size={18}
+                                                      className="text-[#0033A0] mt-1 flex-shrink-0"
+                                                    />
+                                                  )}
+                                                  <div>
+                                                    <h4 className="font-semibold text-[#001F54] text-sm">
+                                                      {subItem.title}
+                                                    </h4>
+                                                    {subItem.description && (
+                                                      <p className="text-gray-600 text-xs mt-1 leading-snug">
+                                                        {subItem.description}
+                                                      </p>
+                                                    )}
+                                                  </div>
+                                                </a>
+                                              );
+                                            }
+                                          )}
+                                        </div>
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      ) : (
+                        <a
+                          href={item.href}
+                          className="block px-4 py-4 text-lg font-semibold rounded-lg hover:bg-blue-50 transition-all duration-300"
+                          onClick={toggleMobileMenu}
+                        >
+                          {item.title}
+                        </a>
+                      )}
+                    </div>
+                  ))}
+                </nav>
+
+                {/* Mobile CTA Button */}
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                  <a
+                    href="https://wa.me/917998596948"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full"
+                  >
+                    <Button className="w-full bg-[#001F54] hover:bg-[#0033A0] text-white font-semibold text-base py-6 shadow-md hover:shadow-lg transition-all duration-300">
+                      Book a Demo
+                    </Button>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.header>
     </>
   );
 }

@@ -303,7 +303,7 @@ export default function OurWork() {
   // Embla Carousel setup
   const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start" },
-    [Autoplay({ delay: 3000, stopOnInteraction: false })]
+    [Autoplay({ delay: 3000, stopOnInteraction: false })],
   );
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -347,7 +347,7 @@ export default function OurWork() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative bg-white text-brand-blue-900 pt-16 md:pt-20 lg:pt-32 pb-12 md:pb-16 lg:pb-20 overflow-hidden">
+      <section className="relative bg-brand-blue-900 text-white pt-16 md:pt-20 lg:pt-32 pb-12 md:pb-16 lg:pb-20 overflow-hidden">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -356,21 +356,21 @@ export default function OurWork() {
             className="flex flex-col text-center items-center gap-4 lg:gap-8 max-w-[1064px] mx-auto"
           >
             {/* Label */}
-            <span className="text-xs md:text-xs lg:text-sm tracking-widest font-semibold uppercase text-brand-orange">
+            <span className="text-xs md:text-xs lg:text-sm tracking-widest font-semibold uppercase text-brand-green">
               our work
             </span>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight text-brand-blue-900">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight text-white">
               Creative that{" "}
-              <span className="font-serif text-[calc(100%+4px)] font-normal italic text-brand-orange">
+              <span className="font-serif text-[calc(100%+4px)] font-normal italic text-brand-green">
                 works
               </span>
             </h1>
 
             {/* Subtitle */}
             <div className="flex flex-col gap-4 lg:gap-8 items-center w-full">
-              <h6 className="text-xl md:text-2xl lg:text-2xl font-normal tracking-tight leading-relaxed lg:max-w-[600px] max-w-xl text-brand-blue-800">
+              <h6 className="text-xl md:text-2xl lg:text-2xl font-normal tracking-tight leading-relaxed lg:max-w-[600px] max-w-xl text-white/90">
                 We help the world's leading brands create standout ads and
                 campaigns at speed—from concept to execution to results.
               </h6>
@@ -378,6 +378,27 @@ export default function OurWork() {
           </motion.div>
         </div>
       </section>
+</text>
+
+<old_text line=421>
+      {/* Client Results Statistics Section */}
+      <section className="py-16 md:py-20 lg:py-28 bg-white border-b">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          {/* Optional Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              <span className="font-serif italic text-brand-green">
+                Real Results
+              </span>{" "}
+              for Real Brands
+            </h2>
+          </motion.div>
 
       {/* Category Filter */}
       {/* <section className="py-8 bg-brand-beige-100 sticky top-20 z-40 border-b border-brand-gray-300 shadow-brand">
@@ -407,7 +428,7 @@ export default function OurWork() {
       </section> */}
 
       {/* Client Results Statistics Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-white">
+      <section className="py-16 md:py-20 lg:py-28 bg-white border-b">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Optional Section Header */}
           <motion.div
@@ -444,6 +465,18 @@ export default function OurWork() {
                   <a
                     href="/case-studies/pointcard"
                     className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                  >
+</text>
+
+<old_text line=474>
+                {/* Description */}
+                <div className="flex flex-col gap-3 max-w-[500px]">
+                  <p className="text-base lg:text-lg text-muted-foreground">
+                    Reduction in cost per asset for Amazon
+                  </p>
+                  <a
+                    href="/case-studies/amazon"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-brand-green transition-colors"
                   >
                     <span className="relative">
                       PointCard case study
@@ -509,6 +542,26 @@ export default function OurWork() {
                     href="/case-studies/thomson-reuters"
                     className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
                   >
+</text>
+
+<old_text line=521>
+      {/* Portfolio Work Grid */}
+      <section className="py-16 md:py-20 lg:py-28 bg-gray-50">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
+              <span className="font-serif italic text-brand-green">
+                Featured
+              </span>{" "}
+              Work
+            </h2>
+          </motion.div>
                     <span className="relative">
                       Thomson Reuters case study
                       <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
@@ -527,7 +580,7 @@ export default function OurWork() {
       </section>
 
       {/* Portfolio Work Grid */}
-      <section className="py-16 md:py-20 lg:py-28 bg-gray-50">
+      <section className="py-16 md:py-20 lg:py-28 bg-white">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -536,7 +589,7 @@ export default function OurWork() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 lg:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               <span className="font-serif italic text-brand-green">
                 Featured
               </span>{" "}
@@ -590,7 +643,7 @@ export default function OurWork() {
       </section>
 
       {/* Accelerate Business Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-white">
+      <section className="py-16 md:py-20 lg:py-28 bg-brand-blue-900">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Column - Content */}
@@ -601,18 +654,16 @@ export default function OurWork() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-blue-900">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
                 <span className="font-serif italic text-brand-green">
                   Accelerate
                 </span>{" "}
                 your business with us
               </h2>
-
-              <p className="text-xl md:text-2xl text-brand-blue-800 font-medium">
+              <p className="text-xl md:text-2xl text-white/90 font-medium">
                 Learn more about our range of our services.
               </p>
-
-              <p className="text-base md:text-lg text-brand-blue-700 leading-relaxed">
+              <p className="text-base md:text-lg text-white/80 leading-relaxed">
                 Whether you need transformational{" "}
                 <span className="font-serif italic text-brand-green">
                   brand
@@ -629,17 +680,12 @@ export default function OurWork() {
                 <span className="font-serif italic text-brand-green">
                   experiences
                 </span>{" "}
-                or more valuable relationships with your customers — we are
+                or more valuable relationships with your customers - we are
                 ready to take your brief.
               </p>
-
               <div className="pt-4">
                 <a href="/services">
-                  <Button
-                    variant="cta"
-                    size="lg"
-                    className="text-base md:text-lg px-6 md:px-8 w-full sm:w-auto bg-brand-blue-900 hover:bg-brand-blue-800 text-white"
-                  >
+                  <Button variant="cta" size="lg" className="text-lg px-8">
                     See All Services
                   </Button>
                 </a>
@@ -678,18 +724,18 @@ export default function OurWork() {
                 <button
                   onClick={scrollPrev}
                   disabled={!canScrollPrev}
-                  className="pointer-events-auto w-12 h-12 rounded-full bg-brand-blue-900 text-white shadow-lg flex items-center justify-center hover:bg-brand-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Previous slide"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ChevronLeft className="w-6 h-6 text-brand-blue-900" />
                 </button>
                 <button
                   onClick={scrollNext}
                   disabled={!canScrollNext}
-                  className="pointer-events-auto w-12 h-12 rounded-full bg-brand-blue-900 text-white shadow-lg flex items-center justify-center hover:bg-brand-blue-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="pointer-events-auto w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm shadow-lg flex items-center justify-center hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="Next slide"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ChevronRight className="w-6 h-6 text-brand-blue-900" />
                 </button>
               </div>
             </motion.div>
@@ -717,7 +763,7 @@ export default function OurWork() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group bg-white border border-brand-gray-300 rounded-2xl overflow-hidden hover:border-brand-orange/50 transition-all duration-300 hover:shadow-brand-xl hover:scale-[1.02]"
                 >
-                  
+
                   <div className="relative h-64 overflow-hidden bg-brand-gray-200">
                     <img
                       src={project.image}
@@ -726,7 +772,7 @@ export default function OurWork() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-blue-900 via-brand-blue-900/50 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300" />
 
-                    
+
                     {project.isVideo && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="w-16 h-16 bg-brand-orange rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-brand-lg">
@@ -737,6 +783,7 @@ export default function OurWork() {
                         </div>
                       </div>
                     )}
+
 
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-brand-blue-900/70">
                       <div className="flex gap-3">
@@ -750,7 +797,7 @@ export default function OurWork() {
                     </div>
                   </div>
 
-                  
+
                   <div className="p-6">
                     <div className="text-sm text-brand-orange font-semibold mb-2 uppercase tracking-wide">
                       {project.client}
@@ -762,7 +809,7 @@ export default function OurWork() {
                       {project.description}
                     </p>
 
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.tags.map((tag, index) => (
                         <span
@@ -774,7 +821,7 @@ export default function OurWork() {
                       ))}
                     </div>
 
-                   
+
                     <div className="pt-4 border-t border-brand-gray-300">
                       <div className="text-xs text-brand-gray-600 mb-1 uppercase tracking-wide">
                         Results
@@ -789,7 +836,6 @@ export default function OurWork() {
             </motion.div>
           </AnimatePresence>
 
-         
           {filteredProjects.length === 0 && (
             <div className="text-center py-20">
               <p className="text-brand-gray-600 text-lg">
@@ -797,6 +843,7 @@ export default function OurWork() {
               </p>
             </div>
           )}
+
 
           {filteredProjects.length > 6 && (
             <motion.div
@@ -818,7 +865,7 @@ export default function OurWork() {
       </section> */}
 
       {/* Stats Section */}
-      {/* <section className="py-16 md:py-20 lg:py-24 bg-brand-blue-900">
+      <section className="py-16 md:py-20 lg:py-24 bg-brand-blue-900">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 lg:gap-12">
             {[
@@ -845,7 +892,7 @@ export default function OurWork() {
             ))}
           </div>
         </div>
-      </section> */}
+      </section>
 
       {/* Testimonial Section */}
       <section className="py-20 md:py-24 lg:py-28 bg-white">
@@ -866,14 +913,14 @@ export default function OurWork() {
               <div className="font-semibold text-brand-blue-900 mb-1 text-lg">
                 Sarah Johnson
               </div>
-              <div className="text-sm">CEO, TechCorp International</div>
+              <div className="text-sm md:text-base">CEO, TechCorp International</div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      {/* <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white">
+      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -897,11 +944,7 @@ export default function OurWork() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button
-                    variant="cta"
-                    size="lg"
-                    className="text-base md:text-lg px-6 md:px-8 w-full sm:w-auto"
-                  >
+                  <Button variant="cta" size="lg" className="text-base md:text-lg px-6 md:px-8 w-full sm:w-auto">
                     Start Your Project
                   </Button>
                 </a>
@@ -918,7 +961,7 @@ export default function OurWork() {
             </div>
           </motion.div>
         </div>
-      </section> */}
+      </section>
 
       <Footer />
     </>

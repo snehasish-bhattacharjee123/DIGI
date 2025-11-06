@@ -271,4 +271,14 @@
     .glow-accent-lg {
         box-shadow: 0 0 40px rgba(255, 117, 31, 0.4);
     }
+
+    /* Hide scrollbar but keep functionality */
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
 }

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef, useState, MouseEvent } from "react";
 
 interface TeamMember {
   id: string;
@@ -186,71 +185,137 @@ const teamMembers: TeamMember[] = [
   },
 ];
 
-function TeamMemberCard({
-  member,
-  index,
-}: {
-  member: TeamMember;
-  index: number;
-}) {
+function TeamMemberCard({ member }: { member: TeamMember }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, delay: index * 0.05 }}
-      className="group flex flex-col"
-    >
-      <div className="relative overflow-hidden rounded-2xl aspect-[3/4] mb-4">
+    <div className="group flex flex-col flex-shrink-0 w-[180px] xs:w-[200px] sm:w-[220px] md:w-[240px] lg:w-[260px] xl:w-[280px]">
+      <div className="relative overflow-hidden rounded-xl md:rounded-2xl aspect-[3/4] mb-3 md:mb-4">
         <img
           src={member.image}
           alt={member.name}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
+          srcSet={`${member.image} 1x`}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       </div>
-      <div className="space-y-1">
-        <h3 className="text-lg md:text-xl font-semibold text-bor-foreground group-hover:text-primary transition-colors duration-300">
+      <div className="space-y-0.5 md:space-y-1 px-1">
+        <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-bor-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
           {member.name}
         </h3>
-        <p className="text-sm md:text-base text-bor-foreground/60 uppercase tracking-wide">
+        <p className="text-xs sm:text-xs md:text-sm text-bor-foreground/60 uppercase tracking-wide leading-tight">
           {member.position}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
-export function TeamSection() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+interface TeamScrollerProps {
+  members: TeamMember[];
+}
 
-  const checkScrollButtons = () => {
-    if (!scrollContainerRef.current) return;
-    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+const TeamScroller: React.FC<TeamScrollerProps> = ({ members }) => {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+    const content = contentRef.current;
+    if (!scroller || !content) return;
+
+    setIsDown(true);
+    content.classList.add("animate-pause");
+    setStartX(e.pageX - scroller.offsetLeft);
+    setScrollLeft(scroller.scrollLeft);
   };
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
-    const scrollAmount = scrollContainerRef.current.clientWidth * 0.8;
-    const newScrollLeft =
-      scrollContainerRef.current.scrollLeft +
-      (direction === "right" ? scrollAmount : -scrollAmount);
+  const handleMouseUpOrLeave = () => {
+    const content = contentRef.current;
+    if (!content) return;
 
-    scrollContainerRef.current.scrollTo({
-      left: newScrollLeft,
-      behavior: "smooth",
-    });
+    setIsDown(false);
+    content.classList.remove("animate-pause");
+  };
 
-    setTimeout(checkScrollButtons, 100);
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (!isDown || !scrollerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollerRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const scroller = scrollerRef.current;
+    const content = contentRef.current;
+    if (!scroller || !content) return;
+
+    setIsDown(true);
+    content.classList.add("animate-pause");
+    setStartX(e.touches[0].pageX - scroller.offsetLeft);
+    setScrollLeft(scroller.scrollLeft);
+  };
+
+  const handleTouchEnd = () => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    setIsDown(false);
+    content.classList.remove("animate-pause");
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (!isDown || !scrollerRef.current) return;
+    const x = e.touches[0].pageX - scrollerRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollerRef.current.scrollLeft = scrollLeft - walk;
   };
 
   return (
-    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32">
+    <div className="relative overflow-hidden select-none">
+      {/* Left fade - responsive widths */}
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-r from-bor-background via-bor-background/90 to-transparent z-10" />
+      {/* Right fade - responsive widths */}
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-l from-bor-background via-bor-background/90 to-transparent z-10" />
+
+      <div
+        ref={scrollerRef}
+        className={`relative overflow-hidden ${
+          isDown ? "cursor-grabbing" : "cursor-grab"
+        }`}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUpOrLeave}
+        onMouseLeave={handleMouseUpOrLeave}
+        onMouseMove={handleMouseMove}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchMove={handleTouchMove}
+      >
+        <div
+          ref={contentRef}
+          className="flex w-max hover:animate-pause animate-scroll-team"
+        >
+          {/* Triple the members for seamless infinite loop */}
+          {[...members, ...members, ...members].map((member, index) => (
+            <div
+              key={`${member.id}-${index}`}
+              className="mx-2 sm:mx-3 md:mx-4 lg:mx-5 xl:mx-6 py-4"
+            >
+              <TeamMemberCard member={member} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export function TeamSection() {
+  return (
+    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
         <motion.div
@@ -258,99 +323,89 @@ export function TeamSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12 md:mb-16 lg:mb-20"
+          className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20"
         >
-          <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
+          <span className="text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-2 md:mb-3 block">
             EXECUTIVE COMMITTEE
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
             Our Core{" "}
-            <span className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal">
+            <span className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal">
               <em>Strength</em>
             </span>
           </h2>
         </motion.div>
 
-        {/* Desktop: Horizontal Scrollable Grid */}
-        <div className="hidden md:block relative">
-          {/* Navigation Buttons */}
-          <button
-            onClick={() => scroll("left")}
-            disabled={!canScrollLeft}
-            className={`absolute left-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-300 ${
-              canScrollLeft
-                ? "opacity-100 hover:bg-primary hover:border-primary"
-                : "opacity-0 pointer-events-none"
-            }`}
-            aria-label="Previous members"
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={() => scroll("right")}
-            disabled={!canScrollRight}
-            className={`absolute right-0 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center transition-all duration-300 ${
-              canScrollRight
-                ? "opacity-100 hover:bg-primary hover:border-primary"
-                : "opacity-0 pointer-events-none"
-            }`}
-            aria-label="Next members"
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
-
-          {/* Scrollable Container */}
-          <div
-            ref={scrollContainerRef}
-            onScroll={checkScrollButtons}
-            className="overflow-x-auto scrollbar-hide -mx-4 px-4"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            <div className="flex gap-6 lg:gap-8 pb-4">
-              {teamMembers.map((member, index) => (
-                <div key={member.id} className="flex-shrink-0 w-72 lg:w-80">
-                  <TeamMemberCard member={member} index={index} />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="flex justify-center gap-1.5 mt-8">
-            {Array.from({ length: Math.ceil(teamMembers.length / 4) }).map(
-              (_, index) => (
-                <div
-                  key={index}
-                  className="h-1 w-8 rounded-full bg-bor-foreground/20"
-                ></div>
-              ),
-            )}
-          </div>
+        {/* Single Continuous Scrolling Row */}
+        <div className="mb-8 md:mb-12">
+          <TeamScroller members={teamMembers} />
         </div>
 
-        {/* Mobile: Grid Layout */}
-        <div className="md:hidden grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {teamMembers.map((member, index) => (
-            <TeamMemberCard key={member.id} member={member} index={index} />
-          ))}
-        </div>
+        {/* Helper text */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-center mt-8 md:mt-12"
+        >
+          <p className="text-xs sm:text-sm md:text-base text-bor-foreground/60">
+            <span className="hidden sm:inline">
+              Drag to explore • Hover to pause
+            </span>
+            <span className="sm:hidden">Swipe to explore</span>
+          </p>
+        </motion.div>
       </div>
 
       {/* Background decoration */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden -z-10">
-        <div className="absolute top-1/4 -left-64 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 -right-64 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 -left-32 sm:-left-48 md:-left-64 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 -right-32 sm:-right-48 md:-right-64 w-64 sm:w-80 md:w-96 h-64 sm:h-80 md:h-96 bg-primary/5 rounded-full blur-3xl"></div>
       </div>
 
       <style
         dangerouslySetInnerHTML={{
           __html: `
+          @keyframes scroll-team {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(-33.333%);
+            }
+          }
+
+          .animate-scroll-team {
+            animation: scroll-team 120s linear infinite;
+          }
+
+          .animate-pause {
+            animation-play-state: paused !important;
+          }
+
           .scrollbar-hide::-webkit-scrollbar {
             display: none;
+          }
+
+          /* Improve image rendering on mobile */
+          @media (max-width: 640px) {
+            .animate-scroll-team {
+              animation: scroll-team 90s linear infinite;
+            }
+          }
+
+          /* Better touch interaction */
+          @media (hover: none) and (pointer: coarse) {
+            .group:active .group-hover\\:scale-110 {
+              transform: scale(1.05);
+            }
+            .group:active .group-hover\\:opacity-100 {
+              opacity: 1;
+            }
+            .group:active .group-hover\\:text-primary {
+              color: var(--primary);
+            }
           }
         `,
         }}
