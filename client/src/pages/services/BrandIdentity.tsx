@@ -2,7 +2,14 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
+import { motion, AnimatePresence } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import { useCallback, useEffect, useState } from "react";
+
 import {
+  ArrowUpRight,
+  Play,
   Palette,
   BookOpen,
   FileText,
@@ -12,6 +19,149 @@ import {
   Layers,
   CheckCircle2,
 } from "lucide-react";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { ScrollSectionsProps } from "@/components/ScrollSections";
+import {ClientLogos } from "@/components/ClientLogos";
+import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
+import { MadeToFlexSection } from "@/components/MadeToFlexSection";
+import { StatsSection } from "@/components/StatsSection";
+import { CreativePowerSection } from "@/components/CreativePowerSection";
+import { FaqSection } from "@/components/FaqSection";
+import { GlobalTeamSection } from "@/components/GlobalTeamSection";
+
+
+
+const workItems = [
+    {
+      title: "Reddit",
+      description: "Motion Design, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/471b659c9c1a439b648b36efe6440a40bb18b5a8-770x793.png?q=100&auto=format",
+      href: "/our-work/reddit",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Pernod Ricard",
+      description: "eBook & Digital Reports, Video Production",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/16206485112a4d21f06779ee540680dd6367e7f8-544x601.png?q=100&auto=format",
+      href: "/our-work/pernod-ricard--video-production",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Forter",
+      description: "Motion Design, Illustration Design, Video Production",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/118d5b9c92a54d1490595dade8e339ed0ee44263-1596x792.png?q=100&auto=format",
+      href: "/customer-stories/forter",
+      colSpan: "md:col-span-4 lg:col-span-6",
+    },
+    {
+      title: "Amazon Pharmacy",
+      description: "Ad Creative, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/89e4fbafccedc64d13ad5d384a2c324f667261f3-1920x1921.png?q=100&auto=format",
+      href: "/our-work/amazon-pharmacy",
+      colSpan: "md:col-span-4 lg:col-span-6",
+    },
+    {
+      title: "Bolt",
+      description: "Motion Design, Illustration Design",
+      image:
+        "https://cdn.sanity.io/files/k0dlbavy/production/9ef48fc5551e1e172ceca6555ce758868360a4e4.mp4",
+      href: "/our-work/bolt",
+      colSpan: "md:col-span-2 lg:col-span-3",
+      isVideo: true,
+    },
+    {
+      title: "Thomson Reuters",
+      description: "Video Production",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/fb332bb04ad7f0c9baed6e504743a419f35881fc-1920x1920.png?q=100&auto=format",
+      href: "/customer-stories/thomson-reuters",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "GoHenry",
+      description: "Concept Creation, Ad Creative, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/182033b54a1c1533e578cae98b9d8afe0b37f0f9-770x793.png?q=100&auto=format",
+      href: "/our-work/go-henry",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Roland",
+      description: "Ad Creative, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/395487e55ab305cfa434951ab846288dc6a6253e-1920x1921.png?q=100&auto=format",
+      href: "/our-work/roland",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Oyster",
+      description: "Illustration Design, eBook & Digital Reports",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/fa22d279fc4548d1273e1ce4d5f122934fbf43c2-1197x595.png?q=100&auto=format",
+      href: "/our-work/oyster",
+      colSpan: "md:col-span-4 lg:col-span-6",
+    },
+    {
+      title: "Marqeta",
+      description: "Video Production, Motion Design",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/ff6978d90fada0339a7ba4a6b6ae8b17ecb1f298-1197x594.png?q=100&auto=format",
+      href: "/our-work/marqeta",
+      colSpan: "md:col-span-4 lg:col-span-6",
+    },
+    {
+      title: "Picsart",
+      description: "Ad Creative, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/9af01379a600431bb39dfe16414223195a1528a8-578x594.png?q=100&auto=format",
+      href: "/our-work/picsart",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Otto",
+      description: "Illustration Design, Motion Design",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/70eb3d604fd991bd01801f3cd14b52aca6db9b50-578x594.png?q=100&auto=format",
+      href: "/our-work/otto-illustration",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Imperfect Foods",
+      description: "Ad Creative, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/a49bc047ec9c1345e4804e9a93249e37e5bb23c0-1197x594.png?q=100&auto=format",
+      href: "/our-work/imperfect-foods",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Outbrain",
+      description: "Ad Creative, Motion Design",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/4a298145427dfa38ef5e8e12063b7be792dcbc78-1197x594.png?q=100&auto=format",
+      href: "/our-work/outbrain",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+    {
+      title: "Antler",
+      description: "Brand Identity, Motion Design, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/29923e6d3adbfb3a3c255b86aa07051ce34e4329-1596x793.png?q=100&auto=format",
+      href: "/our-work/antler",
+      colSpan: "md:col-span-4 lg:col-span-6",
+    },
+    {
+      title: "Suzanne Kalan",
+      description: "Video Production, Social Media Creative",
+      image:
+        "https://cdn.sanity.io/images/k0dlbavy/production/949b744cbd41c850b62a42470b41efd75b7d1c70-1197x594.png?q=100&auto=format",
+      href: "/our-work/suzanne-kalan",
+      colSpan: "md:col-span-2 lg:col-span-3",
+    },
+  ];
 
 export default function BrandIdentity() {
   const services = [
@@ -123,8 +273,32 @@ export default function BrandIdentity() {
       </Helmet>
       <Navigation />
 
+      <ErrorBoundary>
+                <FreshAdsFuelSection/>
+              </ErrorBoundary>
+
+       <ErrorBoundary>
+                <MadeToFlexSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <StatsSection/>
+              </ErrorBoundary>    
+
+              <ErrorBoundary>
+                <CreativePowerSection/>
+              </ErrorBoundary>   
+
+              <ErrorBoundary>
+                <FaqSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <GlobalTeamSection/>
+              </ErrorBoundary>
+
       {/* Hero Section */}
-      <section className="relative bg-black text-white pt-32 pb-20 overflow-hidden">
+      {/* <section className="relative bg-black text-white pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(139,92,246,0.15),transparent_50%)]" />
 
@@ -162,170 +336,75 @@ export default function BrandIdentity() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Services Section */}
-      <section className="py-20 bg-gray-950">
+      
+
+
+{/* Port Folio Grid Section  */}
+
+<section className="py-16 md:py-20 lg:py-28 bg-gray-50">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Complete Brand Identity Solutions
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
+              <span className="font-serif italic text-brand-green">
+                Featured
+              </span>{" "}
+              Work
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Everything you need to build a powerful, cohesive brand identity
-            </p>
-          </div>
+          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-black/50 border border-gray-800 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:transform hover:scale-105"
+          <div className="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-y-12">
+            {workItems.map((item, index) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: index * 0.05 }}
+                className={`col-span-full row-span-1 ${item.colSpan} group`}
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                  <service.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-20 bg-black">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Our Brand Development Process
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              A proven methodology that delivers exceptional brand identities
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {process.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="text-5xl font-bold text-primary/30 mb-4">{item.step}</div>
-                <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-20 bg-gray-950">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-                Why Brand Identity Matters
-              </h2>
-              <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                A strong brand identity is the foundation of business success. It's how customers
-                recognize, remember, and connect with your business in a meaningful way.
-              </p>
-              <div className="space-y-3">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="text-gray-300">{benefit}</span>
+                <a href={item.href} className="flex flex-col lg:gap-6 gap-3">
+                  <div className="overflow-hidden rounded-[10px]">
+                    <div className="relative h-[180px] lg:h-[396px] overflow-hidden">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                      />
+                      {item.isVideo && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                          <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
+                            <Play className="w-6 h-6 text-brand-blue-900 ml-1" />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-primary/10 to-purple-600/10 border border-primary/30 rounded-3xl p-12">
-              <div className="space-y-8">
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">75%</div>
-                  <div className="text-gray-300">of consumers judge credibility by design</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">3-5x</div>
-                  <div className="text-gray-300">ROI from consistent branding</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">80%</div>
-                  <div className="text-gray-300">increased brand recognition</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 bg-black">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Featured Brand Identities
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Real results from real brands we've helped transform
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-black border border-gray-800 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="text-sm text-primary font-semibold mb-2">{item.industry}</div>
-                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                  <div className="pt-4 border-t border-gray-800">
-                    <div className="text-sm text-gray-500 mb-1">Impact</div>
-                    <div className="text-primary font-semibold">{item.result}</div>
+                  <div className="flex max-w-full flex-col gap-1 lg:gap-2 select-none justify-start items-start">
+                    <div className="flex max-w-full flex-row gap-3 items-center">
+                      <h5 className="box-border tracking-[0.1px] text-2xl md:text-3xl lg:text-4xl font-serif italic text-brand-blue-900">
+                        {item.title}
+                      </h5>
+                      <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-brand-blue-900" />
+                    </div>
+                    <p className="text-sm md:text-sm lg:text-base truncate w-full text-brand-blue-900/70">
+                      {item.description}
+                    </p>
                   </div>
-                </div>
-              </div>
+                </a>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-950">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="bg-gradient-to-r from-primary/20 via-purple-600/20 to-primary/20 border border-primary/30 rounded-3xl p-12 md:p-16 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Build Your Brand Identity?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's create a brand identity that captures your essence and sets you apart from the competition.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://wa.me/917998596948" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-6 text-lg">
-                  Get Started Today
-                </Button>
-              </a>
-              <a href="#contact">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg">
-                  Schedule Consultation
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </>

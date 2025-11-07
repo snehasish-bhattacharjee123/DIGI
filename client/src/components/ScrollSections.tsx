@@ -20,7 +20,7 @@ export interface Slide {
   content: React.ReactNode;
 }
 
-interface ScrollSectionsProps {
+export interface ScrollSectionsProps {
   slides: Slide[];
   height?: string;
   showProgress?: boolean;
@@ -99,7 +99,6 @@ function ProgressIndicator({
   const end = (index + 1) / total;
 
   const progress = useTransform(scrollYProgress, [start, end], [0, 1]);
-
   const isActive = useTransform(
     scrollYProgress,
     [start - 0.05, start, end, end + 0.05],
@@ -133,8 +132,8 @@ function ProgressIndicator({
   );
 }
 
-export function ScrollSections({
-  slides,
+function ScrollSections({
+  slides = [],
   height = "100vh",
   showProgress = true,
   showTitles = true,
@@ -148,24 +147,23 @@ export function ScrollSections({
     offset: ["start start", "end end"],
   });
 
-  if (onSlideChange) {
+  // Attach listener only if needed
+  if (onSlideChange && slides.length > 0) {
     scrollYProgress.on("change", (progress) => {
       const activeIndex = Math.floor(progress * slides.length);
-      const clampedIndex = Math.max(
-        0,
-        Math.min(slides.length - 1, activeIndex),
-      );
+      const clampedIndex = Math.max(0, Math.min(slides.length - 1, activeIndex));
       onSlideChange(clampedIndex);
     });
   }
 
   return (
     <>
+      {/* Desktop pinned scroll view */}
       <div className="hidden lg:block">
         <div
           ref={containerRef}
           className={`relative ${className}`}
-          style={{ height: `${slides.length * parseFloat(height)}vh` }}
+          style={{ height: `${(slides.length || 0) * parseFloat(height)}vh` }}
         >
           <div className="sticky top-0 h-screen w-full overflow-hidden">
             <div className="relative h-full w-full">
@@ -180,7 +178,7 @@ export function ScrollSections({
                 />
               ))}
 
-              {showProgress && (
+              {showProgress && slides.length > 0 && (
                 <div
                   className={`absolute z-20 flex ${
                     progressPosition === "bottom"
@@ -204,6 +202,7 @@ export function ScrollSections({
         </div>
       </div>
 
+      {/* Mobile stacked scroll view */}
       <div className="lg:hidden">
         {slides.map((slide, index) => (
           <motion.div
@@ -239,4 +238,5 @@ export function ScrollSections({
 }
 
 export default ScrollSections;
-export type { ScrollSectionsProps };
+export { ScrollSections };
+// export type { ScrollSectionsProps };

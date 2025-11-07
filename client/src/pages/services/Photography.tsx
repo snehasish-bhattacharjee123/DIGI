@@ -16,7 +16,19 @@ import {
   Aperture,
   Lightbulb,
   Eye,
+  ArrowUpRight
 } from "lucide-react";
+import ScrollSections, { ScrollSectionsProps } from "@/components/ScrollSections";
+import { clientLogos } from "@/data/portfolio-assets";
+import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
+import { TechEnabledSection } from "@/components/TechEnabledSection";
+import { VersatileDesignsSection } from "@/components/VersatileDesignsSection";
+import { HowWeWorkSection } from "@/components/HowWeWorkSection";
+import { CreativePowerSection } from "@/components/CreativePowerSection";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { GlobalTeamSection } from "@/components/GlobalTeamSection";
+import { StatsSection } from "@/components/StatsSection";
+import { FaqSection } from "@/components/FaqSection";
 
 export default function Photography() {
   const services = [
@@ -192,218 +204,146 @@ export default function Photography() {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue-900 mb-4">
-                Our Photography Services
-              </h2>
-              <p className="text-lg text-brand-gray-600 max-w-2xl mx-auto">
-                Professional photography solutions tailored to your business needs and brand vision.
-              </p>
-            </motion.div>
+        
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
-                const Icon = service.icon;
-                return (
+       {/* <clientLogos/> */}
+       <FreshAdsFuelSection/>
+
+
+        {/* Client Results Statistics Section */}
+              <section className="py-16 md:py-20 lg:py-28 bg-white">
+                <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+                  {/* Optional Section Header */}
                   <motion.div
-                    key={index}
-                    initial="hidden"
-                    whileInView="visible"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    variants={fadeInUp}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="group p-8 rounded-xl bg-brand-beige-100 hover:bg-white border-2 border-transparent hover:border-brand-orange-500 transition-all duration-300 hover:shadow-lg"
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-12 lg:mb-16"
                   >
-                    <div className="w-14 h-14 rounded-lg bg-brand-blue-900 flex items-center justify-center mb-6 group-hover:bg-brand-orange-500 transition-colors duration-300">
-                      <Icon className="w-7 h-7 text-white" />
-                    </div>
-                    <h3 className="text-xl font-bold text-brand-blue-900 mb-3">{service.title}</h3>
-                    <p className="text-brand-gray-600 leading-relaxed">{service.description}</p>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
+                      <span className="font-serif italic text-brand-green">
+                        Real Results
+                      </span>{" "}
+                      for Real Brands
+                    </h2>
                   </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* Process Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-brand-beige-100">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue-900 mb-4">
-                Our Photography Process
-              </h2>
-              <p className="text-lg text-brand-gray-600 max-w-2xl mx-auto">
-                A seamless workflow from concept to delivery that ensures exceptional results every time.
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {process.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeInUp}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="relative p-8 rounded-xl bg-white border-2 border-brand-gray-200 hover:border-brand-orange-500 transition-all duration-300 hover:shadow-lg"
-                >
-                  <div className="text-6xl font-bold text-brand-orange-500/20 mb-4">{item.step}</div>
-                  <h3 className="text-xl font-bold text-brand-blue-900 mb-3">{item.title}</h3>
-                  <p className="text-brand-gray-600 leading-relaxed">{item.description}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-brand-blue-900 to-brand-blue-800 text-white">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-                transition={{ duration: 0.6 }}
-              >
-                <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                  Why Invest in Professional Photography?
-                </h2>
-                <p className="text-lg text-brand-beige-100/90 mb-8 leading-relaxed">
-                  In a visual world, professional photography is essential for building credibility,
-                  engaging audiences, and standing out from the competition.
-                </p>
-                <Button
-                  size="lg"
-                  className="bg-brand-orange-500 hover:bg-brand-orange-600 text-white px-8 font-semibold rounded-lg transition-all duration-300"
-                >
-                  Get a Quote
-                </Button>
-              </motion.div>
-
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="space-y-4"
-              >
-                {benefits.map((benefit, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20"
-                  >
-                    <CheckCircle2 className="w-6 h-6 text-brand-green-300 flex-shrink-0 mt-0.5" />
-                    <span className="text-brand-beige-100">{benefit}</span>
+        
+                  {/* Statistics Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+                    {/* Stat 1 - PointCard */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.1 }}
+                      className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+                    >
+                      <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                        {/* Description */}
+                        <div className="flex flex-col gap-3 max-w-[500px]">
+                          <p className="text-base lg:text-lg text-brand-blue-900/70">
+                            Increase in CTR for PointCard
+                          </p>
+                          <a
+                            href="/case-studies/pointcard"
+                            className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                          >
+                            <span className="relative">
+                              PointCard case study
+                              <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
+                        </div>
+                        {/* Number */}
+                        <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                          240%
+                        </p>
+                      </div>
+                    </motion.div>
+        
+                    {/* Stat 2 - Amazon */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+                    >
+                      <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                        {/* Description */}
+                        <div className="flex flex-col gap-3 max-w-[500px]">
+                          <p className="text-base lg:text-lg text-brand-blue-900/70">
+                            Reduction in cost per asset for Amazon
+                          </p>
+                          <a
+                            href="/case-studies/amazon"
+                            className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                          >
+                            <span className="relative">
+                              Amazon case study
+                              <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
+                        </div>
+                        {/* Number */}
+                        <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                          50%
+                        </p>
+                      </div>
+                    </motion.div>
+        
+                    {/* Stat 3 - Thomson Reuters */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.3 }}
+                      className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+                    >
+                      <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                        {/* Description */}
+                        <div className="flex flex-col gap-3 max-w-[500px]">
+                          <p className="text-base lg:text-lg text-brand-blue-900/70">
+                            Design time saved for Thomson Reuters
+                          </p>
+                          <a
+                            href="/case-studies/thomson-reuters"
+                            className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                          >
+                            <span className="relative">
+                              Thomson Reuters case study
+                              <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                            </span>
+                            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
+                        </div>
+                        {/* Number */}
+                        <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                          ~90%
+                        </p>
+                      </div>
+                    </motion.div>
                   </div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </section>
+                </div>
+              </section>
 
-        {/* Portfolio Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold text-brand-blue-900 mb-4">
-                Featured Photography Projects
-              </h2>
-              <p className="text-lg text-brand-gray-600 max-w-2xl mx-auto">
-                Real results from photography projects that helped brands tell their stories visually.
-              </p>
-            </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              {portfolioItems.map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeInUp}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group p-8 rounded-xl bg-brand-beige-100 hover:bg-white border-2 border-transparent hover:border-brand-orange-500 transition-all duration-300 hover:shadow-lg"
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-brand-blue-900 text-white text-sm font-medium">
-                      {item.category}
-                    </span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-brand-blue-900 mb-3">{item.title}</h3>
-                  <p className="text-brand-gray-600 mb-4 leading-relaxed">{item.description}</p>
-                  <div className="flex items-center gap-2 text-brand-orange-500 font-semibold">
-                    <TrendingUp className="w-5 h-5" />
-                    <span>{item.metrics}</span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <VersatileDesignsSection/>
 
-        {/* CTA Section */}
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-brand-orange-500 to-brand-orange-600 text-white">
-          <div className="max-w-4xl mx-auto text-center">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                Ready to Elevate Your Visual Content?
-              </h2>
-              <p className="text-xl text-white/90 mb-8 leading-relaxed">
-                Let's create stunning photography that showcases your brand and drives real business results.
-              </p>
-              <div className="flex flex-wrap gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="bg-brand-blue-900 hover:bg-brand-blue-800 text-white px-8 py-6 text-lg font-semibold rounded-lg transition-all duration-300"
-                >
-                  Schedule a Consultation
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-brand-orange-500 px-8 py-6 text-lg font-semibold rounded-lg transition-all duration-300"
-                >
-                  View Pricing
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <GlobalTeamSection/>
+
+        <StatsSection/>
+
+        <FaqSection/>
+
+
+
+        
+
+       
 
         <Footer />
       </div>

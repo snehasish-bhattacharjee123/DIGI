@@ -2,6 +2,17 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Helmet } from "react-helmet-async";
+import { motion, AnimatePresence } from "framer-motion";
+import ScrollSections, { ScrollSectionsProps } from "@/components/ScrollSections";
+import { clientLogos } from "@/data/portfolio-assets";
+import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
+import { TechEnabledSection } from "@/components/TechEnabledSection";
+import { VersatileDesignsSection } from "@/components/VersatileDesignsSection";
+import { HowWeWorkSection } from "@/components/HowWeWorkSection";
+import { CreativePowerSection } from "@/components/CreativePowerSection";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+
+
 import {
   Image,
   Layout,
@@ -9,9 +20,11 @@ import {
   Presentation,
   Newspaper,
   Package2,
+  ArrowUpRight,
   CheckCircle2,
   Sparkles,
 } from "lucide-react";
+import ClientLogos from "@/components/ClientLogos";
 
 export default function GraphicDesign() {
   const services = [
@@ -118,208 +131,174 @@ export default function GraphicDesign() {
       </Helmet>
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative bg-black text-white pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(139,92,246,0.15),transparent_50%)]" />
+      
 
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-block bg-primary/10 border border-primary/30 rounded-full px-6 py-2 mb-6">
-                <span className="text-primary font-semibold">Graphic Design</span>
+      {/* Hero Section */}
+      <section className="py-16 md:py-20 lg:py-28 bg-white">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          {/* Optional Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
+              <span className="font-serif italic text-brand-green">
+                Real Results
+              </span>{" "}
+              for Real Brands
+            </h2>
+          </motion.div>
+
+          {/* Statistics Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            {/* Stat 1 - PointCard */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+            >
+              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                {/* Description */}
+                <div className="flex flex-col gap-3 max-w-[500px]">
+                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                    Increase in CTR for PointCard
+                  </p>
+                  <a
+                    href="/case-studies/pointcard"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                  >
+                    <span className="relative">
+                      PointCard case study
+                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+                {/* Number */}
+                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                  240%
+                </p>
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 leading-tight">
-                Visual Content That <span className="text-primary">Captivates</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-gray-300 mb-8 leading-relaxed">
-                From social media graphics to marketing materials, we create stunning visual content
-                that captures attention, communicates your message, and drives results across all platforms.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="https://wa.me/917998596948" target="_blank" rel="noopener noreferrer">
-                  <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-6 text-lg">
-                    Start Your Design Project
-                  </Button>
-                </a>
-                <a href="#portfolio">
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg">
-                    View Our Work
-                  </Button>
-                </a>
+            </motion.div>
+
+            {/* Stat 2 - Amazon */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+            >
+              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                {/* Description */}
+                <div className="flex flex-col gap-3 max-w-[500px]">
+                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                    Reduction in cost per asset for Amazon
+                  </p>
+                  <a
+                    href="/case-studies/amazon"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                  >
+                    <span className="relative">
+                      Amazon case study
+                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+                {/* Number */}
+                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                  50%
+                </p>
               </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-square bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-3xl border border-primary/30 flex items-center justify-center">
-                <Sparkles className="w-32 h-32 text-primary" />
+            </motion.div>
+
+            {/* Stat 3 - Thomson Reuters */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
+            >
+              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
+                {/* Description */}
+                <div className="flex flex-col gap-3 max-w-[500px]">
+                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                    Design time saved for Thomson Reuters
+                  </p>
+                  <a
+                    href="/case-studies/thomson-reuters"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                  >
+                    <span className="relative">
+                      Thomson Reuters case study
+                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+                    </span>
+                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
+                {/* Number */}
+                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                  ~90%
+                </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
+
+      {/* <ErrorBoundary>
+                <ScrollSections/>
+              </ErrorBoundary> */}
+
+              <ErrorBoundary>
+                <ClientLogos/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <FreshAdsFuelSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <TechEnabledSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <VersatileDesignsSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <HowWeWorkSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <FreshAdsFuelSection/>
+              </ErrorBoundary>
+
+              <ErrorBoundary>
+                <CreativePowerSection/>
+              </ErrorBoundary>
 
       {/* Services Section */}
-      <section className="py-20 bg-gray-950">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Comprehensive Graphic Design Services
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Professional design solutions for every visual content need
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="bg-black/50 border border-gray-800 rounded-2xl p-8 hover:border-primary/50 transition-all duration-300 hover:transform hover:scale-105"
-              >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
-                  <service.icon className="w-7 h-7 text-primary" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Process Section */}
-      <section className="py-20 bg-black">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Our Design Process
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              A streamlined workflow that delivers exceptional designs, fast
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-            {process.map((item, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-gray-900 to-black border border-gray-800 rounded-xl p-6 hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="text-5xl font-bold text-primary/30 mb-4">{item.step}</div>
-                <h3 className="text-lg font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Benefits Section */}
-      <section className="py-20 bg-gray-950">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-                Why Choose Our Graphic Design Services
-              </h2>
-              <p className="text-xl text-gray-400 mb-8 leading-relaxed">
-                We combine creativity with strategic thinking to deliver designs that not only look
-                amazing but also achieve your business goals.
-              </p>
-              <div className="space-y-3">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="text-gray-300">{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="bg-gradient-to-br from-primary/10 to-purple-600/10 border border-primary/30 rounded-3xl p-12">
-              <div className="space-y-8">
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">1000+</div>
-                  <div className="text-gray-300">Designs Created Monthly</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">24-48hr</div>
-                  <div className="text-gray-300">Average Turnaround Time</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-5xl font-bold text-primary mb-2">98%</div>
-                  <div className="text-gray-300">Client Satisfaction Rate</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 bg-black">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
-              Featured Design Projects
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              See how our designs have helped brands communicate better
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {portfolioItems.map((item, index) => (
-              <div
-                key={index}
-                className="group bg-black border border-gray-800 rounded-2xl overflow-hidden hover:border-primary/50 transition-all duration-300"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-                </div>
-                <div className="p-6">
-                  <div className="text-sm text-primary font-semibold mb-2">{item.category}</div>
-                  <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                  <div className="pt-4 border-t border-gray-800">
-                    <div className="text-sm text-gray-500 mb-1">Result</div>
-                    <div className="text-primary font-semibold">{item.result}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-b from-black to-gray-950">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="bg-gradient-to-r from-primary/20 via-purple-600/20 to-primary/20 border border-primary/30 rounded-3xl p-12 md:p-16 text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Elevate Your Visual Content?
-            </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              Let's create stunning graphics that capture attention and drive results for your brand.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="https://wa.me/917998596948" target="_blank" rel="noopener noreferrer">
-                <Button className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-6 text-lg">
-                  Get Started Today
-                </Button>
-              </a>
-              <a href="#contact">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black px-8 py-6 text-lg">
-                  Request a Quote
-                </Button>
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
       <Footer />
     </>

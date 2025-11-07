@@ -133,7 +133,14 @@ const OurPeopleSection = lazy(() =>
   }))
 );
 
-const ScrollSections = lazy(() => import("@/components/ScrollSections"));
+// const ScrollSections = lazy(() => import("@/components/ScrollSections"));
+
+const ScrollSections = lazy(() =>
+  import("@/components/ScrollSections").then((module) => ({
+    default: module.ScrollSections ?? module.default,
+  }))
+);
+
 
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((module) => ({
@@ -410,11 +417,11 @@ export default function Home() {
           </ErrorBoundary>
 
           {/* Testimonials Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <Testimonials />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Tech Enabled Section */}
           <ErrorBoundary>
@@ -438,74 +445,75 @@ export default function Home() {
           </ErrorBoundary>
 
           {/* Team Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <TeamSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* ========================================================== */}
           {/* BELOW THE FOLD - Lazy loaded for performance */}
           {/* ========================================================== */}
 
           {/* Creative Services Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <CreativeServicesSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Our People Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <OurPeopleSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
-          {/* <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <ScrollSections slides={demoSlides} />
-            </Suspense>
-          </ErrorBoundary> */}
+          <ErrorBoundary>
+  <Suspense fallback={<SectionSkeleton height="md" />}>
+    <ScrollSections slides={demoSlides} />
+  </Suspense>
+</ErrorBoundary>
+
 
           {/* Quote Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="sm" />}>
               <QuoteSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Services Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <Services />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Creative Power Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <CreativePowerSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* CTA Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="sm" />}>
               <CTASection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* ========================================================== */}
           {/* PREVIOUSLY OUTSIDE MAIN - Now properly inside */}
           {/* ========================================================== */}
 
           {/* FAQ Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <FaqSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Services Section */}
           <ErrorBoundary>
@@ -515,18 +523,18 @@ export default function Home() {
           </ErrorBoundary>
 
           {/* How We Work Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <HowWeWorkSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
 
           {/* Global Team Section */}
-          {/* <ErrorBoundary>
+          <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <GlobalTeamSection />
             </Suspense>
-          </ErrorBoundary> */}
+          </ErrorBoundary>
         </main>
 
         {/* ========================================================== */}
