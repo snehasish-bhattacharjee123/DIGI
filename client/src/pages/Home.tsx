@@ -13,169 +13,117 @@ import { StatsSection } from "@/components/StatsSection";
 // ============================================================================
 // LAZY LOAD: Below-the-fold components (load when needed)
 // ============================================================================
-const CreativeServicesSection = lazy(() =>
-  import("@/components/MadeToFlexSection").then((module) => ({
-    default: (module as any).CreativeServicesSection ?? (module as any).default,
-  }))
-);
+// ClientLogos is exported as default export
+const ClientLogos = lazy(() => import("@/components/ClientLogos"));
 
-const SuccessStoriesSection = lazy(() =>
-  import("@/components/SuccessStoriesSection").then((module) => ({
-    default: (module as any).SuccessStoriesSection ?? (module as any).default,
-  }))
-);
-
-const OurWorkSection = lazy(() =>
-  import("@/components/OurWorkSection").then((module) => ({
-    default: (module as any).OurWorkSection ?? (module as any).default,
-  }))
-);
-
-const PortfolioGrid = lazy(() =>
-  import("@/components/PortfolioGrid").then((module) => ({
-    default: (module as any).PortfolioGrid ?? (module as any).default,
-  }))
-);
-
-const WorkShowcaseCards = lazy(() =>
-  import("@/components/WorkShowcaseCards").then((module) => ({
-    default: (module as any).WorkShowcaseCards ?? (module as any).default,
-  }))
-);
+// All other components are exported as named exports, so we use the pattern:
+// import("@/components/Component").then((m) => ({ default: m.ComponentName }))
 
 const NewEraSection = lazy(() =>
-  import("@/components/NewEraSection").then((module) => ({
-    default: (module as any).NewEraSection ?? (module as any).default,
-  }))
+  import("@/components/NewEraSection").then((m) => ({ default: m.NewEraSection }))
 );
 
 const MadeToFlexSection = lazy(() =>
-  import("@/components/MadeToFlexSection").then((module) => ({
-    default: (module as any).MadeToFlexSection ?? (module as any).default,
-  }))
-);
-
-const FreshAdsFuelSection = lazy(() =>
-  import("@/components/FreshAdsFuelSection").then((module) => ({
-    default: (module as any).FreshAdsFuelSection ?? (module as any).default,
-  }))
-);
-
-const WorkWithTheBestSection = lazy(() =>
-  import("@/components/WorkWithTheBestSection").then((module) => ({
-    default: (module as any).WorkWithTheBestSection ?? (module as any).default,
-  }))
-);
-
-const TechEnabledSection = lazy(() =>
-  import("@/components/TechEnabledSection").then((module) => ({
-    default: (module as any).TechEnabledSection ?? (module as any).default,
-  }))
-);
-
-const QuoteSection = lazy(() =>
-  import("@/components/QuoteSection").then((module) => ({
-    default: (module as any).QuoteSection ?? (module as any).default,
-  }))
-);
-
-const Services = lazy(() =>
-  import("@/components/Services").then((module) => ({
-    default: (module as any).Services ?? (module as any).default,
-  }))
-);
-
-const CreativePowerSection = lazy(() =>
-  import("@/components/CreativePowerSection").then((module) => ({
-    default: (module as any).CreativePowerSection ?? (module as any).default,
-  }))
-);
-
-const ClientLogos = lazy(() =>
-  import("@/components/ClientLogos").then((module) => ({
-    default: (module as any).ClientLogos ?? (module as any).default,
-  }))
-);
-
-const Testimonials = lazy(() =>
-  import("@/components/Testimonials").then((module) => ({
-    default: (module as any).Testimonials ?? (module as any).default,
-  }))
-);
-
-const CTASection = lazy(() =>
-  import("@/components/CTASection").then((module) => ({
-    default: (module as any).CTASection ?? (module as any).default,
-  }))
-);
-
-const FaqSection = lazy(() =>
-  import("@/components/FaqSection").then((module) => ({
-    default: (module as any).FaqSection ?? (module as any).default,
-  }))
-);
-
-const ServicesSection = lazy(() =>
-  import("@/components/ServicesSection").then((module) => ({
-    default: (module as any).ServicesSection ?? (module as any).default,
-  }))
-);
-
-const HowWeWorkSection = lazy(() =>
-  import("@/components/HowWeWorkSection").then((module) => ({
-    default: (module as any).HowWeWorkSection ?? (module as any).default,
-  }))
-);
-
-const OurPeopleSection = lazy(() =>
-  import("@/components/OurPeopleSection").then((module) => ({
-    default: (module as any).OurPeopleSection ?? (module as any).default,
-  }))
-);
-
-// const ScrollSections = lazy(() => import("@/components/ScrollSections"));
-
-const ScrollSections = lazy(() =>
-  import("@/components/ScrollSections").then((module) => ({
-    default: module.ScrollSections ?? module.default,
-  }))
-);
-
-
-const VersatileDesignsSection = lazy(() =>
-  import("@/components/VersatileDesignsSection").then((module) => ({
-    default: (module as any).VersatileDesignsSection ?? (module as any).default,
-  }))
-);
-
-const TeamSection = lazy(() =>
-  import("@/components/TeamSection").then((module) => ({
-    default: (module as any).TeamSection ?? (module as any).default,
-  }))
-);
-
-const GlobalTeamSection = lazy(() =>
-  import("@/components/GlobalTeamSection").then((module) => ({
-    default: (module as any).GlobalTeamSection ?? (module as any).default,
-  }))
-);
-
-const WorkCarouselSection = lazy(() =>
-  import("@/components/WorkCarouselSection").then((module) => ({
-    default: (module as any).WorkCarouselSection ?? (module as any).default,
-  }))
+  import("@/components/MadeToFlexSection").then((m) => ({ default: m.MadeToFlexSection }))
 );
 
 const CreativeAssetsSection = lazy(() =>
-  import("@/components/CreativeAssetsSection").then((module) => ({
-    default: (module as any).CreativeAssetsSection ?? (module as any).default,
-  }))
+  import("@/components/CreativeAssetsSection").then((m) => ({ default: m.CreativeAssetsSection }))
+);
+
+const FreshAdsFuelSection = lazy(() =>
+  import("@/components/FreshAdsFuelSection").then((m) => ({ default: m.FreshAdsFuelSection }))
+);
+
+const SuccessStoriesSection = lazy(() =>
+  import("@/components/SuccessStoriesSection").then((m) => ({ default: m.SuccessStoriesSection }))
+);
+
+const PortfolioGrid = lazy(() =>
+  import("@/components/PortfolioGrid").then((m) => ({ default: m.PortfolioGrid }))
+);
+
+const WorkShowcaseCards = lazy(() =>
+  import("@/components/WorkShowcaseCards").then((m) => ({ default: m.WorkShowcaseCards }))
+);
+
+const OurWorkSection = lazy(() =>
+  import("@/components/OurWorkSection").then((m) => ({ default: m.OurWorkSection }))
+);
+
+const WorkCarouselSection = lazy(() =>
+  import("@/components/WorkCarouselSection").then((m) => ({ default: m.WorkCarouselSection }))
+);
+
+const Testimonials = lazy(() =>
+  import("@/components/Testimonials").then((m) => ({ default: m.Testimonials }))
+);
+
+const TechEnabledSection = lazy(() =>
+  import("@/components/TechEnabledSection").then((m) => ({ default: m.TechEnabledSection }))
+);
+
+const VersatileDesignsSection = lazy(() =>
+  import("@/components/VersatileDesignsSection").then((m) => ({ default: m.VersatileDesignsSection }))
+);
+
+const WorkWithTheBestSection = lazy(() =>
+  import("@/components/WorkWithTheBestSection").then((m) => ({ default: m.WorkWithTheBestSection }))
+);
+
+const TeamSection = lazy(() =>
+  import("@/components/TeamSection").then((m) => ({ default: m.TeamSection }))
+);
+
+const CreativeServicesSection = lazy(() =>
+  import("@/components/CreativeServicesSection").then((m) => ({ default: m.CreativeServicesSection }))
+);
+
+const OurPeopleSection = lazy(() =>
+  import("@/components/OurPeopleSection").then((m) => ({ default: m.OurPeopleSection }))
+);
+
+// ScrollSections is exported as default export
+const ScrollSections = lazy(() => import("@/components/ScrollSections"));
+
+const QuoteSection = lazy(() =>
+  import("@/components/QuoteSection").then((m) => ({ default: m.QuoteSection }))
+);
+
+const Services = lazy(() =>
+  import("@/components/Services").then((m) => ({ default: m.Services }))
+);
+
+const CreativePowerSection = lazy(() =>
+  import("@/components/CreativePowerSection").then((m) => ({ default: m.CreativePowerSection }))
+);
+
+const CTASection = lazy(() =>
+  import("@/components/CTASection").then((m) => ({ default: m.CTASection }))
+);
+
+const FaqSection = lazy(() =>
+  import("@/components/FaqSection").then((m) => ({ default: m.FaqSection }))
+);
+
+const ServicesSection = lazy(() =>
+  import("@/components/ServicesSection").then((m) => ({ default: m.ServicesSection }))
+);
+
+const CreativeServicesGridSection = lazy(() =>
+  import("@/components/CreativeServicesGridSection").then((m) => ({ default: m.CreativeServicesGridSection }))
+);
+
+const HowWeWorkSection = lazy(() =>
+  import("@/components/HowWeWorkSection").then((m) => ({ default: m.HowWeWorkSection }))
+);
+
+const GlobalTeamSection = lazy(() =>
+  import("@/components/GlobalTeamSection").then((m) => ({ default: m.GlobalTeamSection }))
 );
 
 const Footer = lazy(() =>
-  import("@/components/Footer").then((module) => ({
-    default: (module as any).Footer ?? (module as any).default,
-  }))
+  import("@/components/Footer").then((m) => ({ default: m.Footer }))
 );
 
 // ============================================================================
@@ -512,6 +460,13 @@ export default function Home() {
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <FaqSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Creative Services Grid Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <CreativeServicesGridSection />
             </Suspense>
           </ErrorBoundary>
 
