@@ -68,6 +68,11 @@
         --background: 30 14% 93%; /* #efeeec - Light beige background */
         --foreground: 228 65% 14%; /* #0d123c - Brand blue for text */
 
+        /* Global font variables (standardized font system) */
+        --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+        --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+        --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
         /* Cards & Elevated Surfaces */
         --card: 0 0% 100%; /* Pure white for cards */
         --card-foreground: 228 65% 14%; /* Brand blue text on cards */
@@ -159,7 +164,7 @@
     }
 
     body {
-        @apply bg-background text-foreground;
+        @apply bg-background text-foreground font-sans;
         font-feature-settings:
             "rlig" 1,
             "calt" 1;

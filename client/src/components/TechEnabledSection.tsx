@@ -38,7 +38,7 @@ const cardData = [
 
 export function TechEnabledSection() {
   return (
-    <section className="relative bg-white text-[#003366] py-20 md:py-28 lg:py-40 overflow-hidden">
+    <section className="relative bg-white text-[#003366] py-20 md:py-28 lg:py-40 overflow-hidden" data-mood="light">
       {/* Decorative gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-green-50 via-transparent to-blue-50 opacity-60 blur-3xl pointer-events-none" />
 

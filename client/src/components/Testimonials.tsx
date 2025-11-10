@@ -91,7 +91,7 @@ function TestimonialCard({
 
 export function Testimonials() {
   return (
-    <section className="py-24 md:py-32 bg-gradient-to-b from-background to-accent/5">
+    <section className="py-24 md:py-32 bg-gradient-to-b from-background to-accent/5" data-mood="brand-surface">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <motion.div

@@ -5,7 +5,7 @@ export function CreativeAssetsSection() {
   const [videoError, setVideoError] = useState(false);
 
   return (
-    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-16 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-16 md:py-20 lg:py-24" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
           {/* LEFT SIDE — Text Content */}

@@ -135,7 +135,7 @@ export function MadeToFlexSection() {
   }, []);
 
   return (
-    <section className="relative z-0 flex max-w-full flex-col overflow-visible md:overflow-hidden bg-bor-background text-bor-foreground">
+    <section className="relative z-0 flex max-w-full flex-col overflow-visible md:overflow-hidden bg-bor-background text-bor-foreground" data-mood="brand-dark">
       <div className="mx-auto h-full w-full max-w-[1680px]">
         <div className="flex w-full flex-col transition-colors pt-20 md:pt-28 lg:pt-52 pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20 max-md:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Header */}

@@ -84,7 +84,7 @@ const ClientLogos: React.FC = () => {
   }, []);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden">
+    <section className="py-12 sm:py-16 lg:py-20 bg-white overflow-hidden" data-mood="light">
       <div className="max-w-[1680px] mx-auto">
         <div className="text-center mb-10 sm:mb-12 md:mb-16 px-4">
           <p className="text-xs sm:text-sm md:text-base font-semibold text-brand-blue-700 uppercase tracking-wider">

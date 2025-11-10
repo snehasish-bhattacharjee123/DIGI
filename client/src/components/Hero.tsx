@@ -30,16 +30,17 @@ export function Hero() {
 
   return (
     <section
-      className="relative min-h-screen flex items-center bg-brand-blue-900 text-brand-beige-100 overflow-hidden pt-24 pb-12 lg:py-24"
+      className="relative bg-brand-blue-900 text-brand-beige-100 overflow-hidden z-0 min-h-[80vh] md:min-h-[90vh] lg:min-h-[656px] xl:min-h-[965px] pt-6 md:pt-0 pb-10 lg:py-40"
+      data-mood="brand-dark"
       aria-label="Hero section showcasing portfolio and brand introduction"
     >
       {/* Background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-900 via-brand-blue-800 to-brand-blue-900 opacity-50" />
 
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 w-full z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-24 xl:gap-32 items-center">
           {/* LEFT SIDE — Text Content */}
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left lg:w-1/2">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}

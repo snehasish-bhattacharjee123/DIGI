@@ -78,7 +78,7 @@ export function SuccessStoriesSection() {
   };
 
   return (
-    <section className="bg-bor-background text-white py-20 md:py-28 lg:py-40">
+    <section className="bg-bor-background text-white py-20 md:py-28 lg:py-40" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="text-center max-w-4xl mx-auto mb-12 lg:mb-20">
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold">

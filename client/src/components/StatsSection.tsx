@@ -41,7 +41,7 @@ const stats: StatItem[] = [
 
 export function StatsSection() {
   return (
-    <section className="relative overflow-hidden bg-brand-blue-900 text-brand-beige-100 py-20 md:py-28 lg:py-36">
+    <section className="relative overflow-hidden bg-brand-blue-900 text-brand-beige-100 py-20 md:py-28 lg:py-36" data-mood="brand-dark">
       <div className="max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Header */}
         <motion.div

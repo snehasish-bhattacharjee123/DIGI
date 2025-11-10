@@ -201,7 +201,7 @@ export function WorkCarouselSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-white text-[#003366] py-16 md:py-20 lg:py-32">
+    <section className="relative overflow-hidden bg-white text-[#003366] py-16 md:py-20 lg:py-32" data-mood="light">
       <div className="max-w-[1680px] mx-auto">
         <div className="px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 mb-12 lg:mb-20">
           <motion.h2
