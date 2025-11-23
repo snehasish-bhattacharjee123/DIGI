@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 
 export function OurPeopleSection() {
   return (
-    <section className="relative overflow-hidden bg-black text-white py-16 md:py-24 lg:py-32 flex items-end min-h-[600px] md:min-h-[90vh] lg:min-h-screen">
+    <section className="relative overflow-hidden bg-black text-white py-16 md:py-24 lg:py-32 flex items-end min-h-[600px] md:min-h-[90vh] lg:min-h-screen" data-mood="dark">
       {/* Background Images */}
       <div className="absolute inset-0 z-0">
         {/* Mobile Background */}

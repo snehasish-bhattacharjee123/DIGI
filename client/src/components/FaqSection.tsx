@@ -285,7 +285,7 @@ export function FaqSection() {
   const secondHalf = faqData.slice(midIndex);
 
   return (
-    <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32">
+    <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="mb-12 md:mb-16 lg:mb-20">
           <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">

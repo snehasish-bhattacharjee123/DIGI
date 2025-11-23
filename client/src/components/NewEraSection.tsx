@@ -4,7 +4,7 @@ import { LiquidButton } from "@/components/LiquidButton";
 
 export function NewEraSection() {
   return (
-    <section className="relative bg-white text-brand-blue-900 py-20 md:py-28 lg:py-36 overflow-hidden">
+    <section className="relative bg-white text-brand-blue-900 py-20 md:py-28 lg:py-36 overflow-hidden" data-mood="light">
       {/* Background subtle texture */}
       <div className="absolute inset-0 bg-[url('/textures/noise.png')] opacity-5 pointer-events-none" />
 

@@ -4,7 +4,7 @@ import { LiquidButton } from "@/components/LiquidButton";
 
 export function WorkWithTheBestSection() {
   return (
-    <section className="relative bg-background overflow-hidden">
+    <section className="relative bg-background overflow-hidden" data-mood="brand-surface">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[600px] lg:min-h-[700px]">
         {/* Left Side: Text Content */}
         <motion.div

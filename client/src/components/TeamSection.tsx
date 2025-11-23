@@ -315,7 +315,7 @@ const TeamScroller: React.FC<TeamScrollerProps> = ({ members }) => {
 
 export function TeamSection() {
   return (
-    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
+    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
         <motion.div

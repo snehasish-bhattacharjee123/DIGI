@@ -31,6 +31,7 @@ import Cookies from "@/pages/legal/Cookies";
 // Resources
 import Blog from "@/pages/resources/Blog";
 import CaseStudies from "@/pages/resources/CaseStudies";
+import SupersidePreferredSourceDesignNews from "@/pages/resources/blog/SupersidePreferredSourceDesignNews";
 
 // Company
 import About from "@/pages/company/About";
@@ -70,6 +71,10 @@ function Router() {
 
       {/* Resources */}
       <Route path="/blog" component={Blog} />
+      <Route
+        path="/blog/superside-preferred-source-design-news"
+        component={SupersidePreferredSourceDesignNews}
+      />
       <Route path="/case-studies" component={CaseStudies} />
 
       {/* Company */}

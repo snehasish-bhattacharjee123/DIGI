@@ -101,7 +101,7 @@ const designItems = [
 
 export function VersatileDesignsSection() {
   return (
-    <section className="bg-background text-foreground py-11 md:py-14 lg:py-20">
+    <section className="bg-background text-foreground py-11 md:py-14 lg:py-20" data-mood="brand-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-12 lg:gap-20">
           <div className="text-center max-w-3xl mx-auto">

@@ -85,7 +85,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export function Services() {
   return (
-    <section id="services" className="py-24 md:py-32 bg-brand-beige-100">
+    <section id="services" className="py-24 md:py-32 bg-brand-beige-100" data-mood="light-beige">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <motion.div

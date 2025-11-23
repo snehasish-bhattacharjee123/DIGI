@@ -63,6 +63,10 @@ const TechEnabledSection = lazy(() =>
   import("@/components/TechEnabledSection").then((m) => ({ default: m.TechEnabledSection }))
 );
 
+const SolutionsForModernTeamsSection = lazy(() =>
+  import("@/components/SolutionsForModernTeamsSection").then((m) => ({ default: m.SolutionsForModernTeamsSection }))
+);
+
 const VersatileDesignsSection = lazy(() =>
   import("@/components/VersatileDesignsSection").then((m) => ({ default: m.VersatileDesignsSection }))
 );
@@ -100,6 +104,10 @@ const CreativePowerSection = lazy(() =>
 
 const CTASection = lazy(() =>
   import("@/components/CTASection").then((m) => ({ default: m.CTASection }))
+);
+
+const LatestArticlesSection = lazy(() =>
+  import("@/components/LatestArticlesSection").then((m) => ({ default: m.LatestArticlesSection }))
 );
 
 const FaqSection = lazy(() =>
@@ -378,6 +386,13 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
+          {/* Solutions for Modern Teams */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <SolutionsForModernTeamsSection />
+            </Suspense>
+          </ErrorBoundary>
+
           {/* Versatile Designs Section */}
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
@@ -396,6 +411,13 @@ export default function Home() {
           <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <TeamSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Latest Articles */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <LatestArticlesSection />
             </Suspense>
           </ErrorBoundary>
 

@@ -20,7 +20,7 @@ export function OurWorkSection() {
   const translateY = useTransform(inset, (latest) => `-${latest}%`);
 
   return (
-    <section className="bg-white text-blue-900 py-20 md:py-28 lg:py-40">
+    <section className="bg-white text-blue-900 py-20 md:py-28 lg:py-40" data-mood="light">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <motion.div
