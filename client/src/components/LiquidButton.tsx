@@ -3,6 +3,7 @@ import React from "react";
 interface LiquidButtonProps {
   label: string;
   color?: string; // solid color for border & fill
+  textColor?: string; // text color
   duration?: number; // animation duration in ms
   className?: string;
   onClick?: () => void;
@@ -11,6 +12,7 @@ interface LiquidButtonProps {
 export const LiquidButton: React.FC<LiquidButtonProps> = ({
   label,
   color = "#646cff",
+  textColor = "#ffffff", // default white
   duration = 700,
   className = "",
   onClick,
@@ -18,9 +20,10 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`relative group px-8 py-4 text-white font-semibold text-base border-2 rounded-full overflow-hidden cursor-pointer transition-all ease-in-out ${className}`}
+      className={`relative group px-8 py-4 font-semibold text-base border-2 rounded-full overflow-hidden cursor-pointer transition-all ease-in-out ${className}`}
       style={{
         borderColor: color,
+        color: textColor, // dynamic text color
         transitionDuration: `${duration}ms`,
       }}
     >
@@ -36,32 +39,6 @@ export const LiquidButton: React.FC<LiquidButtonProps> = ({
           }}
         ></span>
       </span>
-
-      {/* Gloss reflection overlay */}
-      {/* <style jsx>{`
-        button {
-          position: relative;
-          isolation: isolate;
-        }
-        button::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: radial-gradient(
-              circle at 50% 0%,
-              rgba(255, 255, 255, 0.25),
-              transparent 60%
-            )
-            no-repeat;
-          transform: translateY(120%);
-          transition: transform ${duration}ms cubic-bezier(0.77, 0, 0.175, 1);
-          border-radius: inherit;
-          z-index: 1;
-        }
-        button:hover::before {
-          transform: translateY(0);
-        }
-      `}</style> */}
     </button>
   );
 };

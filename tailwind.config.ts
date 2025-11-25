@@ -2,10 +2,11 @@ import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 import tailwindcssTypography from "@tailwindcss/typography";
 
-const config = {
+const config: Config = {
   darkMode: ["class"],
   content: ["./client/**/*.{ts,tsx}", "./client/index.html"],
   prefix: "",
+
   theme: {
     container: {
       center: true,
@@ -15,7 +16,7 @@ const config = {
       },
     },
 
-    // Responsive breakpoints
+    // Custom breakpoints
     screens: {
       sm: "640px",
       md: "768px",
@@ -25,14 +26,19 @@ const config = {
     },
 
     extend: {
+      /* ------------------------------
+       * FONT FAMILY (using CSS vars)
+       * ------------------------------ */
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        serif: ["var(--font-serif)"],
-        mono: ["var(--font-mono)"],
+        sans: ["var(--font-sans)"],   // General Sans
+        serif: ["var(--font-serif)"], // Playfair Display
+        mono: ["var(--font-mono)"],   // Fira Code
       },
 
+      /* ------------------------------
+       * BRAND COLORS
+       * ------------------------------ */
       colors: {
-        // Semantic color system using CSS variables for theming support
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -59,18 +65,21 @@ const config = {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
+
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
 
-        // Brand color palette - Direct hex values
+        /* ---------------------
+         * MAIN BRAND COLORS
+         * --------------------- */
         brand: {
-          // Primary / Brand Blue - #0d123c
           blue: {
             DEFAULT: "#0d123c",
             50: "#f0f1f9",
@@ -82,10 +91,10 @@ const config = {
             600: "#4b57b7",
             700: "#2d3bab",
             800: "#1a2470",
-            900: "#0d123c", // Main brand blue
+            900: "#0d123c",
             950: "#070a1e",
           },
-          // Accent / Button Hover / CTA - #ff751f
+
           orange: {
             DEFAULT: "#ff751f",
             50: "#fff7ed",
@@ -93,14 +102,14 @@ const config = {
             200: "#fed7aa",
             300: "#fdba74",
             400: "#fb923c",
-            500: "#ff751f", // Main accent orange
+            500: "#ff751f",
             600: "#ea580c",
             700: "#c2410c",
             800: "#9a3412",
             900: "#7c2d12",
             950: "#431407",
           },
-          // Neutral / Border / Secondary Text - #a6a6a6
+
           gray: {
             DEFAULT: "#a6a6a6",
             50: "#f9f9f9",
@@ -108,20 +117,20 @@ const config = {
             200: "#e7e7e7",
             300: "#d4d4d4",
             400: "#b8b8b8",
-            500: "#a6a6a6", // Main neutral gray
+            500: "#a6a6a6",
             600: "#8a8a8a",
             700: "#6e6e6e",
             800: "#525252",
             900: "#363636",
             950: "#1a1a1a",
           },
-          // Highlight / Success / Accent Text - #c2f087
+
           green: {
             DEFAULT: "#c2f087",
             50: "#f6fef1",
             100: "#e9fcdb",
             200: "#d5f9b9",
-            300: "#c2f087", // Main highlight green
+            300: "#c2f087",
             400: "#a8e85f",
             500: "#8fd03f",
             600: "#70a62f",
@@ -130,11 +139,11 @@ const config = {
             900: "#3d5422",
             950: "#1f2f0e",
           },
-          // Light Background / Section Background - #efeeec
+
           beige: {
             DEFAULT: "#efeeec",
             50: "#fafaf9",
-            100: "#efeeec", // Main light background
+            100: "#efeeec",
             200: "#e5e3e0",
             300: "#d0cdc8",
             400: "#b8b4ad",
@@ -146,24 +155,20 @@ const config = {
             950: "#2a2824",
           },
         },
-
-        // Legacy color names (maintaining backward compatibility)
-        "bor-black": "#0d123c",
-        "bor-white": "#ffffff",
-        "bor-beig": "#efeeec",
-        "bor-orange": "#ff751f",
-        "bor-green": "#c2f087",
-        "bor-gray": "#a6a6a6",
-        "bor-background": "#0d123c",
-        "bor-foreground": "#efeeec",
       },
 
+      /* ------------------------------
+       * BORDER RADIUS
+       * ------------------------------ */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
 
+      /* ------------------------------
+       * ANIMATIONS
+       * ------------------------------ */
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -174,14 +179,14 @@ const config = {
           to: { height: "0" },
         },
       },
-
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
+
   plugins: [tailwindcssAnimate, tailwindcssTypography],
-} satisfies Config;
+};
 
 export default config;
