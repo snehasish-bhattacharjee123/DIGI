@@ -27,7 +27,7 @@ import { HowWeWorkSection } from "@/components/HowWeWorkSection";
 import { CreativePowerSection } from "@/components/CreativePowerSection";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { GlobalTeamSection } from "@/components/GlobalTeamSection";
-import { StatsSection } from "@/components/StatsSection";
+import  {StatsSection}  from "@/components/StatsSection";
 import { FaqSection } from "@/components/FaqSection";
 
 export default function Photography() {

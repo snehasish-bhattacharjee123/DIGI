@@ -20,7 +20,7 @@ import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
 import { MadeToFlexSection } from "@/components/MadeToFlexSection";
 import { VersatileDesignsSection } from "@/components/VersatileDesignsSection";
 import { CreativePowerSection } from "@/components/CreativePowerSection";
-import { StatsSection } from "@/components/StatsSection";
+import  {StatsSection}  from "@/components/StatsSection";
 import { OurWorkSection } from "@/components/OurWorkSection";
 import { TechEnabledSection } from "@/components/TechEnabledSection";
 import { FaqSection } from "@/components/FaqSection";

@@ -24,7 +24,7 @@ import { ScrollSectionsProps } from "@/components/ScrollSections";
 import {ClientLogos } from "@/components/ClientLogos";
 import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
 import { MadeToFlexSection } from "@/components/MadeToFlexSection";
-import { StatsSection } from "@/components/StatsSection";
+import  {StatsSection}  from "@/components/StatsSection";
 import { CreativePowerSection } from "@/components/CreativePowerSection";
 import { FaqSection } from "@/components/FaqSection";
 import { GlobalTeamSection } from "@/components/GlobalTeamSection";
