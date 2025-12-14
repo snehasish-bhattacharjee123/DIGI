@@ -45,7 +45,7 @@ export function OurWorkSection() {
         {/* Video Container */}
         <div
           ref={videoContainerRef}
-          className="relative h-[calc(100vh-200px)] w-full"
+          className="relative h-[60vh] sm:h-[70vh] lg:h-[calc(100vh-200px)] w-full"
         >
           <motion.div
             className="relative h-full w-full overflow-hidden rounded-[12px] border border-gray-200 shadow-xl"
@@ -55,7 +55,7 @@ export function OurWorkSection() {
             }}
           >
             <VideoPlayer
-              src="https://cdn.sanity.io/files/k0dlbavy/production/bc8082e2b9b2a6b0cc7392174bdaf334db6f36b8.mp4"
+              src="/videos/7048309_Animation_Motion_Graphic_3840x2160.mp4"
               className="h-full w-full"
             />
           </motion.div>

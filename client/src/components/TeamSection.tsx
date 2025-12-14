@@ -218,10 +218,10 @@ function TeamMemberCard({ member }: { member: TeamMember }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       </div>
       <div className="space-y-0.5 md:space-y-1 px-1">
-        <h3 className="font-heading text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-bor-foreground group-hover:text-primary transition-colors duration-300 leading-tight">
+        <h3 className="font-heading text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-brand-beige-100 group-hover:text-accent transition-colors duration-300 leading-tight">
           {member.name}
         </h3>
-        <p className="font-din text-xs sm:text-xs md:text-sm text-bor-foreground/60 uppercase tracking-wide leading-tight">
+        <p className="font-din text-xs sm:text-xs md:text-sm text-brand-beige-100/70 uppercase tracking-wide leading-tight">
           {member.position}
         </p>
       </div>
@@ -384,9 +384,9 @@ const TeamScroller: React.FC<TeamScrollerProps> = ({ members }) => {
   return (
     <div className="relative overflow-hidden select-none">
       {/* Left fade - responsive widths */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-r from-bor-background via-bor-background/90 to-transparent z-10" />
+      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-r from-brand-blue-900 via-brand-blue-900/90 to-transparent z-10" />
       {/* Right fade - responsive widths */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-l from-bor-background via-bor-background/90 to-transparent z-10" />
+      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-l from-brand-blue-900 via-brand-blue-900/90 to-transparent z-10" />
 
       <div
         ref={scrollerRef}
@@ -425,7 +425,7 @@ const TeamScroller: React.FC<TeamScrollerProps> = ({ members }) => {
 
 export function TeamSection() {
   return (
-    <section className="relative overflow-hidden bg-bor-background text-bor-foreground py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" data-mood="brand-dark">
+    <section className="relative overflow-hidden bg-brand-blue-900 text-brand-beige-100 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
         <motion.div
@@ -435,7 +435,7 @@ export function TeamSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20"
         >
-          <span className="font-din text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-2 md:mb-3 block">
+          <span className="font-din text-xs sm:text-xs md:text-sm font-semibold uppercase tracking-widest text-brand-beige-100/70 mb-2 md:mb-3 block">
             EXECUTIVE COMMITTEE
           </span>
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight">
@@ -459,7 +459,7 @@ export function TeamSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-8 md:mt-12"
         >
-          <p className="text-xs sm:text-sm md:text-base text-bor-foreground/60">
+          <p className="text-xs sm:text-sm md:text-base text-brand-beige-100/70">
             <span className="hidden sm:inline">
               Drag to explore • Hover to pause
             </span>

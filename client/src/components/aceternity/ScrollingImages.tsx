@@ -4,6 +4,9 @@ import { cn } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import type { PortfolioItem } from "@shared/schema";
 
+ const isVideoSrc = (src: string) =>
+   /\.(mp4|webm|ogg)(\?.*)?$/i.test(src);
+
 interface ScrollingImagesProps {
   items: PortfolioItem[];
   direction?: "up" | "down";
@@ -64,12 +67,24 @@ export const ScrollingImages = ({
               className="flex-shrink-0 w-[180px] sm:w-[200px]"
             >
               <div className="group relative h-[240px] sm:h-[260px] w-full overflow-hidden rounded-lg bg-gray-900">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title || "Portfolio item"}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
-                  {...imgProps}
-                />
+                {isVideoSrc(item.imageUrl) ? (
+                  <video
+                    src={item.imageUrl}
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                ) : (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title || "Portfolio item"}
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                    {...imgProps}
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -79,12 +94,24 @@ export const ScrollingImages = ({
               className="flex-shrink-0 w-[180px] sm:w-[200px]"
             >
               <div className="group relative h-[240px] sm:h-[260px] w-full overflow-hidden rounded-lg bg-gray-900">
-                <img
-                  src={item.imageUrl}
-                  alt={item.title || "Portfolio item"}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
-                  {...imgProps}
-                />
+                {isVideoSrc(item.imageUrl) ? (
+                  <video
+                    src={item.imageUrl}
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                ) : (
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title || "Portfolio item"}
+                    className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                    {...imgProps}
+                  />
+                )}
               </div>
             </div>
           ))}
@@ -130,36 +157,72 @@ export const ScrollingImages = ({
         {items.map((item, index) => (
           <div key={`${item.id}-${index}`} className="w-full">
             <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
-              <img
-                src={item.imageUrl}
-                alt={item.title || "Portfolio item"}
-                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
-                {...imgProps}
-              />
+              {isVideoSrc(item.imageUrl) ? (
+                <video
+                  src={item.imageUrl}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={item.imageUrl}
+                  alt={item.title || "Portfolio item"}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  {...imgProps}
+                />
+              )}
             </div>
           </div>
         ))}
         {items.map((item, index) => (
           <div key={`${item.id}-${index}-dup`} className="w-full">
             <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
-              <img
-                src={item.imageUrl}
-                alt={item.title || "Portfolio item"}
-                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
-                {...imgProps}
-              />
+              {isVideoSrc(item.imageUrl) ? (
+                <video
+                  src={item.imageUrl}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={item.imageUrl}
+                  alt={item.title || "Portfolio item"}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  {...imgProps}
+                />
+              )}
             </div>
           </div>
         ))}
         {items.map((item, index) => (
           <div key={`${item.id}-${index}-dup2`} className="w-full">
             <div className="group relative w-full overflow-hidden rounded-xl bg-gray-900 aspect-[3/4]">
-              <img
-                src={item.imageUrl}
-                alt={item.title || "Portfolio item"}
-                className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
-                {...imgProps}
-              />
+              {isVideoSrc(item.imageUrl) ? (
+                <video
+                  src={item.imageUrl}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                />
+              ) : (
+                <img
+                  src={item.imageUrl}
+                  alt={item.title || "Portfolio item"}
+                  className="absolute inset-0 h-full w-full object-cover object-center transition-all duration-500 group-hover:scale-105"
+                  {...imgProps}
+                />
+              )}
             </div>
           </div>
         ))}

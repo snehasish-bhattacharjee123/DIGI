@@ -50,7 +50,7 @@ export function CTASection() {
             <Button
               variant="cta"
               size="lg"
-              className="min-w-[220px] text-base group"
+              className="w-full sm:w-auto sm:min-w-[220px] text-base group"
               data-testid="button-cta-book-demo"
             >
               Book a demo
@@ -59,7 +59,7 @@ export function CTASection() {
             <Button
               variant="outline"
               size="lg"
-              className="min-w-[220px] text-base border-2 border-brand-blue-900 text-brand-blue-900 hover:bg-brand-blue-900 hover:text-brand-beige-100"
+              className="w-full sm:w-auto sm:min-w-[220px] text-base border-2 border-brand-blue-900 text-brand-blue-900 hover:bg-brand-blue-900 hover:text-brand-beige-100"
               data-testid="button-cta-contact-sales"
             >
               Contact sales

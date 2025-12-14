@@ -1,5 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import {
   Users,
   Zap,
@@ -30,8 +32,20 @@ import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
 // import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { CreativeServicesSection } from "@/components/CreativeServicesSection";
 import { CreativeShowcaseSection } from "@/components/CreativeShowcaseSection";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function WhyUs() {
+  const [galleryOpen, setGalleryOpen] = useState(false);
+  const [selectedGalleryItem, setSelectedGalleryItem] = useState<
+    { src: string; title: string } | null
+  >(null);
+
+  const [galleryEmblaRef, galleryEmblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+  });
+  const [gallerySelectedIndex, setGallerySelectedIndex] = useState(0);
+
   const benefits = [
     {
       icon: Users,
@@ -90,6 +104,66 @@ export default function WhyUs() {
       color: "text-red-500",
     },
   ];
+
+  const galleryItems = [
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/img-2.jpeg", title: "img-2" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-team.png", title: "promotedge-team" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-8.webp", title: "promotedge-gallery-8" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-6.webp", title: "promotedge-gallery-6" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-16.webp", title: "promotedge-gallery-16" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-18.webp", title: "promotedge-gallery-18" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-41.webp", title: "promotedge-gallery-41" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-1.webp", title: "promotedge-gallery-1" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-2.webp", title: "promotedge-gallery-2" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-12.webp", title: "promotedge-gallery-12" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-11.webp", title: "promotedge-gallery-11" },
+    { src: "https://www.promotedge.com/wp-content/uploads/2024/06/promotedge-gallery-4.webp", title: "promotedge-gallery-4" },
+  ];
+
+  const onGallerySelect = useCallback(() => {
+    if (!galleryEmblaApi) return;
+    setGallerySelectedIndex(galleryEmblaApi.selectedScrollSnap());
+  }, [galleryEmblaApi]);
+
+  useEffect(() => {
+    if (!galleryEmblaApi) return;
+    onGallerySelect();
+    galleryEmblaApi.on("select", onGallerySelect);
+    galleryEmblaApi.on("reInit", onGallerySelect);
+    return () => {
+      galleryEmblaApi.off("select", onGallerySelect);
+      galleryEmblaApi.off("reInit", onGallerySelect);
+    };
+  }, [galleryEmblaApi, onGallerySelect]);
+
+  const galleryPrev = useCallback(() => galleryEmblaApi?.scrollPrev(), [
+    galleryEmblaApi,
+  ]);
+  const galleryNext = useCallback(() => galleryEmblaApi?.scrollNext(), [
+    galleryEmblaApi,
+  ]);
+
+  const gallerySlideStyles = useMemo(() => {
+    const total = galleryItems.length;
+    return galleryItems.map((_, index) => {
+      let diff = index - gallerySelectedIndex;
+      if (diff > total / 2) diff -= total;
+      if (diff < -total / 2) diff += total;
+
+      const abs = Math.abs(diff);
+      const rotateY = diff * -50;
+      const translateZ = -abs * 120;
+      const scale = abs === 0 ? 1 : 0.92;
+      const zIndex = 10 - abs;
+      const opacity = abs > 4 ? 0 : Math.max(0.2, 1 - abs * 0.18);
+
+      return {
+        transform: `translate3d(0px, 0px, ${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
+        zIndex,
+        opacity,
+      } as const;
+    });
+  }, [galleryItems, gallerySelectedIndex]);
 
   const stats = [
     { number: "500+", label: "Global Brands Trust Us", icon: Sparkles },
@@ -190,16 +264,14 @@ export default function WhyUs() {
       <main
         id="main-content"
         role="main"
-        className="min-h-screen bg-white wst-fonts"
+        className="min-h-screen bg-white wst-fonts overflow-x-hidden"
       >
 
       <ErrorBoundary>  
               <CreativeServicesSection />
           </ErrorBoundary>
 
-        <ErrorBoundary>
-          <CreativeShowcaseSection />
-        </ErrorBoundary>
+        
 
         {/* <ErrorBoundary>
           <OurPeopleSection />
@@ -335,17 +407,9 @@ export default function WhyUs() {
           </div>
         </section>
 
-        <ErrorBoundary>
-          <TeamSection />
-        </ErrorBoundary>
-
-        {/* ========================================= */}
-        {/* ADDITIONAL SECTIONS */}
-        {/* ========================================= */}
-
         {/* Global Team Section */}
         <ErrorBoundary>
-          <GlobalTeamSection />
+          <TeamSection />
         </ErrorBoundary>
 
         {/* How We Work Section */}
@@ -353,14 +417,193 @@ export default function WhyUs() {
           <HowWeWorkSection />
         </ErrorBoundary>
 
+
+              
+        <ErrorBoundary>
+          <GlobalTeamSection />
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <CreativeShowcaseSection />
+        </ErrorBoundary>
+
+        <ErrorBoundary>
+          <section className="commonSec careerGalSec">
+            <div className="container">
+              <span className="careerGalKicker !text-brand-blue-900/70">
+                Inside Digiteller
+              </span>
+              <h2 className="mainH !text-brand-blue-900">Digiteller Gallery</h2>
+              <p className="careerGalSub !text-brand-blue-900/70">
+                A snapshot of our team, culture, and the moments that shape our
+                work.
+              </p>
+            </div>
+            <div className="careerGalSecWrap">
+              <Dialog
+                open={galleryOpen}
+                onOpenChange={(open) => {
+                  setGalleryOpen(open);
+                  if (!open) setSelectedGalleryItem(null);
+                }}
+              >
+                <div
+                  className="swiper gallerySwiper swiper-coverflow swiper-3d"
+                  ref={galleryEmblaRef}
+                >
+                  <div className="swiper-wrapper" aria-live="polite">
+                    {galleryItems.map((item, idx) => (
+                      <div
+                        key={item.src}
+                        className={
+                          idx === gallerySelectedIndex
+                            ? "swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-active"
+                            : "swiper-slide"
+                        }
+                        role="group"
+                        aria-label={`${idx + 1} / ${galleryItems.length}`}
+                        style={gallerySlideStyles[idx]}
+                      >
+                        <button
+                          type="button"
+                          className="careerGalSlideBtn"
+                          onClick={() => {
+                            setSelectedGalleryItem(item);
+                            setGalleryOpen(true);
+                          }}
+                        >
+                          <figure className="carGallFig">
+                            <img
+                              width={400}
+                              height={500}
+                              src={item.src}
+                              alt={item.title}
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </figure>
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    className="cube-button-next1 arrow"
+                    aria-label="Next slide"
+                    onClick={galleryNext}
+                  />
+                  <button
+                    type="button"
+                    className="cube-button-prev1 arrow"
+                    aria-label="Previous slide"
+                    onClick={galleryPrev}
+                  />
+                </div>
+
+                <DialogContent className="max-w-5xl bg-transparent border-0 p-0 shadow-none text-white">
+                  {selectedGalleryItem && (
+                    <div className="w-full">
+                      <img
+                        src={selectedGalleryItem.src}
+                        alt={selectedGalleryItem.title}
+                        className="w-full h-auto rounded-xl"
+                      />
+                      <div className="mt-3 text-center text-sm text-white/80">
+                        {selectedGalleryItem.title}
+                      </div>
+                    </div>
+                  )}
+                </DialogContent>
+              </Dialog>
+            </div>
+          </section>
+        </ErrorBoundary>
+
+        {/* <ErrorBoundary>
+          <section
+            id="gallerySec"
+            className="commonSec content-row fadeout-element gallerySec bg-white py-16 md:py-20 lg:py-28"
+          >
+            <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+              <h2 className="galleryH font-heading text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-brand-blue-900 mb-8 md:mb-12">
+                Moments That <br className="hidden sm:block" /> Define Us
+              </h2>
+
+              <Dialog
+                open={galleryOpen}
+                onOpenChange={(open) => {
+                  setGalleryOpen(open);
+                  if (!open) setSelectedGalleryItem(null);
+                }}
+              >
+                <div className="imgHolderWrap grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+                  {galleryItems.map((item, idx) => (
+                    <button
+                      key={item.src}
+                      type="button"
+                      className={`galleryImg galleryImg_${idx + 1} group relative overflow-hidden rounded-2xl bg-black/5 aspect-[4/3] focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-white`}
+                      onClick={() => {
+                        setSelectedGalleryItem(item);
+                        setGalleryOpen(true);
+                      }}
+                    >
+                      <figure className="h-full w-full">
+                        <img
+                          width={1024}
+                          height={768}
+                          src={item.src}
+                          alt={item.title}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                      </figure>
+                      <span className="galleryTitle absolute left-3 bottom-3 text-[10px] sm:text-xs font-din uppercase tracking-widest text-white bg-black/55 px-2 py-1 rounded-md backdrop-blur-sm">
+                        {item.title}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                <DialogContent className="max-w-5xl bg-transparent border-0 p-0 shadow-none text-white">
+                  {selectedGalleryItem && (
+                    <div className="w-full">
+                      <img
+                        src={selectedGalleryItem.src}
+                        alt={selectedGalleryItem.title}
+                        className="w-full h-auto rounded-xl"
+                      />
+                      <div className="mt-3 text-center text-sm text-white/80">
+                        {selectedGalleryItem.title}
+                      </div>
+                    </div>
+                  )}
+                </DialogContent>
+              </Dialog>
+            </div>
+          </section>
+        </ErrorBoundary> */}
+
+
+
+        
+
+        {/* ========================================= */}
+        {/* ADDITIONAL SECTIONS */}
+        {/* ========================================= */}
+
+        
+
+        
+
         {/* CTA Section */}
         {/* <ErrorBoundary>
           <CTASection />
         </ErrorBoundary> */}
 
-        <ErrorBoundary>
+        {/* <ErrorBoundary>
           <NewEraSection />
-        </ErrorBoundary>
+        </ErrorBoundary> */}
 
         {false && (
           <>

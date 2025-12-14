@@ -101,8 +101,8 @@ const navItems = [
       },
     ],
   },
-  { title: "Portfolio", hasSubmenu: false, href: "/why-us" },
-  { title: "Studio", hasSubmenu: false, href: "/our-work" },
+  { title: "Studio", hasSubmenu: false, href: "/why-us" },
+  { title: "Portfolio", hasSubmenu: false, href: "/our-work" },
   {
     title: "Contact",
     hasSubmenu: false,
@@ -233,7 +233,7 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
             </div>
 
             {/* Center: Logo */}
-            <div className="flex justify-center">
+            <div className="flex justify-start lg:justify-center col-start-1 lg:col-start-2">
               <a href="/" className="flex-shrink-0 select-none relative group flex items-center justify-center">
 {/* LOGO IMAGE */}
 <motion.img
@@ -241,7 +241,7 @@ src="/images/work/Digireller%20logo_png.png" // <-- corrected public path
 alt="DIGITELLER CREATIVE"
 whileHover={{ scale: 1.05, y: -2 }}
 transition={{ type: "spring", stiffness: 300 }}
-className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+className="h-10 sm:h-14 lg:h-16 w-auto max-w-[160px] sm:max-w-none object-contain"
 />
 
 
@@ -256,7 +256,7 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
             </div>
 
             {/* Right: Desktop Nav + Mobile Toggle */}
-            <div className="flex items-center justify-end gap-3">
+            <div className="flex items-center justify-center lg:justify-end gap-3 col-start-2 lg:col-start-3">
               <nav className="hidden lg:flex items-center space-x-1">
                 {navItems.map((item, index) => (
                   <div

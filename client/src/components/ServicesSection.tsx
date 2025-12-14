@@ -158,10 +158,11 @@ export function ServicesSection() {
 
   // Calculate horizontal scroll based on number of services
   // Each service takes up 100vw, so total width is services.length * 100vw
+  const totalSlides = servicesData.length;
   const x = useTransform(
     scrollYProgress,
     [0, 1],
-    ["0%", `-${(servicesData.length - 1) * 100}%`]
+    ["0vw", `-${(totalSlides - 1) * 100}vw`]
   );
 
   const headerOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
@@ -195,8 +196,8 @@ export function ServicesSection() {
 
             {/* Horizontal Scrolling Container */}
             <motion.div
-              style={{ x }}
-              className="flex h-full w-full items-center"
+              style={{ x, width: `${totalSlides * 100}vw` }}
+              className="flex h-full items-center"
             >
               {servicesData.map((service, index) => (
                 <ServiceItem key={service.id} service={service} index={index} />

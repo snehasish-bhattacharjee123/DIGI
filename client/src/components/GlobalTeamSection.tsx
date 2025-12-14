@@ -19,17 +19,17 @@ interface FeaturePill {
 
 const features: FeaturePill[] = [
   {
-    icon: <Flag className="w-6 h-6 lg:w-8 lg:h-8" />,
+    icon: <Flag className="w-5 h-5 lg:w-6 lg:h-6" />,
     title: "67 countries",
     delay: 0,
   },
   {
-    icon: <Clock className="w-6 h-6 lg:w-8 lg:h-8" />,
+    icon: <Clock className="w-5 h-5 lg:w-6 lg:h-6" />,
     title: "Video/photo production hubs in Bogotá and Johannesburg",
     delay: 0.2,
   },
   {
-    icon: <Lightbulb className="w-6 h-6 lg:w-8 lg:h-8" />,
+    icon: <Lightbulb className="w-5 h-5 lg:w-6 lg:h-6" />,
     title:
       "100% remote from day one, so we're expert collaborators in remote settings",
     delay: 0.4,
@@ -66,10 +66,12 @@ const featuredWork = [
 export function GlobalTeamSection() {
   const [selectedWork, setSelectedWork] = useState<number | null>(null);
 
+  const selectedItem = selectedWork !== null ? featuredWork[selectedWork] : null;
+
   const handleClose = () => setSelectedWork(null);
 
   return (
-    <section className="relative overflow-hidden text-white py-0 min-h-[600px] md:min-h-[700px] lg:min-h-[800px]">
+    <section className="relative overflow-hidden text-white py-0 min-h-[520px] md:min-h-[580px] lg:min-h-[640px]">
       {/* Full-Width Background Image */}
       <div className="absolute inset-0 z-0">
         <img
@@ -85,30 +87,30 @@ export function GlobalTeamSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16 md:py-20 lg:py-32">
-        <div className="max-w-3xl">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-14 lg:py-16">
+        <div className="max-w-2xl">
           {/* Left Side - Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="space-y-8 lg:space-y-10"
+            className="space-y-6 lg:space-y-8"
           >
             {/* Header */}
-            <div className="space-y-5">
+            <div className="space-y-4">
               <span className="font-din text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 block">
                 OUR GLOBAL TEAM
               </span>
 
-              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08]">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-[1.1]">
                 When we say "world-class",{" "}
                 <span className="font-extrabold tracking-tight text-primary">
                   we really mean it
                 </span>
               </h2>
 
-              <p className="text-base md:text-lg lg:text-xl text-gray-200/90 leading-relaxed max-w-2xl">
+              <p className="text-sm sm:text-base lg:text-lg text-gray-200/90 leading-relaxed max-w-xl">
                 As a fully remote company, we aren't bound by borders. So we're
                 able to hire the best, no matter where they live, including
                 South Africa, Brazil, Germany, Malaysia, Canada and more.
@@ -116,7 +118,7 @@ export function GlobalTeamSection() {
             </div>
 
             {/* Glass Morphism Info Cards */}
-            <div className="space-y-4 pt-4">
+            <div className="space-y-3 pt-2">
               {features.map((feature, index) => (
                 <motion.div
                   key={index}
@@ -125,17 +127,17 @@ export function GlobalTeamSection() {
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ duration: 0.6, delay: feature.delay }}
                   whileHover={{ x: 6, transition: { duration: 0.2 } }}
-                  className="group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-2xl p-5 md:p-6 hover:bg-white/8 hover:border-white/20 transition-all duration-500 shadow-xl"
+                  className="group relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-xl p-4 md:p-5 hover:bg-white/8 hover:border-white/20 transition-all duration-500 shadow-xl"
                 >
                   {/* Subtle inner glow */}
-                  <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  <div className="relative flex items-start gap-4 md:gap-5">
-                    <span className="flex items-center justify-center rounded-xl bg-white/5 border border-white/10 p-3 md:p-3.5 flex-shrink-0 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-500">
+                  <div className="relative flex items-start gap-3 md:gap-4">
+                    <span className="flex items-center justify-center rounded-lg bg-white/5 border border-white/10 p-2.5 md:p-3 flex-shrink-0 group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-500">
                       {feature.icon}
                     </span>
                     <div className="flex-1 pt-1">
-                      <h3 className="font-heading text-base md:text-lg lg:text-xl tracking-wide text-gray-100 leading-relaxed">
+                      <h3 className="font-heading text-sm sm:text-base lg:text-lg tracking-wide text-gray-100 leading-relaxed">
                         {feature.title}
                       </h3>
                     </div>
@@ -145,25 +147,25 @@ export function GlobalTeamSection() {
             </div>
 
             {/* Featured Work */}
-            <div className="pt-8 lg:pt-10">
-              <div className="flex items-end justify-between gap-6 mb-5">
+            <div className="pt-6 lg:pt-8">
+              <div className="flex items-end justify-between gap-6 mb-4">
                 <div className="space-y-2">
                   <span className="font-din text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 block">
                     FEATURED WORK
                   </span>
-                  <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">
+                  <h3 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">
                     Proof in motion
                   </h3>
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {featuredWork.map((item, index) => (
                   <button
                     key={item.id}
                     type="button"
                     onClick={() => setSelectedWork(index)}
-                    className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/8 transition-all duration-500 text-left"
+                    className="group relative rounded-xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/8 transition-all duration-500 text-left"
                   >
                     <div className="relative aspect-[16/10]">
                       <img
@@ -174,17 +176,17 @@ export function GlobalTeamSection() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
                       <div className="absolute top-4 right-4">
-                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/15 backdrop-blur border border-white/20 group-hover:bg-white/20 transition-colors">
-                          <Play className="h-5 w-5 text-white" />
+                        <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-white/15 backdrop-blur border border-white/20 group-hover:bg-white/20 transition-colors">
+                          <Play className="h-4 w-4 text-white" />
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-4 md:p-5">
+                    <div className="p-3.5 md:p-4">
                       <div className="text-xs uppercase tracking-widest text-gray-300">
                         {item.eyebrow}
                       </div>
-                      <div className="font-heading mt-2 text-base md:text-lg font-semibold text-white leading-snug">
+                      <div className="font-heading mt-2 text-sm sm:text-base font-semibold text-white leading-snug">
                         {item.title}
                       </div>
                     </div>
@@ -222,8 +224,8 @@ export function GlobalTeamSection() {
               <VideoPlayer
                 src={
                   window.innerWidth >= 768
-                    ? featuredWork[selectedWork].videoDesktopUrl
-                    : featuredWork[selectedWork].videoMobileUrl
+                    ? selectedItem!.videoDesktopUrl
+                    : selectedItem!.videoMobileUrl
                 }
                 className="aspect-video"
                 isModal={true}

@@ -320,6 +320,9 @@ function ScrollSections({
   onSlideChange,
 }: ScrollSectionsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const heightVh = Number.parseFloat(height);
+  const totalHeightVh =
+    (slides.length || 0) * (Number.isFinite(heightVh) ? heightVh : 100);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -327,16 +330,69 @@ function ScrollSections({
 
   const [activeIndex, setActiveIndex] = useState(0);
   const lastIndexRef = useRef(0);
+  const activeIndexRef = useRef(0);
+  const wheelLockRef = useRef(false);
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
     if (slides.length === 0) return;
-    const nextIndex = Math.floor(progress * slides.length);
+    const steps = Math.max(1, slides.length - 1);
+    const nextIndex = Math.floor(progress * steps + 1e-6);
     const clampedIndex = Math.max(0, Math.min(slides.length - 1, nextIndex));
     if (clampedIndex === lastIndexRef.current) return;
     lastIndexRef.current = clampedIndex;
     setActiveIndex(clampedIndex);
     onSlideChange?.(clampedIndex);
   });
+
+  useEffect(() => {
+    activeIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    if (slides.length <= 1) return;
+
+    const stepPx =
+      window.innerHeight * (Number.isFinite(heightVh) ? heightVh / 100 : 1);
+
+    const onWheel = (e: WheelEvent) => {
+      const rect = el.getBoundingClientRect();
+      const isPinned = rect.top <= 0 && rect.bottom >= window.innerHeight;
+      if (!isPinned) return;
+
+      const direction = e.deltaY > 0 ? 1 : e.deltaY < 0 ? -1 : 0;
+      if (direction === 0) return;
+
+      const currentIndex = activeIndexRef.current;
+      const nextIndex = Math.max(
+        0,
+        Math.min(slides.length - 1, currentIndex + direction),
+      );
+
+      if (nextIndex === currentIndex) return;
+
+      e.preventDefault();
+
+      if (wheelLockRef.current) return;
+      wheelLockRef.current = true;
+
+      const containerTop = window.scrollY + rect.top;
+      window.scrollTo({
+        top: containerTop + nextIndex * stepPx,
+        behavior: "smooth",
+      });
+
+      window.setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 650);
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+    };
+  }, [heightVh, slides.length]);
 
   return (
     <>
@@ -345,7 +401,7 @@ function ScrollSections({
         <div
           ref={containerRef}
           className={`relative ${className}`}
-          style={{ height: `${(slides.length || 0) * parseFloat(height)}vh` }}
+          style={{ height: `${totalHeightVh}vh` }}
         >
           <div className="sticky top-0 h-screen w-full overflow-hidden">
             <div className="relative h-full w-full">

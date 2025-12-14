@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState } from "react";
+import { ServicesSection } from "@/components/ServicesSection";
 
 export default function OurWork() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -438,10 +439,10 @@ export default function OurWork() {
       </Helmet>
       <Navigation theme="blue" />
 
-      <main id="main-content" role="main" className="wst-fonts">
+      <main id="main-content" role="main" className="wst-fonts overflow-x-hidden">
 
-      {/* Hero Section */}
-      <section className="relative bg-white text-brand-blue-900 pt-16 md:pt-20 lg:pt-32 pb-12 md:pb-16 lg:pb-20 overflow-hidden">
+     
+      {/* <section className="relative bg-white text-brand-blue-900 pt-24 md:pt-20 lg:pt-32 pb-12 md:pb-16 lg:pb-20 overflow-hidden">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -449,12 +450,12 @@ export default function OurWork() {
             transition={{ duration: 0.8 }}
             className="flex flex-col text-center items-center gap-4 lg:gap-8 max-w-[1064px] mx-auto"
           >
-            {/* Label */}
+         
             <span className="text-xs md:text-xs lg:text-sm tracking-widest font-semibold uppercase text-brand-orange">
               our work
             </span>
 
-            {/* Main Heading */}
+            
             <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight text-brand-blue-900">
               Creative that{" "}
               <span className="text-[calc(100%+4px)] font-extrabold text-brand-orange">
@@ -462,7 +463,7 @@ export default function OurWork() {
               </span>
             </h1>
 
-            {/* Subtitle */}
+            
             <div className="flex flex-col gap-4 lg:gap-8 items-center w-full">
               <h6 className="text-xl md:text-2xl lg:text-2xl font-normal tracking-tight leading-relaxed lg:max-w-[600px] max-w-xl text-brand-blue-700">
                 We help the world's leading brands create standout ads and
@@ -471,7 +472,7 @@ export default function OurWork() {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* Service Tiles (Hover Zoom-Out) */}
       <section className="bg-white">
@@ -530,6 +531,10 @@ export default function OurWork() {
           </div>
         </div>
       </section> */}
+
+      
+
+
 
       {/* Client Results Statistics Section */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -651,6 +656,10 @@ export default function OurWork() {
         </div>
       </section>
 
+      <ServicesSection />
+
+
+
       {/* Portfolio Work Grid */}
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
@@ -724,7 +733,7 @@ export default function OurWork() {
                       </h5>
                       <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-brand-blue-900" />
                     </div>
-                    <p className="text-sm md:text-sm lg:text-base truncate w-full text-brand-blue-700">
+                    <p className="text-sm md:text-sm lg:text-base break-words sm:truncate w-full text-brand-blue-700">
                       {item.description}
                     </p>
                   </div>

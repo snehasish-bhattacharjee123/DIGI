@@ -760,10 +760,10 @@ export default function Contact() {
       <Navigation theme="blue" />
 
       {/* Hero Section with Company Name */}
-      <section className="bg-white text-brand-blue-900 pt-20 pb-16">
+      <section className="bg-white text-brand-blue-900 pt-20 pb-16 overflow-x-hidden">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="text-center mb-12">
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
               DIGITELLER
               <br />
               CREATIVE
@@ -838,7 +838,7 @@ export default function Contact() {
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* First Name and Last Name */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
                       htmlFor="firstName"

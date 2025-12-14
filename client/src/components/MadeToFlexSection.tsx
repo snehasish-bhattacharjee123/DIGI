@@ -68,7 +68,7 @@ const Card: React.FC<CardProps> = ({ card, isMobile }) => {
         ${
           isMobile
             ? "min-h-[490px] h-full"
-            : "shrink-0 h-[588px] xl:h-[720px] mx-2 w-[328px] lg:w-[390px] xl:w-[525px]"
+            : "shrink-0 h-[588px] xl:h-[720px] w-[280px] sm:w-[328px] lg:w-[390px] xl:w-[525px] snap-start"
         }
         lg:hover:-translate-y-[10px]
       `}
@@ -137,7 +137,7 @@ export function MadeToFlexSection() {
   return (
     <section className="relative z-0 flex max-w-full flex-col overflow-visible md:overflow-hidden bg-bor-background text-bor-foreground">
       <div className="mx-auto h-full w-full max-w-[1680px]">
-        <div className="flex w-full flex-col transition-colors pt-20 md:pt-28 lg:pt-52 pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20 max-md:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        <div className="flex w-full flex-col transition-colors pt-20 md:pt-28 lg:pt-52 pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Header */}
           <div className="flex flex-col gap-4 lg:gap-8 text-center items-center mx-auto max-w-[840px]">
             <span className="font-din text-xs font-semibold uppercase tracking-[0.15em] text-bor-gray lg:text-sm">
@@ -153,24 +153,12 @@ export function MadeToFlexSection() {
           </div>
 
           {/* Desktop Carousel */}
-          <div className="-mx-6 lg:-mx-8 xl:-mx-12 2xl:-mx-16 w-screen hidden md:block overflow-hidden">
-            <div className="max-w-screen">
-              <div className="flex flex-row overflow-x-auto scrollbar-hide">
-                <div
-                  className="shrink-0 will-change-transform flex"
-                  aria-hidden="false"
-                >
-                  <div className="w-6 lg:w-8 xl:w-12 2xl:w-16 -mr-2"></div>
-                  {cardData.map((card, index) => (
-                    <Card
-                      key={index}
-                      card={card}
-                      index={index}
-                      isMobile={false}
-                    />
-                  ))}
-                  <div className="w-6 lg:w-8 xl:w-12 2xl:w-16 -ml-2"></div>
-                </div>
+          <div className="hidden md:block">
+            <div className="flex flex-row overflow-x-auto scrollbar-hide snap-x snap-mandatory">
+              <div className="shrink-0 will-change-transform flex gap-4 lg:gap-6" aria-hidden="false">
+                {cardData.map((card, index) => (
+                  <Card key={index} card={card} index={index} isMobile={false} />
+                ))}
               </div>
             </div>
           </div>

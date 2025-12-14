@@ -10,7 +10,7 @@ export const CreativePowerSection = () => {
       <div className="max-w-layout mx-auto h-full w-full">
         <div className="max-w-container mx-container-overflow flex flex-[0_0_auto] flex-col w-full transition-colors pt-16 md:pt-20 lg:pt-32 pb-16 md:pb-20 lg:pb-32 gap-12 lg:gap-20">
           <div
-            className="relative flex flex-[0_0_auto] bg-bor-background text-bor-foreground dark max-w-none rounded-md overflow-hidden min-h-[500px] md:min-h-[400px] lg:min-h-[362px] xl:min-h-[394px]"
+            className="relative flex flex-[0_0_auto] bg-bor-background text-bor-foreground dark max-w-none mx-4 sm:mx-6 lg:mx-0 rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 min-h-[500px] md:min-h-[400px] lg:min-h-[362px] xl:min-h-[394px]"
             data-mood="leaf"
           >
             <div className="absolute inset-0">

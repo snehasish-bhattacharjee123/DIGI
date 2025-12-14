@@ -14,6 +14,8 @@ const images = [
   "/generated_images/Fintech_app_design_413d4352.png",
   "/generated_images/Pernod_Ricard_video_production_685784cf.png",
   "/generated_images/Reddit_campaign_creative_1b23ce70.png",
+  "/videos/7048309_Animation_Motion_Graphic_3840x2160.mp4",
+  "/videos/3135926-hd_1920_1080_30fps.mp4",
 ];
 
 // 15 portfolio items cycling through the actual images
@@ -488,7 +490,7 @@ export function Hero() {
         mouseX.set((e.clientX - rect.left) / rect.width);
         mouseY.set((e.clientY - rect.top) / rect.height);
       }}
-      className="relative bg-brand-blue-900 text-brand-beige-100 overflow-hidden z-0 min-h-[80vh] md:min-h-[90vh] lg:min-h-[656px] xl:min-h-[965px] pt-6 md:pt-0 pb-10 lg:py-40"
+      className="relative bg-brand-blue-900 text-brand-beige-100 overflow-hidden z-0 min-h-[80vh] md:min-h-[90vh] lg:min-h-[656px] xl:min-h-[965px] pt-24 sm:pt-28 md:pt-0 pb-10 lg:py-40"
       data-mood="brand-dark"
       aria-label="Hero section showcasing portfolio and brand introduction"
     >
@@ -546,10 +548,10 @@ export function Hero() {
                   className="hero-left-title madefor-display font-black uppercase tracking-tight leading-[0.98] drop-shadow-[0_18px_40px_rgba(13,18,60,0.45)]"
                   style={{ transform: "scaleX(1.04)", transformOrigin: "left center" }}
                 >
-                  <span className="block whitespace-nowrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl text-brand-beige-100">
+                  <span className="block whitespace-normal sm:whitespace-nowrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl text-brand-beige-100">
                     Digiteller
                   </span>
-                  <span className="block mt-3 whitespace-nowrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl text-brand-beige-100">
+                  <span className="block mt-3 whitespace-normal sm:whitespace-nowrap text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl text-brand-beige-100">
                     <span className="hero-left-accent">Creative</span>
                   </span>
                 </motion.h1>

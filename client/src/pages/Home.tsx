@@ -326,7 +326,7 @@ export default function Home() {
       {/* ================================================================ */}
       {/* PAGE CONTENT */}
       {/* ================================================================ */}
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background overflow-x-hidden">
         {/* Skip to content link for accessibility */}
         <a
           href="#main-content"
@@ -550,6 +550,12 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary> */}
 
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <ServicesSection />
+            </Suspense>
+          </ErrorBoundary>
+
           {/* How We Work Section */}
           {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
@@ -564,6 +570,8 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary> */}
         </main>
+
+        {/* <br/> */}
 
         {/* ========================================================== */}
         {/* FOOTER - Outside main, lazy loaded */}
