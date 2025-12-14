@@ -88,9 +88,11 @@ export function HowWeWorkSection() {
         });
       };
       const onScroll = () => requestAnimationFrame(handleScroll);
-      window.addEventListener("scroll", onScroll);
+      const win = timelineRef.current?.ownerDocument?.defaultView;
+      if (!win) return;
+      win.addEventListener("scroll", onScroll);
       handleScroll();
-      return () => window.removeEventListener("scroll", onScroll);
+      return () => win.removeEventListener("scroll", onScroll);
     }
 
     const observer = new IntersectionObserver(
@@ -141,13 +143,13 @@ export function HowWeWorkSection() {
               transition={reducedMotion ? undefined : { duration: 0.6 }}
               className="space-y-4 lg:space-y-8"
             >
-              <span className="text-sm font-semibold uppercase tracking-[0.15em] text-brand-orange/90 block">
+              <span className="font-din text-sm font-semibold uppercase tracking-[0.15em] text-brand-orange/90 block">
                 how we work
               </span>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] text-white">
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1] text-white">
                 A faster, easier way to get{" "}
-                <span className="font-serif italic text-brand-orange">
+                <span className="font-extrabold tracking-tight text-brand-orange">
                   high-performing ad creative
                 </span>
               </h2>
@@ -194,7 +196,7 @@ export function HowWeWorkSection() {
                     {/* Number circle */}
                     <div className="relative flex-shrink-0">
                       <div
-                        className={`relative flex items-center justify-center w-14 h-14 rounded-full font-serif text-2xl transition-all duration-500 ${
+                        className={`font-heading relative flex items-center justify-center w-14 h-14 rounded-full font-extrabold text-2xl tracking-tight transition-all duration-500 ${
                           activeStep >= index ? "text-white" : "text-white/50"
                         }`}
                       >
@@ -211,14 +213,14 @@ export function HowWeWorkSection() {
                         {/* Inner fill */}
                         <div className="absolute inset-0.5 bg-brand-blue-900 rounded-full" />
                         {/* Number */}
-                        <span className="relative z-10">{item.number}</span>
+                        <span className="font-heading relative z-10">{item.number}</span>
                       </div>
                     </div>
 
                     {/* Text */}
                     <div className="flex-1 pt-2 space-y-2">
                       <h3
-                        className={`text-xl md:text-2xl font-bold tracking-tight transition-colors duration-500 ${
+                        className={`font-heading text-xl md:text-2xl font-bold tracking-tight transition-colors duration-500 ${
                           activeStep >= index ? "text-white" : "text-white/50"
                         }`}
                       >

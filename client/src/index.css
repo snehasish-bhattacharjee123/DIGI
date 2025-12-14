@@ -1,14 +1,329 @@
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 
+@font-face {
+  font-family: 'Helvetica Neue Italic';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/58a5cbff-d570-4c18-a5e3-60868dc07ae8.eot?#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helvetica-neue-italic {
+  font-family: 'Helvetica Neue Italic', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'Helvetica Neue Medium';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/07fe0fec-b63f-4963-8ee1-535528b67fdb.eot??#iefix') format('embedded-opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helvetica-neue-medium {
+  font-family: 'Helvetica Neue Medium', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW01-45Ligh';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/ae1656aa-5f8f-4905-aed0-93e667bd6e4a.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-45ligh {
+  font-family: 'HelveticaNeueW01-45Ligh', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW01-55Roma';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/b7693a83-b861-4aa6-85e0-9ecf676bc4d6.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-55roma {
+  font-family: 'HelveticaNeueW01-55Roma', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW01-65Medi';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/07fe0fec-b63f-4963-8ee1-535528b67fdb.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-65medi {
+  font-family: 'HelveticaNeueW01-65Medi', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW01-75Bold';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/c07fef9e-a934-42d7-92ad-69205f2b8a00.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-75bold {
+  font-family: 'HelveticaNeueW01-75Bold', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW01-75Bold';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/c07fef9e-a934-42d7-92ad-69205f2b8a00.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-75bold {
+  font-family: 'HelveticaNeueW01-75Bold', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW01-95Blac';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/b26ccb58-f2e3-47aa-a83a-02861bf54862.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-95blac {
+  font-family: 'HelveticaNeueW01-95Blac', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW01-Thin';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/56be84de-9d60-4089-8df0-0ea6ec786b84.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-thin {
+  font-family: 'HelveticaNeueW01-Thin', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW01-UltLt';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/41774233-b9da-44be-b252-6a7b612fb1c7.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew01-ultlt {
+  font-family: 'HelveticaNeueW01-UltLt', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW02-45Ligh';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/88fcd49a-13c7-4d0c-86b1-ad1e258bd75d.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-45ligh {
+  font-family: 'HelveticaNeueW02-45Ligh', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW02-55Roma';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/0b3a3fca-0fad-402b-bd38-fdcbad1ef776.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-55roma {
+  font-family: 'HelveticaNeueW02-55Roma', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW02-75Bold';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/db853e0e-929b-4272-b420-c946c954cf3a.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-75bold {
+  font-family: 'HelveticaNeueW02-75Bold', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW02-95Blac';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/c8ec8ade-129c-47df-86b4-f9f1cd69ac15.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-95blac {
+  font-family: 'HelveticaNeueW02-95Blac', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW02-Thin';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/30b6ffc3-3b64-40dd-9ff8-a3a850daf535.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-thin {
+  font-family: 'HelveticaNeueW02-Thin', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW02-UltLt';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/787ee748-9cce-45a0-910b-6b5c6e87e327.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew02-ultlt {
+  font-family: 'HelveticaNeueW02-UltLt', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW10-35Thin';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/93b6bf6a-418e-4a8f-8f79-cb9c99ef3e32.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew10-35thin {
+  font-family: 'HelveticaNeueW10-35Thin', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@font-face {
+  font-family: 'HelveticaNeueW10-45Ligh';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/5b85c7cc-6ad4-4226-83f5-9d19e2974123.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew10-45ligh {
+  font-family: 'HelveticaNeueW10-45Ligh', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'HelveticaNeueW10-65Medi';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/7092fdcc-7036-48ce-ae23-cfbc9be2e3b0.eot?#iefix') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.helveticaneuew10-65medi {
+  font-family: 'HelveticaNeueW10-65Medi', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'Madefor Display';
+  src: url('https://static.parastorage.com/unpkg/@wix/wix-fonts@1.14.0/media/WixMadeforDisplay_W_Rg.ff9d13f7.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.madefor-display {
+  font-family: 'Madefor Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/56be84de-9d60-4089-8df0-0ea6ec786b84.eot?#iefix') format('embedded-opentype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/41774233-b9da-44be-b252-6a7b612fb1c7.eot?#iefix') format('embedded-opentype');
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/ae1656aa-5f8f-4905-aed0-93e667bd6e4a.eot?#iefix') format('embedded-opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/b7693a83-b861-4aa6-85e0-9ecf676bc4d6.eot?#iefix') format('embedded-opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/58a5cbff-d570-4c18-a5e3-60868dc07ae8.eot?#iefix') format('embedded-opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/07fe0fec-b63f-4963-8ee1-535528b67fdb.eot?#iefix') format('embedded-opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/c07fef9e-a934-42d7-92ad-69205f2b8a00.eot?#iefix') format('embedded-opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: url('https://static.parastorage.com/services/third-party/fonts/Helvetica/Fonts/b26ccb58-f2e3-47aa-a83a-02861bf54862.eot?#iefix') format('embedded-opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
 :root {
-    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-serif: "Playfair Display", ui-serif, Georgia, serif;
-    --font-mono: "Manrope", ui-monospace, SFMono-Regular, monospace;
+    --font-sans: var(--font-work-sans);
+    --font-serif: var(--font-work-sans);
+    --font-mono: var(--font-azeret-mono);
 }
 
 
@@ -144,6 +459,17 @@
     .glow-accent-lg {
         box-shadow: 0 0 40px rgba(255,117,31,0.4);
     }
+
+    /* TYPOGRAPHY SHORTHANDS (font_#) */
+    .font_1 { font: var(--wst-font-style-h2); font-family: var(--font-work-sans); }
+    .font_2 { font: var(--wst-font-style-h3); font-family: var(--font-work-sans); }
+    .font_3 { font: var(--wst-font-style-h4); font-family: var(--font-azeret-mono); }
+    .font_4 { font: var(--wst-font-style-h5); font-family: var(--font-work-sans); }
+    .font_5 { font: var(--wst-font-style-h6); font-family: var(--font-work-sans); }
+    .font_6 { font: var(--wst-font-style-body-large); font-family: var(--font-azeret-mono); }
+    .font_7 { font: var(--wst-font-style-body-medium); font-family: var(--font-azeret-mono); }
+    .font_8 { font: var(--wst-font-style-body-small); font-family: var(--font-work-sans); }
+    .font_9 { font: var(--wst-font-style-body-x-small); font-family: var(--font-din-next-light); }
 }
 
 /* -------------------------------------------------------
@@ -154,9 +480,23 @@
         --background: 30 14% 93%;
         --foreground: 228 65% 14%;
 
-        --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-        --font-serif: ui-serif, Georgia, serif;
-        --font-mono: ui-monospace, SFMono-Regular, monospace;
+        --font-sans: var(--font-work-sans);
+        --font-serif: var(--font-work-sans);
+        --font-mono: var(--font-azeret-mono);
+
+        --font-work-sans: "Work Sans", "Helvetica Neue", -apple-system, BlinkMacSystemFont, sans-serif;
+        --font-azeret-mono: "Azeret Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        --font-din-next-light: "DIN Next", "DIN Next W01 Light", "din-next-w01-light", -apple-system, BlinkMacSystemFont, sans-serif;
+
+        --wst-font-style-h2: normal normal normal calc(45 * clamp(0px, 100 * 1cqw * 1, min(9999px, 9999px)) / 1280)/1em worksans-semibold,'work sans',sans-serif;
+        --wst-font-style-h3: normal normal normal 16px/1.3em worksans-semibold,'work sans',sans-serif;
+        --wst-font-style-h4: normal normal normal calc(16 * clamp(0px, 100 * 1cqw * 1, min(9999px, 9999px)) / 1280)/1.3em azeret-mono,'azeret mono',monospace;
+        --wst-font-style-h5: normal normal bold 15px/1.3em worksans-semibold,'work sans',sans-serif;
+        --wst-font-style-h6: normal normal bold calc(13 * clamp(0px, 100 * 1cqw * 1, min(9999px, 9999px)) / 1280)/1.4em worksans-semibold,'work sans',sans-serif;
+        --wst-font-style-body-large: normal normal normal 22px/1.65em azeret-mono,'azeret mono',monospace;
+        --wst-font-style-body-medium: normal normal normal 14px/1.65em azeret-mono,'azeret mono',monospace;
+        --wst-font-style-body-small: normal normal normal 13px/1.65em worksans-semibold,'work sans',sans-serif;
+        --wst-font-style-body-x-small: normal normal normal 13px/1.5em din-next-w01-light,sans-serif;
 
         --card: 0 0% 100%;
         --card-foreground: 228 65% 14%;
@@ -229,6 +569,7 @@
     body {
         @apply bg-background text-foreground font-sans;
         font-feature-settings: "rlig" 1, "calt" 1;
+        font-family: var(--font-sans);
     }
 
     *:focus-visible {
@@ -265,4 +606,165 @@
 }
 .animate-scroll-rtl {
     animation: scroll-rtl 40s linear infinite;
+}
+
+.hero-left-title {
+    letter-spacing: clamp(0.01em, 0.22vw, 0.045em);
+    text-wrap: balance;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+    text-shadow: 0 14px 34px rgba(13, 18, 60, 0.38);
+}
+
+.hero-left-title .line-parent {
+    display: block;
+    overflow: hidden;
+}
+
+.hero-left-title .line-child {
+    display: block;
+    will-change: transform, filter;
+}
+
+.hero-left-title .char {
+    display: inline-block;
+    will-change: transform, filter, opacity;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        filter 700ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-left-accent {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 1) 0%, rgba(34, 211, 238, 1) 28%, rgba(182, 232, 140, 1) 64%, rgba(56, 189, 248, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 246, 226, 0.18);
+    text-shadow: 0 10px 30px rgba(13, 18, 60, 0.35);
+}
+
+.hero-left-brand {
+    font-size: clamp(0.72rem, 1.1vw, 0.95rem);
+    line-height: 1;
+    letter-spacing: clamp(0.18em, 0.9vw, 0.48em);
+    text-transform: uppercase;
+    color: rgba(255, 246, 226, 0.8);
+    position: relative;
+    padding: 0.35rem 0.55rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 246, 226, 0.12);
+    background: linear-gradient(180deg, rgba(255, 246, 226, 0.06), rgba(255, 246, 226, 0.02));
+    backdrop-filter: blur(6px);
+}
+
+.hero-left-brand .char {
+    display: inline-block;
+    will-change: transform, filter, opacity;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.hero-left-title-wrap {
+    isolation: isolate;
+}
+
+.hero-sprinkles {
+    z-index: 0;
+}
+
+.hero-left-title {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-sprinkle {
+    position: absolute;
+    width: clamp(6px, 0.6vw, 10px);
+    height: clamp(6px, 0.6vw, 10px);
+    border-radius: 9999px;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 246, 226, 0.95), rgba(255, 246, 226, 0.25) 55%, rgba(182, 232, 140, 0.35) 100%);
+    box-shadow:
+        0 0 0 1px rgba(255, 246, 226, 0.14) inset,
+        0 10px 22px rgba(13, 18, 60, 0.35),
+        0 0 24px rgba(182, 232, 140, 0.18);
+    opacity: 0.7;
+}
+
+.hero-sprinkle::after {
+    content: "";
+    position: absolute;
+    inset: -10px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(182, 232, 140, 0.18), rgba(182, 232, 140, 0) 62%);
+    filter: blur(2px);
+}
+
+.hero-sprinkle-0 { left: -3%; top: 6%; }
+.hero-sprinkle-1 { left: 12%; top: -10%; }
+.hero-sprinkle-2 { left: 38%; top: -14%; }
+.hero-sprinkle-3 { left: 66%; top: -10%; }
+.hero-sprinkle-4 { left: 92%; top: 8%; }
+.hero-sprinkle-5 { left: 104%; top: 34%; }
+.hero-sprinkle-6 { left: 96%; top: 70%; }
+.hero-sprinkle-7 { left: 74%; top: 104%; }
+.hero-sprinkle-8 { left: 44%; top: 112%; }
+.hero-sprinkle-9 { left: 16%; top: 104%; }
+.hero-sprinkle-10 { left: -8%; top: 72%; }
+.hero-sprinkle-11 { left: -14%; top: 40%; }
+.hero-sprinkle-12 { left: 54%; top: 44%; }
+.hero-sprinkle-13 { left: 28%; top: 70%; }
+
+.home-typography,
+.home-typography * {
+    font-style: normal !important;
+}
+
+.home-typography h1 { font: var(--wst-font-style-h2); font-family: var(--font-work-sans); }
+.home-typography h2 { font: var(--wst-font-style-h2); font-family: var(--font-work-sans); }
+.home-typography h3 { font: var(--wst-font-style-h3); font-family: var(--font-work-sans); }
+.home-typography h4 { font: var(--wst-font-style-h4); font-family: var(--font-azeret-mono); }
+.home-typography h5 { font: var(--wst-font-style-h5); font-family: var(--font-work-sans); }
+.home-typography h6 { font: var(--wst-font-style-h6); font-family: var(--font-work-sans); }
+
+.home-typography p,
+.home-typography li,
+.home-typography a,
+.home-typography label,
+.home-typography input,
+.home-typography textarea,
+.home-typography select,
+.home-typography button {
+    font: var(--wst-font-style-body-medium);
+    font-family: var(--font-azeret-mono);
+}
+
+.home-typography small,
+.home-typography .text-xs,
+.home-typography .text-sm {
+    font: var(--wst-font-style-body-x-small);
+    font-family: var(--font-din-next-light);
+}
+
+:where(.wst-fonts) h1,
+:where(.wst-fonts) h2,
+:where(.wst-fonts) h3,
+:where(.wst-fonts) h4,
+:where(.wst-fonts) h5,
+:where(.wst-fonts) h6 {
+    font-family: var(--font-work-sans);
+}
+
+:where(.wst-fonts) p,
+:where(.wst-fonts) li,
+:where(.wst-fonts) blockquote,
+:where(.wst-fonts) a,
+:where(.wst-fonts) label,
+:where(.wst-fonts) input,
+:where(.wst-fonts) textarea,
+:where(.wst-fonts) select,
+:where(.wst-fonts) button {
+    font-family: var(--font-azeret-mono);
 }

@@ -142,7 +142,7 @@ function ProgressIndicator({
   return (
     <div className="h-1 w-12 bg-white/20 rounded-full overflow-hidden">
       <motion.div
-        className="h-full bg-primary"
+        className="h-full bg-bor-orange"
         style={{ scaleX, transformOrigin: "left" }}
       />
     </div>
@@ -171,7 +171,7 @@ export function ServicesSection() {
       {/* Spacer to create scroll distance - this is the "pin-spacer" equivalent */}
       <div
         ref={containerRef}
-        className="relative bg-bor-background"
+        className="hidden lg:block relative bg-bor-background"
         style={{ height: `${servicesData.length * 100}vh` }}
       >
         {/* Sticky/Pinned Container - stays fixed while user scrolls */}
@@ -257,15 +257,18 @@ function ServiceItem({ service, index }: { service: Service; index: number }) {
       <div className="max-w-[1680px] mx-auto w-full">
         <div className="grid grid-cols-2 gap-12 xl:gap-16 items-center">
           {/* Left: Image */}
-          <div className="relative overflow-hidden rounded-2xl">
-            <div className="relative aspect-[3/2]">
-              <img
-                src={service.image}
-                alt={service.imageAlt}
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>
+          <div className="relative">
+            <div className="absolute -inset-10 bg-bor-orange/15 blur-3xl rounded-[2.5rem]" />
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10 bg-white/5 transition-transform duration-300 hover:-translate-y-1">
+              <div className="relative aspect-[3/2]">
+                <img
+                  src={service.image}
+                  alt={service.imageAlt}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-[1.03]"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-black/0 to-transparent"></div>
+              </div>
             </div>
           </div>
 
@@ -273,7 +276,7 @@ function ServiceItem({ service, index }: { service: Service; index: number }) {
           <div className="space-y-6">
             {/* Number + Category */}
             <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-primary text-white font-serif text-2xl font-light">
+              <span className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-white/10 text-bor-foreground ring-1 ring-white/15 font-serif text-2xl font-light">
                 {service.number}
               </span>
               <span className="text-sm font-medium uppercase tracking-[0.2em] text-bor-gray">
@@ -287,7 +290,7 @@ function ServiceItem({ service, index }: { service: Service; index: number }) {
             </h3>
 
             {/* Description */}
-            <p className="text-lg text-bor-foreground/70 leading-relaxed">
+            <p className="text-lg text-bor-foreground/70 leading-relaxed max-w-prose">
               {service.description}
             </p>
 
@@ -295,7 +298,7 @@ function ServiceItem({ service, index }: { service: Service; index: number }) {
             <div className="pt-2">
               <a
                 href={service.link}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold text-sm rounded-lg hover:bg-primary/90 hover:gap-3 transition-all duration-300 group"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-bor-orange text-bor-black font-semibold text-sm rounded-lg hover:bg-bor-orange/90 hover:gap-3 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bor-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bor-background"
               >
                 Know More
                 <svg
@@ -337,17 +340,21 @@ function ServiceItemMobile({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="grid grid-cols-1 gap-8"
+      className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 items-center"
     >
       {/* Image */}
-      <div className="relative overflow-hidden rounded-2xl">
-        <div className="relative aspect-[4/3]">
-          <img
-            src={service.image}
-            alt={service.imageAlt}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+      <div className="relative">
+        <div className="absolute -inset-8 bg-bor-orange/15 blur-3xl rounded-[2.5rem]" />
+        <div className="relative overflow-hidden rounded-3xl shadow-xl ring-1 ring-white/10 bg-white/5">
+          <div className="relative aspect-[4/3]">
+            <img
+              src={service.image}
+              alt={service.imageAlt}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-black/0 to-transparent" />
+          </div>
         </div>
       </div>
 
@@ -355,7 +362,7 @@ function ServiceItemMobile({
       <div className="space-y-4 md:space-y-6">
         {/* Number + Category */}
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-primary text-white font-serif text-xl md:text-2xl font-light">
+          <span className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 text-bor-foreground ring-1 ring-white/15 font-serif text-xl md:text-2xl font-light">
             {service.number}
           </span>
           <span className="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-bor-gray">
@@ -369,7 +376,7 @@ function ServiceItemMobile({
         </h3>
 
         {/* Description */}
-        <p className="text-base md:text-lg text-bor-foreground/70 leading-relaxed">
+        <p className="text-base md:text-lg text-bor-foreground/70 leading-relaxed max-w-prose">
           {service.description}
         </p>
 
@@ -377,7 +384,7 @@ function ServiceItemMobile({
         <div className="pt-2">
           <a
             href={service.link}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-semibold text-sm rounded-lg hover:bg-primary/90 hover:gap-3 transition-all duration-300 group"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-bor-orange text-bor-black font-semibold text-sm rounded-lg hover:bg-bor-orange/90 hover:gap-3 transition-all duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bor-orange focus-visible:ring-offset-2 focus-visible:ring-offset-bor-background"
           >
             Know More
             <svg

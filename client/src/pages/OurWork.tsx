@@ -19,6 +19,48 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function OurWork() {
   const [activeCategory, setActiveCategory] = useState("all");
+  const [hoveredServiceTile, setHoveredServiceTile] = useState<string | null>(
+    null
+  );
+
+  const serviceTiles = [
+    {
+      id: "content",
+      title: "Content",
+      imageSrc:
+        "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600&auto=format&fit=crop",
+      imageAlt:
+        "content marketing |content marketing strategy | digital marketing content",
+      bgClass: "bg-[#F04438]",
+    },
+    {
+      id: "conversion",
+      title: "Conversion",
+      imageSrc:
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop",
+      imageAlt:
+        "conversion in digital marketing | Top digital marketing agency in Bangalore",
+      bgClass: "bg-[#16A34A]",
+    },
+    {
+      id: "conversation",
+      title: "Conversation",
+      imageSrc:
+        "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&auto=format&fit=crop",
+      imageAlt:
+        "Homepage banner conversions | Digital marketing agency in bangalore",
+      bgClass: "bg-[#F59E0B]",
+    },
+    {
+      id: "creative",
+      title: "Creative",
+      imageSrc:
+        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&auto=format&fit=crop",
+      imageAlt:
+        "creative marketing agency | best digital marketing agency in bangalore",
+      bgClass: "bg-[#1D4ED8]",
+    },
+  ];
 
   const categories = [
     { id: "all", label: "All Work" },
@@ -27,6 +69,22 @@ export default function OurWork() {
     { id: "video", label: "Video Production" },
     { id: "web", label: "Web Design" },
     { id: "graphics", label: "Graphic Design" },
+  ];
+
+  // Testimonials content
+  const testimonials = [
+    {
+      quote:
+        "Digiteller Creative transformed our brand identity and helped us stand out in a crowded market. Their creativity and attention to detail is unmatched.",
+      name: "Sarah Johnson",
+      title: "CEO, TechCorp International",
+    },
+    {
+      quote:
+        "Share something positive a past client has said and encourage potential clients to get onboard...",
+      name: "Halit Keigad",
+      title: "Marketing Lead, Finly",
+    },
   ];
 
   const projects = [
@@ -141,7 +199,17 @@ export default function OurWork() {
     },
   ];
 
-  const workItems = [
+  type WorkItem = {
+    title: string;
+    description: string;
+    image: string;
+    href: string;
+    colSpan: string;
+    isVideo?: boolean;
+    poster?: string;
+  };
+
+  const workItems: WorkItem[] = [
     {
       title: "Reddit",
       description: "Motion Design, Social Media Creative",
@@ -179,6 +247,8 @@ export default function OurWork() {
       description: "Motion Design, Illustration Design",
       image:
         "https://cdn.sanity.io/files/k0dlbavy/production/9ef48fc5551e1e172ceca6555ce758868360a4e4.mp4",
+      poster:
+        "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1600&auto=format&fit=crop",
       href: "/our-work/bolt",
       colSpan: "md:col-span-2 lg:col-span-3",
       isVideo: true,
@@ -306,6 +376,28 @@ export default function OurWork() {
     [Autoplay({ delay: 3000, stopOnInteraction: false })]
   );
 
+  // Testimonials carousel setup
+  const [tEmblaRef, tEmblaApi] = useEmblaCarousel({ loop: true, align: "center" });
+  const [tCanPrev, setTCanPrev] = useState(false);
+  const [tCanNext, setTCanNext] = useState(false);
+  const tScrollPrev = useCallback(() => {
+    if (tEmblaApi) tEmblaApi.scrollPrev();
+  }, [tEmblaApi]);
+  const tScrollNext = useCallback(() => {
+    if (tEmblaApi) tEmblaApi.scrollNext();
+  }, [tEmblaApi]);
+  const tOnSelect = useCallback(() => {
+    if (!tEmblaApi) return;
+    setTCanPrev(tEmblaApi.canScrollPrev());
+    setTCanNext(tEmblaApi.canScrollNext());
+  }, [tEmblaApi]);
+  useEffect(() => {
+    if (!tEmblaApi) return;
+    tOnSelect();
+    tEmblaApi.on("select", tOnSelect);
+    tEmblaApi.on("reInit", tOnSelect);
+  }, [tEmblaApi, tOnSelect]);
+
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
 
@@ -344,7 +436,9 @@ export default function OurWork() {
           content="Explore our portfolio of award-winning creative projects. From branding to video production, see how we've helped brands tell their stories."
         />
       </Helmet>
-      <Navigation />
+      <Navigation theme="blue" />
+
+      <main id="main-content" role="main" className="wst-fonts">
 
       {/* Hero Section */}
       <section className="relative bg-white text-brand-blue-900 pt-16 md:pt-20 lg:pt-32 pb-12 md:pb-16 lg:pb-20 overflow-hidden">
@@ -361,21 +455,52 @@ export default function OurWork() {
             </span>
 
             {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight text-brand-blue-900">
+            <h1 className="font-heading text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight leading-tight text-brand-blue-900">
               Creative that{" "}
-              <span className="font-serif text-[calc(100%+4px)] font-normal italic text-brand-orange">
+              <span className="text-[calc(100%+4px)] font-extrabold text-brand-orange">
                 works
               </span>
             </h1>
 
             {/* Subtitle */}
             <div className="flex flex-col gap-4 lg:gap-8 items-center w-full">
-              <h6 className="text-xl md:text-2xl lg:text-2xl font-normal tracking-tight leading-relaxed lg:max-w-[600px] max-w-xl text-brand-blue-800">
+              <h6 className="text-xl md:text-2xl lg:text-2xl font-normal tracking-tight leading-relaxed lg:max-w-[600px] max-w-xl text-brand-blue-700">
                 We help the world's leading brands create standout ads and
                 campaigns at speed—from concept to execution to results.
               </h6>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Service Tiles (Hover Zoom-Out) */}
+      <section className="bg-white">
+        <div className="w-full grid grid-cols-1 md:flex md:overflow-visible">
+          {serviceTiles.map((tile) => (
+            <div
+              key={tile.id}
+              onMouseEnter={() => setHoveredServiceTile(tile.id)}
+              onMouseLeave={() => setHoveredServiceTile(null)}
+              className={`group relative h-[260px] sm:h-[320px] md:h-[360px] lg:h-[420px] w-full overflow-hidden ${tile.bgClass} md:snap-none md:shrink md:transition-[flex] md:duration-700 md:ease-[cubic-bezier(0.22,1,0.36,1)] md:flex-1 ${
+                hoveredServiceTile === null
+                  ? "md:flex-[1]"
+                  : hoveredServiceTile === tile.id
+                  ? "md:flex-[1.6]"
+                  : "md:flex-[0.8]"
+              }`}
+            >
+              <img
+                src={tile.imageSrc}
+                alt={tile.imageAlt}
+                className="absolute inset-0 h-full w-full object-cover transform scale-125 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/15 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-10" />
+              <h2 className="absolute bottom-6 left-6 text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wide uppercase">
+                {tile.title}
+              </h2>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -407,7 +532,7 @@ export default function OurWork() {
       </section> */}
 
       {/* Client Results Statistics Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Optional Section Header */}
           <motion.div
@@ -417,8 +542,8 @@ export default function OurWork() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 lg:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
-              <span className="font-serif italic text-brand-green">
+            <h2 className="font-heading text-h2 leading-tight-13 font-bold mb-4 text-brand-blue-900">
+              <span className="font-semibold uppercase tracking-wide text-brand-green">
                 Real Results
               </span>{" "}
               for Real Brands
@@ -438,12 +563,12 @@ export default function OurWork() {
               <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
                 {/* Description */}
                 <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                  <p className="text-base lg:text-lg text-brand-blue-700">
                     Increase in CTR for PointCard
                   </p>
                   <a
                     href="/case-studies/pointcard"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
                   >
                     <span className="relative">
                       PointCard case study
@@ -453,7 +578,7 @@ export default function OurWork() {
                   </a>
                 </div>
                 {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
                   240%
                 </p>
               </div>
@@ -470,12 +595,12 @@ export default function OurWork() {
               <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
                 {/* Description */}
                 <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                  <p className="text-base lg:text-lg text-brand-blue-700">
                     Reduction in cost per asset for Amazon
                   </p>
                   <a
                     href="/case-studies/amazon"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
                   >
                     <span className="relative">
                       Amazon case study
@@ -485,7 +610,7 @@ export default function OurWork() {
                   </a>
                 </div>
                 {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
                   50%
                 </p>
               </div>
@@ -502,12 +627,12 @@ export default function OurWork() {
               <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
                 {/* Description */}
                 <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-900/70">
+                  <p className="text-base lg:text-lg text-brand-blue-700">
                     Design time saved for Thomson Reuters
                   </p>
                   <a
                     href="/case-studies/thomson-reuters"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-900 hover:text-brand-green transition-colors"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
                   >
                     <span className="relative">
                       Thomson Reuters case study
@@ -517,7 +642,7 @@ export default function OurWork() {
                   </a>
                 </div>
                 {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-serif font-normal text-brand-green leading-none">
+                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
                   ~90%
                 </p>
               </div>
@@ -527,7 +652,7 @@ export default function OurWork() {
       </section>
 
       {/* Portfolio Work Grid */}
-      <section className="py-16 md:py-20 lg:py-28 bg-gray-50">
+      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -536,15 +661,15 @@ export default function OurWork() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 lg:mb-16"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-brand-blue-900">
-              <span className="font-serif italic text-brand-green">
+            <h2 className="font-heading text-h2 leading-tight-13 font-bold mb-4 text-brand-blue-900">
+              <span className="font-semibold uppercase tracking-wide text-brand-green">
                 Featured
               </span>{" "}
               Work
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-y-12">
+          <div className="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-y-10">
             {workItems.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -557,11 +682,32 @@ export default function OurWork() {
                 <a href={item.href} className="flex flex-col lg:gap-6 gap-3">
                   <div className="overflow-hidden rounded-[10px]">
                     <div className="relative h-[180px] lg:h-[396px] overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                      />
+                      {item.isVideo ? (
+                        <>
+                          <video
+                            autoPlay
+                            playsInline
+                            muted
+                            loop
+                            preload="metadata"
+                            className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                            src={item.image}
+                          />
+                          <img
+                            src={item.poster || "https://source.unsplash.com/1200x800/?video,production&sig=99"}
+                            alt={item.title}
+                            className="absolute inset-0 w-full h-full object-cover md:hidden transform transition-transform duration-500 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </>
+                      ) : (
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      )}
                       {item.isVideo && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                           <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
@@ -573,12 +719,12 @@ export default function OurWork() {
                   </div>
                   <div className="flex max-w-full flex-col gap-1 lg:gap-2 select-none justify-start items-start">
                     <div className="flex max-w-full flex-row gap-3 items-center">
-                      <h5 className="box-border tracking-[0.1px] text-2xl md:text-3xl lg:text-4xl font-serif italic text-brand-blue-900">
+                      <h5 className="font-heading box-border tracking-tight text-2xl md:text-3xl lg:text-4xl font-bold text-brand-blue-900">
                         {item.title}
                       </h5>
                       <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 text-brand-blue-900" />
                     </div>
-                    <p className="text-sm md:text-sm lg:text-base truncate w-full text-brand-blue-900/70">
+                    <p className="text-sm md:text-sm lg:text-base truncate w-full text-brand-blue-700">
                       {item.description}
                     </p>
                   </div>
@@ -590,7 +736,7 @@ export default function OurWork() {
       </section>
 
       {/* Accelerate Business Section */}
-      <section className="py-16 md:py-20 lg:py-28 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Column - Content */}
@@ -601,32 +747,32 @@ export default function OurWork() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-brand-blue-900">
-                <span className="font-serif italic text-brand-green">
+              <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
+                <span className="font-semibold uppercase tracking-wide text-brand-green">
                   Accelerate
                 </span>{" "}
                 your business with us
               </h2>
 
-              <p className="text-xl md:text-2xl text-brand-blue-800 font-medium">
+              <p className="text-xl md:text-2xl text-brand-blue-700 font-medium">
                 Learn more about our range of our services.
               </p>
 
               <p className="text-base md:text-lg text-brand-blue-700 leading-relaxed">
                 Whether you need transformational{" "}
-                <span className="font-serif italic text-brand-green">
+                <span className="font-semibold text-brand-green">
                   brand
                 </span>{" "}
-                <span className="font-serif italic text-brand-green">
+                <span className="font-semibold text-brand-green">
                   strategy,
                 </span>{" "}
-                <span className="font-serif italic text-brand-green">
+                <span className="font-semibold text-brand-green">
                   communications,
                 </span>{" "}
-                <span className="font-serif italic text-brand-green">
+                <span className="font-semibold text-brand-green">
                   digital
                 </span>{" "}
-                <span className="font-serif italic text-brand-green">
+                <span className="font-semibold text-brand-green">
                   experiences
                 </span>{" "}
                 or more valuable relationships with your customers — we are
@@ -848,27 +994,61 @@ export default function OurWork() {
       </section> */}
 
       {/* Testimonial Section */}
-      <section className="py-20 md:py-24 lg:py-28 bg-white">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-4xl mx-auto text-center"
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10 md:mb-12"
           >
-            <div className="text-5xl md:text-6xl text-brand-green mb-6">"</div>
-            <blockquote className="text-xl md:text-2xl lg:text-3xl text-brand-blue-900 font-light mb-8 leading-relaxed">
-              Digiteller Creative transformed our brand identity and helped us
-              stand out in a crowded market. Their creativity and attention to
-              detail is unmatched.
-            </blockquote>
-            <div className="text-brand-blue-900/70">
-              <div className="font-semibold text-brand-blue-900 mb-1 text-lg">
-                Sarah Johnson
-              </div>
-              <div className="text-sm">CEO, TechCorp International</div>
-            </div>
+            <span className="text-xs md:text-xs lg:text-sm tracking-widest font-semibold uppercase text-brand-blue-800">TESTIMONIALS</span>
+            <h3 className="font-heading mt-3 text-h2 leading-tight-13 font-bold text-brand-blue-900">
+              STRAIGHT FROM THE FEED
+            </h3>
           </motion.div>
+
+          <div className="relative">
+            <div className="overflow-hidden" ref={tEmblaRef}>
+              <div className="flex">
+                {testimonials.map((t, idx) => (
+                  <div key={idx} className="flex-[0_0_100%] min-w-0">
+                    <div className="mx-auto max-w-3xl text-center px-2 sm:px-4">
+                      <div className="text-5xl md:text-6xl text-brand-green mb-6">"</div>
+                      <blockquote className="text-xl md:text-2xl text-brand-blue-900 font-light leading-relaxed">
+                        {t.quote}
+                      </blockquote>
+                      <div className="mt-6 text-brand-blue-700">
+                        <div className="font-semibold text-brand-blue-900">{t.name}</div>
+                        <div className="text-sm">{t.title}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Slider Nav */}
+            <div className="absolute inset-y-0 left-0 right-0 flex items-center justify-between pointer-events-none">
+              <button
+                onClick={tScrollPrev}
+                disabled={!tCanPrev}
+                className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-brand-blue-900/20 text-brand-blue-900 shadow-sm flex items-center justify-center hover:bg-brand-blue-900 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={tScrollNext}
+                disabled={!tCanNext}
+                className="pointer-events-auto w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-brand-blue-900/20 text-brand-blue-900 shadow-sm flex items-center justify-center hover:bg-brand-blue-900 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -921,6 +1101,7 @@ export default function OurWork() {
       </section> */}
 
       <Footer />
+      </main>
     </>
   );
 }

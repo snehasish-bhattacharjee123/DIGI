@@ -757,17 +757,35 @@ export default function Contact() {
           content="Get in touch with DIGITELLER CREATIVE. Contact us for creative services."
         />
       </Helmet>
-      <Navigation />
+      <Navigation theme="blue" />
 
       {/* Hero Section with Company Name */}
-      <section className="bg-black text-white pt-20 pb-16">
+      <section className="bg-white text-brand-blue-900 pt-20 pb-16">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
               DIGITELLER
               <br />
               CREATIVE
             </h1>
+          </div>
+
+          {/* Intro Text Section under the title */}
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-3xl font-semibold tracking-tight text-brand-blue-900">CONTACT</h2>
+            <h3 className="text-2xl mt-2 font-medium text-brand-blue-900">Digiteller Creative</h3>
+            <p className="mt-4 text-base text-brand-blue-900/70">
+              This is the space to share the business's contact information. Let people know when the business is available, how long it will take to get a response, and what the best ways are to get in touch. Remind readers that the business is happy to answer their questions, and encourage them to reach out.
+            </p>
+            <p className="mt-4 text-base">
+              <a href="mailto:DIGITELLERCREATIVE@GMAIL.COM" className="text-brand-blue-800 hover:text-brand-orange transition-colors">DIGITELLERCREATIVE@GMAIL.COM</a>
+              <br />
+              +91-7998596948
+              <br />
+              E-79, RAMGARH,
+              <br />
+              KOLKATA 700047
+            </p>
           </div>
 
           {/* Two Column Layout */}
@@ -778,14 +796,14 @@ export default function Contact() {
               <div className="space-y-4 mb-12">
                 <a
                   href="mailto:digitellercreative@gmail.com"
-                  className="text-sm md:text-base uppercase tracking-wide hover:text-gray-400 transition-colors"
+                  className="text-sm md:text-base uppercase tracking-wide text-brand-blue-700 hover:text-brand-orange transition-colors"
                 >
                   DIGITELLERCREATIVE@GMAIL.COM
                 </a>
-                <p className="text-sm md:text-base uppercase tracking-wide">
+                <p className="text-sm md:text-base uppercase tracking-wide text-brand-blue-900">
                   +91-7998596948
                 </p>
-                <p className="text-sm md:text-base uppercase tracking-wide">
+                <p className="text-sm md:text-base uppercase tracking-wide text-brand-blue-900">
                   E-79, RAMGARH,
                   <br />
                   KOLKATA 700047
@@ -800,7 +818,7 @@ export default function Contact() {
                     href={social.href}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="text-gray-400 hover:text-white transition-colors"
+                    className="text-brand-blue-700 hover:text-brand-orange transition-colors"
                     aria-label={social.label}
                   >
                     <social.icon className="w-6 h-6" />
@@ -811,10 +829,10 @@ export default function Contact() {
 
             {/* Right Column - Contact Form */}
             <div className="bg-white rounded-2xl p-8 md:p-12">
-              <h2 className="text-lg md:text-xl font-bold text-black mb-3 uppercase tracking-wide">
+              <h2 className="text-lg md:text-xl font-bold text-brand-blue-900 mb-3 uppercase tracking-wide">
                 Ready to Collaborate?
               </h2>
-              <p className="text-gray-600 mb-8 text-sm md:text-base">
+              <p className="text-brand-blue-900/70 mb-8 text-sm md:text-base">
                 Let's create something epic together
               </p>
 
@@ -824,7 +842,7 @@ export default function Contact() {
                   <div>
                     <label
                       htmlFor="firstName"
-                      className="block text-xs font-bold text-black mb-2 uppercase tracking-wide"
+                      className="block text-xs font-bold text-brand-blue-900 mb-2 uppercase tracking-wide"
                     >
                       First Name <span className="text-red-500">*</span>
                     </label>
@@ -836,13 +854,13 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="John"
-                      className="w-full px-0 py-2 bg-transparent border-b border-black text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors text-sm"
+                      className="w-full px-0 py-2 bg-transparent border-b border-brand-blue-900 text-brand-blue-900 placeholder-gray-400 focus:outline-none focus:border-brand-orange transition-colors text-sm"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="lastName"
-                      className="block text-xs font-bold text-black mb-2 uppercase tracking-wide"
+                      className="block text-xs font-bold text-brand-blue-900 mb-2 uppercase tracking-wide"
                     >
                       Last Name <span className="text-red-500">*</span>
                     </label>
@@ -854,7 +872,7 @@ export default function Contact() {
                       onChange={handleChange}
                       required
                       placeholder="Smith"
-                      className="w-full px-0 py-2 bg-transparent border-b border-black text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors text-sm"
+                      className="w-full px-0 py-2 bg-transparent border-b border-brand-blue-900 text-brand-blue-900 placeholder-gray-400 focus:outline-none focus:border-brand-orange transition-colors text-sm"
                     />
                   </div>
                 </div>
@@ -863,7 +881,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-xs font-bold text-black mb-2 uppercase tracking-wide"
+                    className="block text-xs font-bold text-brand-blue-900 mb-2 uppercase tracking-wide"
                   >
                     Email <span className="text-red-500">*</span>
                   </label>
@@ -875,7 +893,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     placeholder="hello@example.com"
-                    className="w-full px-0 py-2 bg-transparent border-b border-black text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors text-sm"
+                    className="w-full px-0 py-2 bg-transparent border-b border-brand-blue-900 text-brand-blue-900 placeholder-gray-400 focus:outline-none focus:border-brand-orange transition-colors text-sm"
                   />
                 </div>
 
@@ -883,7 +901,7 @@ export default function Contact() {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-xs font-bold text-black mb-2 uppercase tracking-wide"
+                    className="block text-xs font-bold text-brand-blue-900 mb-2 uppercase tracking-wide"
                   >
                     Message <span className="text-red-500">*</span>
                   </label>
@@ -895,7 +913,7 @@ export default function Contact() {
                     required
                     placeholder="Type your message here"
                     rows={4}
-                    className="w-full px-0 py-2 bg-transparent border-b border-black text-black placeholder-gray-400 focus:outline-none focus:border-gray-600 transition-colors text-sm resize-none"
+                    className="w-full px-0 py-2 bg-transparent border-b border-brand-blue-900 text-brand-blue-900 placeholder-gray-400 focus:outline-none focus:border-brand-orange transition-colors text-sm resize-none"
                   />
                 </div>
 
@@ -904,7 +922,7 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-black text-white font-bold py-3 px-6 rounded-lg uppercase tracking-wide text-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-brand-blue-900 text-white font-bold py-3 px-6 rounded-lg uppercase tracking-wide text-sm hover:bg-brand-orange transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? "Sending..." : "Submit"}
                   </button>
@@ -925,6 +943,24 @@ export default function Contact() {
                 )}
               </form>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="bg-white py-12">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          <h2 className="text-2xl font-bold text-brand-blue-900 mb-6">Find Us on the Map</h2>
+          <div className="w-full h-[420px] rounded-2xl overflow-hidden border border-brand-blue-900/20 shadow-sm">
+            <iframe
+              title="Digiteller Creative Location"
+              src="https://www.google.com/maps?q=E-79%2C%20Ramgarh%2C%20Kolkata%20700047&output=embed"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>

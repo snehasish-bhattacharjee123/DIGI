@@ -149,7 +149,7 @@ const FaqItem: React.FC<{
           tabIndex={tabIndex}
           className="before:content-none flex w-full items-start justify-between gap-4 md:gap-6 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded hover:text-primary"
         >
-          <span className="before:content-none text-base md:text-lg lg:text-xl font-semibold flex-1 text-left">
+          <span className="before:content-none font_2 font-semibold flex-1 text-left">
             {faq.title}
           </span>
 
@@ -188,7 +188,7 @@ const FaqItem: React.FC<{
         style={panelStyle}
       >
         <div ref={innerRef} className="pt-3 md:pt-4">
-          <p className="text-sm md:text-base text-bor-foreground/80 leading-relaxed">
+          <p className="font_3 text-bor-foreground/80 leading-normal-16">
             {faq.content}
           </p>
         </div>
@@ -288,10 +288,10 @@ export function FaqSection() {
     <section className="w-full bg-bor-background text-bor-foreground py-16 md:py-24 lg:py-32" data-mood="brand-dark">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         <div className="mb-12 md:mb-16 lg:mb-20">
-          <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
+          <span className="font-din text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
             FAQS
           </span>
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h2 className="font_2 font-bold tracking-tight">
             Frequently asked{" "}
             <span className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal">
               <em>questions</em>

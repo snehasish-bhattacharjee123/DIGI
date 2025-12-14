@@ -27,6 +27,9 @@ import { OurPeopleSection } from "@/components/OurPeopleSection";
 import { TeamSection } from "@/components/TeamSection";
 import { NewEraSection } from "@/components/NewEraSection";
 import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
+// import { SectionSkeleton } from "@/components/SectionSkeleton";
+import { CreativeServicesSection } from "@/components/CreativeServicesSection";
+import { CreativeShowcaseSection } from "@/components/CreativeShowcaseSection";
 
 export default function WhyUs() {
   const benefits = [
@@ -128,27 +131,27 @@ export default function WhyUs() {
   const processSteps = [
     {
       number: "01",
-      title: "Discovery & Strategy",
+      title: "Smart intake",
       description:
-        "We dive deep into your brand, audience, and objectives to create a strategic foundation for success.",
+        "Kick off with a clear brief, fast alignment, and the right creative team matched to your goals.",
     },
     {
       number: "02",
-      title: "Creative Concepting",
+      title: "On-brand production",
       description:
-        "Our team develops innovative concepts aligned with your goals, presenting options that push boundaries.",
+        "Build with toolkits, systems, and creatives trained on your brand—so every deliverable stays consistent.",
     },
     {
       number: "03",
-      title: "Design & Development",
+      title: "Create, iterate, optimize",
       description:
-        "Elite designers and developers bring concepts to life with pixel-perfect execution and technical excellence.",
+        "Move from concepts to polished assets with tight feedback loops and rapid iterations.",
     },
     {
       number: "04",
-      title: "Review & Iteration",
+      title: "QA & delivery",
       description:
-        "Collaborative feedback rounds ensure every detail meets your standards—unlimited revisions included.",
+        "Get final outputs that meet spec, across formats and channels—ready to launch, test, and scale.",
     },
   ];
 
@@ -184,14 +187,25 @@ export default function WhyUs() {
 
       <Navigation />
 
-      <main id="main-content" role="main" className="min-h-screen bg-white">
-        <ErrorBoundary>
-          <OurPeopleSection />
-        </ErrorBoundary>
+      <main
+        id="main-content"
+        role="main"
+        className="min-h-screen bg-white wst-fonts"
+      >
+
+      <ErrorBoundary>  
+              <CreativeServicesSection />
+          </ErrorBoundary>
 
         <ErrorBoundary>
-          <TeamSection />
+          <CreativeShowcaseSection />
         </ErrorBoundary>
+
+        {/* <ErrorBoundary>
+          <OurPeopleSection />
+        </ErrorBoundary> */}
+
+        
 
         {/* ========================================= */}
 
@@ -226,7 +240,7 @@ export default function WhyUs() {
         {/* ========================================= */}
         {/* BENEFITS GRID SECTION */}
         {/* ========================================= */}
-        <section className="py-20 md:py-28 lg:py-40 bg-gradient-to-b from-gray-50 to-white">
+        {/* <section className="py-20 md:py-28 lg:py-40 bg-gradient-to-b from-gray-50 to-white">
           <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
               <span className="text-xs md:text-sm font-semibold uppercase tracking-wider text-brand-green mb-3 block">
@@ -269,24 +283,27 @@ export default function WhyUs() {
               ))}
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* ========================================= */}
         {/* OUR PROCESS SECTION */}
         {/* ========================================= */}
-        <section className="py-20 md:py-28 lg:py-40 bg-brand-blue-900 text-white">
+        <section
+          className="py-20 md:py-28 lg:py-40 bg-brand-blue-900 text-white"
+          data-mood="brand-dark"
+        >
           <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
             <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-              <span className="text-xs md:text-sm font-semibold uppercase tracking-wider text-brand-green mb-3 block">
+              <span className="font-din text-xs md:text-sm font-semibold uppercase tracking-[0.2em] text-brand-green mb-3 block">
                 Our Process
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-white">
+              <h2 className="font-heading text-h2 leading-tight-13 font-bold mb-4 md:mb-6 text-white">
                 How We Deliver{" "}
                 <span className="text-brand-green">Exceptional Results</span>
               </h2>
-              <p className="text-base md:text-lg text-white/80">
-                A proven, collaborative process that ensures every project
-                exceeds expectations.
+              <p className="text-base md:text-lg text-white/80 leading-relaxed">
+                A proven, collaborative process designed for speed, quality, and
+                scale—without sacrificing craft.
               </p>
             </div>
 
@@ -300,13 +317,13 @@ export default function WhyUs() {
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                   className="relative"
                 >
-                  <div className="text-6xl md:text-7xl font-bold text-brand-green/20 mb-4">
+                  <div className="font-heading text-6xl md:text-7xl font-bold text-brand-green/20 mb-4 leading-none">
                     {step.number}
                   </div>
-                  <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 text-white">
+                  <h3 className="font-heading text-h4 leading-tight-14 font-bold mb-2 md:mb-3 text-white">
                     {step.title}
                   </h3>
-                  <p className="text-white/80 text-sm leading-relaxed">
+                  <p className="text-white/80 text-sm md:text-base leading-relaxed">
                     {step.description}
                   </p>
                   {i < processSteps.length - 1 && (
@@ -317,6 +334,10 @@ export default function WhyUs() {
             </div>
           </div>
         </section>
+
+        <ErrorBoundary>
+          <TeamSection />
+        </ErrorBoundary>
 
         {/* ========================================= */}
         {/* ADDITIONAL SECTIONS */}
@@ -341,127 +362,13 @@ export default function WhyUs() {
           <NewEraSection />
         </ErrorBoundary>
 
-        <ErrorBoundary>
-          <FreshAdsFuelSection />
-        </ErrorBoundary>
-
-        <section className="py-12 md:py-16 lg:py-24 bg-white overflow-hidden">
-          <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 lg:gap-16 items-center">
-              {/* Left Column - Content */}
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="w-full pt-12 lg:pt-0"
-              >
-                <div className="flex flex-col gap-6 mb-6 lg:gap-8 lg:mb-8">
-                  {/* Label */}
-                  <span className="text-sm md:text-sm lg:text-base tracking-wider font-semibold uppercase pb-3 border-b border-border text-blue-600">
-                    Fresh ads fuel performance
-                  </span>
-
-                  {/* Main Heading */}
-                  <div className="flex flex-col max-w-[532px]">
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight">
-                      <span className="font-serif italic text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-600">
-                        Tired of ad fatigue?{" "}
-                      </span>
-                      <span className="font-sans text-blue-900">
-                        It's time to refresh your ad production
-                      </span>
-                    </h2>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <div className="flex flex-col gap-6 lg:gap-8">
-                  {/* Subheading */}
-                  <div className="flex flex-col w-full max-w-[532px] lg:max-w-[600px]">
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-green-700">
-                      Ads lose effectiveness quickly. If it's not your audience
-                      getting bored, it's the algorithm.
-                    </h3>
-                  </div>
-
-                  {/* Description */}
-                  <div className="flex flex-col w-full max-w-[532px] lg:max-w-[600px]">
-                    <p className="text-base md:text-base lg:text-lg text-blue-700/80 leading-relaxed">
-                      You know it has a direct impact on your ROI but tight
-                      deadlines, limited resources, and talent gaps make it hard
-                      to keep up with the demand for compelling creative. That's
-                      what DIGITELLER is for.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Right Column - Image */}
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="-mx-4 sm:-mx-6 lg:mx-0 lg:order-1 order-1"
-              >
-                <div className="flex flex-col lg:rounded-[10px] lg:overflow-hidden">
-                  <div className="w-full">
-                    <div className="mx-auto flex h-full w-full flex-col gap-3 max-w-full">
-                      {/* Mobile Image */}
-                      <div className="md:hidden">
-                        <img
-                          alt="Fresh Ad Production"
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-auto object-contain"
-                          style={{
-                            objectFit: "contain",
-                            width: "100%",
-                            minHeight: "330px",
-                          }}
-                          src="https://cdn.sanity.io/images/k0dlbavy/production/6b180e1603c162f27bab33829c8a24f7a225f372-1044x1044.png?q=100&auto=format&w=828&fit=min"
-                        />
-                      </div>
-
-                      {/* Tablet Image */}
-                      <div className="max-md:hidden lg:hidden">
-                        <img
-                          alt="Fresh Ad Production"
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-auto object-contain"
-                          style={{
-                            objectFit: "contain",
-                            width: "100%",
-                            minHeight: "400px",
-                          }}
-                          src="https://cdn.sanity.io/images/k0dlbavy/production/6b180e1603c162f27bab33829c8a24f7a225f372-1044x1044.png?q=100&auto=format&w=1280&fit=min"
-                        />
-                      </div>
-
-                      {/* Desktop Image */}
-                      <div className="relative max-lg:hidden">
-                        <img
-                          alt="Fresh Ad Production"
-                          loading="lazy"
-                          decoding="async"
-                          className="w-full h-auto object-contain"
-                          style={{
-                            objectFit: "contain",
-                            width: "100%",
-                            minHeight: "500px",
-                          }}
-                          src="https://cdn.sanity.io/images/k0dlbavy/production/6b180e1603c162f27bab33829c8a24f7a225f372-1044x1044.png?q=100&auto=format&w=1920&fit=min"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        {false && (
+          <>
+            <ErrorBoundary>
+              <FreshAdsFuelSection />
+            </ErrorBoundary>
+          </>
+        )}
 
         <ErrorBoundary>
           <CreativePowerSection />

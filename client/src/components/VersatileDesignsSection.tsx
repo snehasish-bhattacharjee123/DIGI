@@ -108,7 +108,7 @@ export function VersatileDesignsSection() {
             <span className="text-xs lg:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
               Diverse Applications
             </span>
-            <h2 className="mt-2 text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+            <h2 className="font-heading mt-2 text-h2 leading-tight-13 font-bold tracking-tight">
               <em className="font-serif font-normal not-italic">
                 Versatile designs
               </em>{" "}

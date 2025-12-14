@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Splide from "@splidejs/splide";
 import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import "@splidejs/splide/dist/css/splide.min.css";
@@ -89,50 +89,62 @@ const moodStyles = {
 
 // === Work Card ===
 function WorkCard({ card }: { card: WorkCard }) {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      className={`flex flex-col overflow-hidden rounded-[10px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]
-        h-[320px] w-[200px]
-        xs:h-[360px] xs:w-[220px]
-        sm:h-[400px] sm:w-[250px]
-        md:h-[480px] md:w-[320px]
-        lg:h-[588px] lg:w-[400px]
-        xl:h-[720px] xl:w-[480px]
+      className={`group relative flex flex-col overflow-hidden rounded-[14px] border border-black/5 shadow-[0_18px_50px_-25px_rgba(0,0,0,0.45)]
+        transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]
+        h-[clamp(340px,44vw,760px)] w-[clamp(220px,28vw,520px)]
         ${moodStyles[card.mood]}`}
-      whileHover={{ rotate: 1, scale: 1.02 }}
-      transition={{ duration: 0.5 }}
+      whileHover={shouldReduceMotion ? undefined : { rotate: 0.6, scale: 1.02 }}
+      whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
+      transition={{ duration: 0.55 }}
     >
       <a
         href={card.link}
-        className="relative flex h-full w-full flex-col justify-end"
+        className="relative flex h-full w-full flex-col justify-end outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <div className="relative flex-grow">
           <motion.img
             src={card.imageUrl}
             alt={card.client}
-            className="absolute inset-0 h-full w-full object-contain p-2 sm:p-3 md:p-4"
+            className="absolute inset-0 h-full w-full object-cover p-0 will-change-transform"
             loading="lazy"
             decoding="async"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            whileHover={
+              shouldReduceMotion
+                ? undefined
+                : {
+                    scale: 1.06,
+                    y: -4,
+                  }
+            }
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           />
+
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/10 via-black/0 to-black/0 opacity-90 transition-opacity duration-700 group-hover:opacity-100" />
         </div>
 
-        <div className="flex flex-col p-3 sm:p-4 md:p-5 lg:p-8 z-10">
-          <span className="text-[10px] md:text-xs lg:text-sm tracking-[0.15em] font-semibold uppercase mb-1 hidden md:block opacity-50">
+        <div className="z-10 flex flex-col p-[clamp(0.75rem,1.2vw,2rem)]">
+          <span className="mb-1 hidden md:block text-[clamp(0.62rem,0.55vw+0.5rem,0.9rem)] font-semibold uppercase tracking-[0.18em] opacity-55">
             {card.category}
           </span>
-          <h4 className="tracking-[0.1px] text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl font-serif mb-2 leading-tight">
+          <motion.h4
+            className="mb-2 font-serif text-[clamp(1.35rem,2.2vw+0.9rem,3.75rem)] leading-[1.02] tracking-[-0.02em]"
+            initial={shouldReduceMotion ? undefined : { opacity: 0, y: 10 }}
+            animate={shouldReduceMotion ? undefined : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
             {card.client}
-          </h4>
-          <div className="flex mt-1 sm:mt-2 gap-1 opacity-60 lg:mt-3 lg:gap-2 overflow-hidden">
+          </motion.h4>
+          <div className="mt-1 flex gap-1 overflow-hidden opacity-70 sm:mt-2 lg:mt-3 lg:gap-2">
             {card.tags.slice(0, 2).map((tag, idx) => (
               <div
                 key={idx}
-                className="flex-shrink-0 flex items-center justify-center gap-1 rounded-full border font-semibold
-                  text-[10px] sm:text-xs md:text-sm
-                  px-2 py-0.5 sm:px-2.5 sm:py-1 lg:px-3 lg:py-1
-                  border-current bg-transparent whitespace-nowrap"
+                className="flex shrink-0 items-center justify-center gap-1 whitespace-nowrap rounded-full border border-current/70 bg-transparent font-semibold
+                  text-[clamp(0.62rem,0.45vw+0.55rem,0.95rem)]
+                  px-[clamp(0.5rem,0.75vw,0.9rem)] py-[clamp(0.2rem,0.35vw,0.35rem)]"
               >
                 {tag}
               </div>
@@ -140,17 +152,22 @@ function WorkCard({ card }: { card: WorkCard }) {
           </div>
         </div>
       </a>
+
+      <div className="pointer-events-none absolute inset-0 opacity-0 ring-1 ring-black/10 transition-opacity duration-700 group-hover:opacity-100" />
     </motion.div>
   );
 }
 
 // === Showcase Section ===
 export function WorkShowcaseCards() {
+  const shouldReduceMotion = useReducedMotion();
+
   useEffect(() => {
-    document.querySelectorAll(".splide").forEach((el) => {
-      const instance = (el as any).splide;
-      if (instance) instance.destroy(true);
-    });
+    const root = document.getElementById("work-splide");
+    if (!root) return;
+
+    const existing = (root as any).splide;
+    if (existing) existing.destroy(true);
 
     const splide = new Splide("#work-splide", {
       type: "loop",
@@ -159,10 +176,12 @@ export function WorkShowcaseCards() {
       pagination: false,
       gap: "2rem",
       perPage: 3,
-      autoScroll: {
-        speed: 1.2,
-        pauseOnHover: true,
-      },
+      autoScroll: shouldReduceMotion
+        ? undefined
+        : {
+            speed: 1.2,
+            pauseOnHover: true,
+          },
       breakpoints: {
         1536: { perPage: 3 },
         1280: { perPage: 2.5 },
@@ -172,12 +191,16 @@ export function WorkShowcaseCards() {
       },
     });
 
-    splide.mount({ AutoScroll });
+    if (shouldReduceMotion) {
+      splide.mount();
+    } else {
+      splide.mount({ AutoScroll });
+    }
 
     return () => {
       splide.destroy(true);
     };
-  }, []);
+  }, [shouldReduceMotion]);
 
   return (
     <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" data-mood="brand-surface">
@@ -193,9 +216,9 @@ export function WorkShowcaseCards() {
           <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-muted-foreground mb-3 block">
             FEATURED PROJECTS
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4">
+          <h2 className="font-heading text-h2 leading-tight-13 font-bold tracking-tight mb-4">
             Our Work{" "}
-            <span className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal italic">
+            <span className="font-serif text-[clamp(2.25rem,3vw+1.25rem,4.5rem)] font-normal italic">
               Showcase
             </span>
           </h2>
@@ -205,11 +228,11 @@ export function WorkShowcaseCards() {
         </motion.div>
 
         {/* === Splide Slider (NO gradient mask) === */}
-        <div id="work-splide" className="splide">
-          <div className="splide__track">
+        <div id="work-splide" className="splide select-none">
+          <div className="splide__track !overflow-visible cursor-grab active:cursor-grabbing">
             <ul className="splide__list">
               {workCards.map((card) => (
-                <li key={card.id} className="splide__slide">
+                <li key={card.id} className="splide__slide flex justify-center py-4">
                   <WorkCard card={card} />
                 </li>
               ))}

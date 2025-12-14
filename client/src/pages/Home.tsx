@@ -10,7 +10,7 @@ import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 
 // AFTER (works with your file)
-import {StatsSection} from "@/components/StatsSection";
+import { StatsSection } from "@/components/StatsSection";
 
 // ============================================================================
 // LAZY LOAD: Below-the-fold components (load when needed)
@@ -339,7 +339,7 @@ export default function Home() {
         <Navigation />
 
         {/* Main content area - Semantic HTML for SEO and accessibility */}
-        <main id="main-content" role="main">
+        <main id="main-content" role="main" className="home-typography font_7">
           {/* ========================================================== */}
           {/* ABOVE THE FOLD - Eager loaded for immediate render */}
           {/* ========================================================== */}
@@ -352,11 +352,11 @@ export default function Home() {
           </ErrorBoundary>
 
           {/* New Era Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <NewEraSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Made to Flex Section */}
           <ErrorBoundary>
@@ -365,35 +365,40 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          
-              <StatsSection />
-          
+          {/* <StatsSection /> */}
 
           {/* Creative Assets Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <CreativeAssetsSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Success Stories Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <SuccessStoriesSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Fresh Ads Fuel Performance Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <FreshAdsFuelSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Portfolio Grid - Main showcase */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <PortfolioGrid />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          {/* Our Work Video Section */}
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <OurWorkSection />
             </Suspense>
           </ErrorBoundary>
 
@@ -404,40 +409,33 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          {/* Our Work Video Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="lg" />}>
-              <OurWorkSection />
-            </Suspense>
-          </ErrorBoundary>
-
           {/* Work Carousel Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <WorkCarouselSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Testimonials Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <Testimonials />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Tech Enabled Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <TechEnabledSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Solutions for Modern Teams */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <SolutionsForModernTeamsSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Versatile Designs Section */}
           <ErrorBoundary>
@@ -446,78 +444,93 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          {/* Work With The Best Section */}
+          {/* Creative Services Grid Section */}
           <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="xl" />}>
+              <CreativeServicesGridSection />
+            </Suspense>
+          </ErrorBoundary>
+
+          {/* Work With The Best Section */}
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <WorkWithTheBestSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Team Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <TeamSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Latest Articles */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <LatestArticlesSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* ========================================================== */}
           {/* BELOW THE FOLD - Lazy loaded for performance */}
           {/* ========================================================== */}
 
           {/* Creative Services Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <CreativeServicesSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Our People Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <OurPeopleSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="md" />}>
-              <ScrollSections slides={demoSlides} />
-            </Suspense>
-          </ErrorBoundary>
+          <section
+            aria-label="Demo slides"
+            className="py-16 sm:py-20 lg:py-24 bg-background"
+          >
+            <ErrorBoundary>
+              <Suspense fallback={<SectionSkeleton height="md" />}>
+                <ScrollSections
+                  slides={demoSlides}
+                  className="bg-background"
+                />
+              </Suspense>
+            </ErrorBoundary>
+          </section>
 
           {/* Quote Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="sm" />}>
               <QuoteSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Services Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <Services />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Creative Power Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <CreativePowerSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* CTA Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="sm" />}>
               <CTASection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* ========================================================== */}
           {/* PREVIOUSLY OUTSIDE MAIN - Now properly inside */}
@@ -530,33 +543,26 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary>
 
-          {/* Creative Services Grid Section */}
-          <ErrorBoundary>
-            <Suspense fallback={<SectionSkeleton height="xl" />}>
-              <CreativeServicesGridSection />
-            </Suspense>
-          </ErrorBoundary>
-
           {/* Services Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <ServicesSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* How We Work Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <HowWeWorkSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Global Team Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="md" />}>
               <GlobalTeamSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
         </main>
 
         {/* ========================================================== */}

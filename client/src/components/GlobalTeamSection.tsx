@@ -1,8 +1,18 @@
 import { motion } from "framer-motion";
-import { Flag, Clock, Lightbulb } from "lucide-react";
+import { useState } from "react";
+import type { ReactNode } from "react";
+import { Flag, Clock, Lightbulb, Play } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { VideoPlayer } from "@/components/VideoPlayer";
+import { videoAssets } from "@/data/portfolio-assets";
 
 interface FeaturePill {
-  icon: React.ReactNode;
+  icon: ReactNode;
   title: string;
   delay: number;
 }
@@ -26,7 +36,38 @@ const features: FeaturePill[] = [
   },
 ];
 
+const featuredWork = [
+  {
+    id: "featured-1",
+    eyebrow: "Featured work",
+    title: "Campaign story: Game Changer",
+    poster: "https://source.unsplash.com/1200x800/?advertising,campaign&sig=21",
+    videoDesktopUrl: videoAssets.successStories[0].desktop,
+    videoMobileUrl: videoAssets.successStories[0].mobile,
+  },
+  {
+    id: "featured-2",
+    eyebrow: "Featured work",
+    title: "Production sprint: Seamless Process",
+    poster: "https://source.unsplash.com/1200x800/?video,production&sig=22",
+    videoDesktopUrl: videoAssets.successStories[1].desktop,
+    videoMobileUrl: videoAssets.successStories[1].mobile,
+  },
+  {
+    id: "featured-3",
+    eyebrow: "Featured work",
+    title: "Behind the work: New Era",
+    poster: "https://source.unsplash.com/1200x800/?design,creative&sig=23",
+    videoDesktopUrl: videoAssets.newEra.desktop,
+    videoMobileUrl: videoAssets.newEra.mobile,
+  },
+];
+
 export function GlobalTeamSection() {
+  const [selectedWork, setSelectedWork] = useState<number | null>(null);
+
+  const handleClose = () => setSelectedWork(null);
+
   return (
     <section className="relative overflow-hidden text-white py-0 min-h-[600px] md:min-h-[700px] lg:min-h-[800px]">
       {/* Full-Width Background Image */}
@@ -45,7 +86,7 @@ export function GlobalTeamSection() {
 
       {/* Content Container */}
       <div className="relative z-10 max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-16 md:py-20 lg:py-32">
-        <div className="max-w-2xl">
+        <div className="max-w-3xl">
           {/* Left Side - Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -56,18 +97,18 @@ export function GlobalTeamSection() {
           >
             {/* Header */}
             <div className="space-y-5">
-              <span className="text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 block">
+              <span className="font-din text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 block">
                 OUR GLOBAL TEAM
               </span>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.15]">
+              <h2 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08]">
                 When we say "world-class",{" "}
-                <span className="font-serif italic font-light text-primary">
+                <span className="font-extrabold tracking-tight text-primary">
                   we really mean it
                 </span>
               </h2>
 
-              <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed font-light max-w-xl">
+              <p className="text-base md:text-lg lg:text-xl text-gray-200/90 leading-relaxed max-w-2xl">
                 As a fully remote company, we aren't bound by borders. So we're
                 able to hire the best, no matter where they live, including
                 South Africa, Brazil, Germany, Malaysia, Canada and more.
@@ -94,13 +135,62 @@ export function GlobalTeamSection() {
                       {feature.icon}
                     </span>
                     <div className="flex-1 pt-1">
-                      <h3 className="text-base md:text-lg lg:text-xl font-light tracking-wide text-gray-100 leading-relaxed">
+                      <h3 className="font-heading text-base md:text-lg lg:text-xl tracking-wide text-gray-100 leading-relaxed">
                         {feature.title}
                       </h3>
                     </div>
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Featured Work */}
+            <div className="pt-8 lg:pt-10">
+              <div className="flex items-end justify-between gap-6 mb-5">
+                <div className="space-y-2">
+                  <span className="font-din text-xs md:text-sm font-medium uppercase tracking-[0.2em] text-gray-400 block">
+                    FEATURED WORK
+                  </span>
+                  <h3 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">
+                    Proof in motion
+                  </h3>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+                {featuredWork.map((item, index) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setSelectedWork(index)}
+                    className="group relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 hover:bg-white/8 transition-all duration-500 text-left"
+                  >
+                    <div className="relative aspect-[16/10]">
+                      <img
+                        src={item.poster}
+                        alt={item.title}
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+                      <div className="absolute top-4 right-4">
+                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-full bg-white/15 backdrop-blur border border-white/20 group-hover:bg-white/20 transition-colors">
+                          <Play className="h-5 w-5 text-white" />
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="p-4 md:p-5">
+                      <div className="text-xs uppercase tracking-widest text-gray-300">
+                        {item.eyebrow}
+                      </div>
+                      <div className="font-heading mt-2 text-base md:text-lg font-semibold text-white leading-snug">
+                        {item.title}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
@@ -121,6 +211,27 @@ export function GlobalTeamSection() {
           }}
         />
       </div>
+
+      {selectedWork !== null && (
+        <Dialog open={selectedWork !== null} onOpenChange={handleClose}>
+          <DialogContent className="max-w-7xl w-full max-h-[90vh] p-0 bg-black border-0">
+            <DialogHeader className="sr-only">
+              <DialogTitle>Featured Work Video</DialogTitle>
+            </DialogHeader>
+            <div className="relative w-full aspect-video">
+              <VideoPlayer
+                src={
+                  window.innerWidth >= 768
+                    ? featuredWork[selectedWork].videoDesktopUrl
+                    : featuredWork[selectedWork].videoMobileUrl
+                }
+                className="aspect-video"
+                isModal={true}
+              />
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </section>
   );
 }

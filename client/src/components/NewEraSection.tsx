@@ -5,7 +5,7 @@ import { LiquidButton } from "@/components/LiquidButton";
 export function NewEraSection() {
   return (
     <section
-      className="relative section-padding bg-white text-brand-blue-900 overflow-hidden font-sans"
+      className="relative section-padding bg-white text-brand-blue-900 overflow-hidden"
       data-mood="light"
     >
       {/* Soft noise background */}
@@ -43,12 +43,12 @@ export function NewEraSection() {
           >
             <div className="flex flex-col space-y-7">
               {/* Subtitle */}
-              <span className="font-semibold uppercase pb-2 border-b border-brand-blue-200 text-xs tracking-[0.25em] text-brand-green-600 w-fit">
+              <span className="font-din font-semibold uppercase pb-2 border-b border-brand-blue-200 text-xs tracking-[0.25em] text-brand-green-600 w-fit">
                 A new era of creative work
               </span>
 
               {/* Heading */}
-              <h2 className="font-serif fluid-title text-brand-blue-900 max-w-2xl leading-[1.05]">
+              <h2 className="font_2 text-brand-blue-900 max-w-2xl leading-[1.05]">
                 Creative Solutions That Drive{" "}
                 <span className="relative text-brand-green-600">
                   Real Growth
@@ -57,26 +57,26 @@ export function NewEraSection() {
               </h2>
 
               {/* Paragraph 1 */}
-              <p className="fluid-text text-brand-blue-700 max-w-xl leading-relaxed font-sans font-medium">
+              <p className="font_3 text-brand-blue-700 max-w-xl leading-relaxed">
                 DIGITELLER CREATIVE is your dedicated, on-call creative partner
                 — expanding your production capacity and amplifying your team’s
                 creative impact.
               </p>
 
               {/* Paragraph 2 */}
-              <p className="text-base md:text-lg text-brand-blue-600 max-w-lg leading-relaxed font-sans">
+              <p className="font_3 text-brand-blue-600 max-w-lg leading-relaxed">
                 Think of us as an extension of your vision — freeing you to
                 focus on strategy, storytelling, and meaningful innovation.
               </p>
 
               {/* CTA */}
-              <LiquidButton
+              {/* <LiquidButton
                 label="Book a demo"
                 color="#0d123c" // background & border for hover effect
                 textColor="#0d123c" // deep blue text normally
                 duration={1000}
                 className="shadow-brand hover:shadow-brand-lg hover-elevate transition-all"
-              />
+              /> */}
             </div>
           </motion.div>
         </div>

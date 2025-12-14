@@ -1,5 +1,12 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValueEvent,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 /**
  * ScrollSections - Reusable Pinned Vertical Scroll Component
@@ -17,7 +24,11 @@ export interface Slide {
   id: string;
   title?: string;
   subtitle?: string;
-  content: React.ReactNode;
+  content?: React.ReactNode;
+  mediaSrc?: string;
+  mediaAlt?: string;
+  posterSrc?: string;
+  mediaClassName?: string;
 }
 
 export interface ScrollSectionsProps {
@@ -36,27 +47,43 @@ function SlideItem({
   total,
   scrollYProgress,
   showTitles,
+  activeIndex,
 }: {
   slide: Slide;
   index: number;
   total: number;
   scrollYProgress: any;
   showTitles: boolean;
+  activeIndex: number;
 }) {
   const start = index / total;
   const end = (index + 1) / total;
 
-  const opacity = useTransform(
+  const opacityRaw = useTransform(
     scrollYProgress,
     [start - 0.05, start, end, end + 0.05],
     [0, 1, 1, 0],
   );
 
-  const scale = useTransform(
+  const scaleRaw = useTransform(
     scrollYProgress,
     [start - 0.05, start, end, end + 0.05],
     [0.95, 1, 1, 0.95],
   );
+
+  const opacity = useSpring(opacityRaw, {
+    stiffness: 140,
+    damping: 30,
+    mass: 0.35,
+  });
+
+  const scale = useSpring(scaleRaw, {
+    stiffness: 140,
+    damping: 30,
+    mass: 0.35,
+  });
+
+  const isActive = index === activeIndex;
 
   return (
     <motion.div
@@ -65,20 +92,171 @@ function SlideItem({
     >
       <div className="w-full h-full flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8">
         {showTitles && (slide.title || slide.subtitle) && (
-          <div className="mb-8 text-center">
+          <div className="mb-8 text-center max-w-3xl mx-auto">
             {slide.title && (
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-2">
+              <h2 className="text-balance text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tight leading-[1.1] text-foreground mb-2">
                 {slide.title}
               </h2>
             )}
             {slide.subtitle && (
-              <p className="text-lg md:text-xl text-gray-600">
+              <p className="text-pretty text-base md:text-lg lg:text-xl leading-relaxed text-muted-foreground">
                 {slide.subtitle}
               </p>
             )}
           </div>
         )}
-        <div className="w-full max-w-7xl">{slide.content}</div>
+        <div className="w-full max-w-7xl">
+          <SlideMedia slide={slide} isActive={isActive} />
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function getMediaKind(src: string): "video" | "image" {
+  const lower = src.toLowerCase();
+  if (
+    lower.endsWith(".mp4") ||
+    lower.endsWith(".webm") ||
+    lower.endsWith(".ogg") ||
+    lower.endsWith(".mov") ||
+    lower.endsWith(".m4v")
+  ) {
+    return "video";
+  }
+  return "image";
+}
+
+function getVideoMimeType(src: string): string {
+  const lower = src.toLowerCase();
+  if (lower.endsWith(".webm")) return "video/webm";
+  if (lower.endsWith(".ogg") || lower.endsWith(".ogv")) return "video/ogg";
+  if (lower.endsWith(".mov")) return "video/quicktime";
+  if (lower.endsWith(".m4v")) return "video/x-m4v";
+  return "video/mp4";
+}
+
+function SlideMedia({
+  slide,
+  isActive,
+  inView,
+}: {
+  slide: Slide;
+  isActive?: boolean;
+  inView?: boolean;
+}) {
+  const kind = useMemo(() => {
+    if (!slide.mediaSrc) return null;
+    return getMediaKind(slide.mediaSrc);
+  }, [slide.mediaSrc]);
+
+  const shouldPlay = (isActive ?? true) && (inView ?? true);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    if (shouldPlay) {
+      const p = el.play();
+      if (p && typeof (p as Promise<void>).catch === "function") {
+        (p as Promise<void>).catch(() => undefined);
+      }
+      return;
+    }
+
+    el.pause();
+  }, [shouldPlay]);
+
+  if (slide.mediaSrc && kind === "video") {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <motion.video
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          loop
+          preload="metadata"
+          disablePictureInPicture
+          poster={slide.posterSrc}
+          className={
+            slide.mediaClassName ??
+            "w-full max-w-5xl max-h-[70vh] h-auto object-contain rounded-2xl shadow-2xl"
+          }
+          initial={{ opacity: 0, y: 10, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <source src={slide.mediaSrc} type={getVideoMimeType(slide.mediaSrc)} />
+        </motion.video>
+      </div>
+    );
+  }
+
+  if (slide.mediaSrc && kind === "image") {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <motion.img
+          src={slide.mediaSrc}
+          alt={slide.mediaAlt ?? slide.title ?? ""}
+          className={
+            slide.mediaClassName ??
+            "w-full max-w-5xl max-h-[70vh] h-auto object-contain rounded-2xl shadow-2xl"
+          }
+          loading="lazy"
+          initial={{ opacity: 0, y: 10, scale: 0.985 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        />
+      </div>
+    );
+  }
+
+  return slide.content ?? null;
+}
+
+function MobileSlideItem({
+  slide,
+  index,
+  className,
+  showTitles,
+}: {
+  slide: Slide;
+  index: number;
+  className: string;
+  showTitles: boolean;
+}) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const inView = useInView(ref, { margin: "-100px 0px -100px 0px", amount: 0.35 });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={`min-h-screen flex items-center justify-center py-16 ${className}`}
+    >
+      <div className="w-full px-4 sm:px-6">
+        {showTitles && (slide.title || slide.subtitle) && (
+          <div className="mb-8 text-center max-w-3xl mx-auto">
+            {slide.title && (
+              <h2 className="text-balance text-2xl sm:text-3xl font-semibold tracking-tight leading-[1.1] text-foreground mb-2">
+                {slide.title}
+              </h2>
+            )}
+            {slide.subtitle && (
+              <p className="text-pretty text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground">
+                {slide.subtitle}
+              </p>
+            )}
+          </div>
+        )}
+        <div className="w-full max-w-4xl mx-auto">
+          <SlideMedia slide={slide} inView={inView} />
+        </div>
       </div>
     </motion.div>
   );
@@ -147,14 +325,18 @@ function ScrollSections({
     offset: ["start start", "end end"],
   });
 
-  // Attach listener only if needed
-  if (onSlideChange && slides.length > 0) {
-    scrollYProgress.on("change", (progress) => {
-      const activeIndex = Math.floor(progress * slides.length);
-      const clampedIndex = Math.max(0, Math.min(slides.length - 1, activeIndex));
-      onSlideChange(clampedIndex);
-    });
-  }
+  const [activeIndex, setActiveIndex] = useState(0);
+  const lastIndexRef = useRef(0);
+
+  useMotionValueEvent(scrollYProgress, "change", (progress) => {
+    if (slides.length === 0) return;
+    const nextIndex = Math.floor(progress * slides.length);
+    const clampedIndex = Math.max(0, Math.min(slides.length - 1, nextIndex));
+    if (clampedIndex === lastIndexRef.current) return;
+    lastIndexRef.current = clampedIndex;
+    setActiveIndex(clampedIndex);
+    onSlideChange?.(clampedIndex);
+  });
 
   return (
     <>
@@ -175,10 +357,11 @@ function ScrollSections({
                   total={slides.length}
                   scrollYProgress={scrollYProgress}
                   showTitles={showTitles}
+                  activeIndex={activeIndex}
                 />
               ))}
 
-              {showProgress && slides.length > 0 && (
+              {/* {showProgress && slides.length > 0 && (
                 <div
                   className={`absolute z-20 flex ${
                     progressPosition === "bottom"
@@ -196,7 +379,7 @@ function ScrollSections({
                     />
                   ))}
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -205,32 +388,13 @@ function ScrollSections({
       {/* Mobile stacked scroll view */}
       <div className="lg:hidden">
         {slides.map((slide, index) => (
-          <motion.div
+          <MobileSlideItem
             key={slide.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className={`min-h-screen flex items-center justify-center py-16 ${className}`}
-          >
-            <div className="w-full px-4 sm:px-6">
-              {showTitles && (slide.title || slide.subtitle) && (
-                <div className="mb-8 text-center">
-                  {slide.title && (
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2">
-                      {slide.title}
-                    </h2>
-                  )}
-                  {slide.subtitle && (
-                    <p className="text-base md:text-lg text-gray-600">
-                      {slide.subtitle}
-                    </p>
-                  )}
-                </div>
-              )}
-              <div className="w-full max-w-4xl mx-auto">{slide.content}</div>
-            </div>
-          </motion.div>
+            slide={slide}
+            index={index}
+            className={className}
+            showTitles={showTitles}
+          />
         ))}
       </div>
     </>

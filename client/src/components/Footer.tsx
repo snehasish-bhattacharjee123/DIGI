@@ -190,9 +190,30 @@
 //   );
 // }
 
-import { Instagram, Linkedin, Facebook } from "lucide-react";
+import {
+  Instagram,
+  Facebook,
+  Linkedin,
+  Youtube,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
+import { useState } from "react";
 
 export function Footer() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+
   const navigationLinks = [
     { label: "PORTFOLIO", href: "/portfolio" },
     { label: "STUDIO", href: "/studio" },
@@ -200,9 +221,9 @@ export function Footer() {
   ];
 
   const policyLinks = [
+    { label: "Accessibility Statement", href: "/accessibility" },
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Terms & Conditions", href: "/terms" },
-    { label: "Accessibility Statement", href: "/accessibility" },
     { label: "Refund Policy", href: "/refund-policy" },
   ];
 
@@ -225,54 +246,77 @@ export function Footer() {
       label: "LinkedIn",
       ariaLabel: "LinkedIn",
     },
+    {
+      icon: Youtube,
+      href: "https://www.youtube.com/",
+      label: "YouTube",
+      ariaLabel: "YouTube",
+    },
   ];
 
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          message: "",
+        });
+        setTimeout(() => setSubmitStatus("idle"), 3000);
+      } else {
+        setSubmitStatus("error");
+        setTimeout(() => setSubmitStatus("idle"), 3000);
+      }
+    } catch (error) {
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus("idle"), 3000);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <footer className="bg-black text-white">
-      <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        {/* Top Section with Company Name and Contact Info */}
-        <div className="py-16 border-b border-gray-800 text-center">
-          <h3
-            className="text-3xl md:text-4xl font-bold mb-8"
-            data-testid="text-footer-brand"
-          >
-            DIGITELLER CREATIVE
-          </h3>
-          <div className="space-y-2 text-gray-300 text-sm md:text-base mb-8">
-            <p>
-              <a
-                href="mailto:digitellercreative@gmail.com"
-                className="hover:text-white transition-colors"
-              >
-                DIGITELLERCREATIVE@GMAIL.COM
-              </a>
-            </p>
-            <p>+91-7998596948</p>
-            <p>E-79, RAMGARH, KOLKATA 700047</p>
+    <footer className="bg-bor-black text-white py-16 md:py-24 overflow-hidden">
+      <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+        {/* Section 1: Top grid (DIGITELLER) */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end mb-14">
+          <div className="md:col-span-8">
+            <h2 className="sr-only" data-testid="text-footer-brand">
+              DigiTeller Creative
+            </h2>
+            <div className="select-none">
+              <div className="inline-block font-extrabold tracking-tight leading-none text-[clamp(48px,8vw,120px)] uppercase bg-gradient-to-r from-brand-blue-500 via-brand-blue-300 to-brand-green bg-clip-text text-transparent">
+                DIGITELLER
+              </div>
+              <div className="mt-2 text-gray-300 text-sm md:text-base max-w-xl">
+                Creative studio for brand, content, and digital experiences.
+              </div>
+            </div>
           </div>
-        </div>
 
-        {/* Navigation and Social Section */}
-        <div className="py-12 border-b border-gray-800">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-            {/* Navigation Menu */}
-            <nav className="flex gap-8 md:gap-12">
-              {navigationLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm font-medium hover:text-primary transition-colors"
-                  data-testid={`link-footer-nav-${link.label
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")}`}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-
-            {/* Social Links */}
-            <div className="flex gap-6">
+          <div className="md:col-span-4 flex md:justify-end">
+            <div className="flex gap-5">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -290,33 +334,211 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Policy Links Section */}
-        <div className="py-12 border-b border-gray-800">
-          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 text-center">
-            {policyLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-xs md:text-sm text-gray-400 hover:text-white transition-colors"
-                data-testid={`link-footer-policy-${link.label
-                  .toLowerCase()
-                  .replace(/\s+/g, "-")}`}
-              >
-                {link.label}
-              </a>
-            ))}
+        {/* Section 2: Left contact | Middle menu | Right form */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+          {/* Left: Email / Phone / Address */}
+          <div className="md:col-span-4">
+            <div className="space-y-5 text-gray-300 text-sm">
+              <div className="flex items-start gap-3">
+                <Mail className="w-5 h-5 text-gray-400 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                    Email
+                  </p>
+                  <a
+                    href="mailto:DIGITELLERCREATIVE@GMAIL.COM"
+                    className="hover:text-white transition-colors"
+                  >
+                    DIGITELLERCREATIVE@GMAIL.COM
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <Phone className="w-5 h-5 text-gray-400 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                    Phone
+                  </p>
+                  <a
+                    href="tel:+917998596948"
+                    className="hover:text-white transition-colors"
+                  >
+                    +91-7998596948
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 text-gray-400 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold">
+                    Address
+                  </p>
+                  <p className="text-gray-300">
+                    E-79, Ramgarh,
+                    <br />
+                    Kolkata 700047
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Middle: Menus */}
+          <div className="md:col-span-2 md:flex md:flex-col md:justify-start">
+            <div className="space-y-8">
+              <div>
+                <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-4">
+                  Menu
+                </p>
+                <nav className="flex flex-col gap-4">
+                  {navigationLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      className="text-sm font-semibold uppercase tracking-wide hover:text-gray-400 transition-colors"
+                      data-testid={`link-footer-nav-${link.label
+                        .toLowerCase()
+                        .replace(/\s+/g, "-")}`}
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Contact Form */}
+          <div className="md:col-span-6">
+            <div className="bg-white text-black p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-xl">
+              <h3 className="text-lg md:text-xl font-bold uppercase tracking-wider mb-2">
+                Ready to Collaborate?
+              </h3>
+              <p className="text-gray-600 text-sm mb-8">
+                Let's create something epic together
+              </p>
+
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
+                    First Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    placeholder="John"
+                    required
+                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
+                    Last Name <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Smith"
+                    required
+                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="hello@example.com"
+                    required
+                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
+                    Message <span className="text-red-500">*</span>
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Type your message here"
+                    required
+                    rows={4}
+                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors resize-none"
+                  />
+                </div>
+
+                {submitStatus === "success" && (
+                  <div className="text-green-600 text-sm">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                {submitStatus === "error" && (
+                  <div className="text-red-600 text-sm">
+                    There was an error sending your message. Please try again.
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full uppercase tracking-wider font-semibold text-black hover:bg-gray-100 bg-gray-50 py-3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-8 text-sm"
+                >
+                  {isSubmitting ? "Sending..." : "Submit"}
+                </button>
+              </form>
+            </div>
           </div>
         </div>
 
-        {/* Copyright Section */}
-        <div className="py-8 text-center">
-          <p
-            className="text-xs md:text-sm text-gray-500"
-            data-testid="text-footer-copyright"
-          >
-            © {new Date().getFullYear()} by DIGITELLER CREATIVE. All rights
-            reserved.
-          </p>
+        {/* Bottom Section: Copyright */}
+        <div className="border-t border-white/10 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 md:gap-8">
+            {/* Policy Links */}
+            <div className="flex flex-wrap justify-center md:justify-start gap-4 md:gap-8">
+              {policyLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="text-xs text-gray-400 hover:text-white transition-colors"
+                  data-testid={`link-footer-policy-${link.label
+                    .toLowerCase()
+                    .replace(/\s+/g, "-")}`}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+
+            {/* Copyright */}
+            <p
+              className="text-xs text-gray-400"
+              data-testid="text-footer-copyright"
+            >
+              © 2035 by UmpaUmpa. Built on{" "}
+              <a
+                href="https://www.wix.com"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-gray-400 transition-colors"
+              >
+                Wix Studio™
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </footer>

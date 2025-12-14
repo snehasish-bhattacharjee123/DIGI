@@ -20,7 +20,7 @@ export function OurWorkSection() {
   const translateY = useTransform(inset, (latest) => `-${latest}%`);
 
   return (
-    <section className="bg-white text-blue-900 py-20 md:py-28 lg:py-40" data-mood="light">
+    <section className="bg-white text-brand-blue-900 py-20 md:py-28 lg:py-40" data-mood="light">
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Section Header */}
         <motion.div
@@ -30,13 +30,13 @@ export function OurWorkSection() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-12 lg:mb-20"
         >
-          <span className="block mb-3 text-sm md:text-base font-semibold uppercase tracking-[0.2em] text-green-600">
+          <span className="block mb-3 text-sm md:text-base font-semibold uppercase tracking-[0.2em] text-brand-green">
             Our Work
           </span>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mt-4 tracking-tight leading-tight">
+          <h2 className="font-heading text-h2 leading-tight-13 font-bold mt-4 tracking-tight">
             From High Tech to High Fashion{" "}
-            <em className="font-serif font-normal not-italic text-green-600">
+            <em className="font-serif font-normal not-italic text-brand-green">
               and Beyond
             </em>
           </h2>
@@ -62,7 +62,7 @@ export function OurWorkSection() {
         </div>
 
         {/* Optional Caption */}
-        <p className="mt-10 text-gray-600 text-lg max-w-2xl mx-auto text-center leading-relaxed">
+        <p className="mt-10 text-brand-blue-900/70 text-lg max-w-2xl mx-auto text-center leading-relaxed">
           Experience how creativity and strategy come together in our latest
           work — pushing boundaries for global brands.
         </p>

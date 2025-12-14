@@ -5,9 +5,9 @@ const cardData = [
     title: (
       <>
         Top{" "}
-        <em className="font-serif text-[calc(100%+4px)] font-normal">
+        <span className="text-[calc(100%+4px)] font-normal">
           global creative talent
-        </em>
+        </span>
       </>
     ),
     description:
@@ -21,9 +21,9 @@ const cardData = [
   {
     title: (
       <>
-        <em className="font-serif text-[calc(100%+4px)] font-normal">
+        <span className="text-[calc(100%+4px)] font-normal">
           Ultra-fast
-        </em>{" "}
+        </span>{" "}
         turnaround times
       </>
     ),
@@ -38,9 +38,9 @@ const cardData = [
   {
     title: (
       <>
-        <em className="font-serif text-[calc(100%+4px)] font-normal">
+        <span className="text-[calc(100%+4px)] font-normal">
           Flexible
-        </em>{" "}
+        </span>{" "}
         subscription model
       </>
     ),
@@ -96,7 +96,7 @@ const Card: React.FC<CardProps> = ({ card, isMobile }) => {
       >
         {/* Title */}
         <div className="mb-2 lg:mb-4">
-          <h5 className="text-2xl font-bold tracking-tight md:text-2xl lg:text-4xl xl:text-4xl">
+          <h5 className="font-heading text-h4 leading-tight-14 font-bold tracking-tight">
             {card.title}
           </h5>
         </div>
@@ -140,15 +140,15 @@ export function MadeToFlexSection() {
         <div className="flex w-full flex-col transition-colors pt-20 md:pt-28 lg:pt-52 pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20 max-md:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Header */}
           <div className="flex flex-col gap-4 lg:gap-8 text-center items-center mx-auto max-w-[840px]">
-            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gray-400 lg:text-sm">
+            <span className="font-din text-xs font-semibold uppercase tracking-[0.15em] text-bor-gray lg:text-sm">
               made to flex
             </span>
-            <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl xl:text-6xl">
+            <h2 className="font-heading text-h2 leading-tight-13 font-bold tracking-tight">
               Supertalented. Superfast. Super responsive. Work with a global
               team that's purposefully{" "}
-              <em className="font-serif text-[calc(100%+4px)] font-normal">
+              <span className="text-[calc(100%+4px)] font-normal">
                 made to keep up with you.
-              </em>
+              </span>
             </h2>
           </div>
 

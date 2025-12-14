@@ -12,12 +12,16 @@ import {
   Sparkles,
   Brain,
   LineChart,
+  Instagram,
+  Facebook,
+  Linkedin,
+  
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { title: "Home", hasSubmenu: false, href: "/" },
+  
   {
     title: "Services",
     hasSubmenu: true,
@@ -97,12 +101,18 @@ const navItems = [
       },
     ],
   },
-  { title: "Why Us?", hasSubmenu: false, href: "/why-us" },
-  { title: "Our Work", hasSubmenu: false, href: "/our-work" },
-  { title: "Enterprise", hasSubmenu: false, href: "/enterprise" },
+  { title: "Portfolio", hasSubmenu: false, href: "/why-us" },
+  { title: "Studio", hasSubmenu: false, href: "/our-work" },
+  {
+    title: "Contact",
+    hasSubmenu: false,
+    href: "/contact",
+  },
 ];
 
-export function Navigation() {
+type NavigationTheme = "default" | "blue";
+
+export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeDesktopSubmenu, setActiveDesktopSubmenu] = useState<
@@ -112,6 +122,8 @@ export function Navigation() {
     null
   );
   const submenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const isBlue = theme === "blue";
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -149,109 +161,156 @@ export function Navigation() {
           HEADER
       ============================ */}
       <motion.header
-        initial={{ backgroundColor: "rgba(255,255,255,0)" }}
+        initial={{
+          backgroundColor: isBlue ? "#0d123c" : "rgba(255,255,255,0)",
+        }}
         animate={{
-          backgroundColor: isScrolled
-            ? "rgba(255,255,255,1)"
-            : "rgba(255,255,255,0)",
+          backgroundColor: isBlue
+            ? "#0d123c"
+            : isScrolled
+              ? "rgba(255,255,255,1)"
+              : "rgba(255,255,255,0)",
           boxShadow: isScrolled ? "0 2px 20px rgba(0,0,0,0.1)" : "none",
-          backdropFilter: isScrolled ? "blur(10px)" : "blur(0px)",
+          backdropFilter: isBlue
+            ? "blur(0px)"
+            : isScrolled
+              ? "blur(10px)"
+              : "blur(0px)",
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
         className="fixed top-0 left-0 w-full z-50"
       >
         <div className="max-w-[1680px] mx-auto">
-          <div className="flex items-center justify-between h-20 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 transition-all duration-500">
-            {/* Logo */}
-            <a href="/" className="relative group select-none">
-              <motion.span
-                whileHover={{ scale: 1.05, y: -2 }}
-                transition={{ type: "spring", stiffness: 300 }}
-                className={`text-xl sm:text-2xl font-extrabold tracking-tight transition-colors duration-500 ${
-                  isScrolled
-                    ? "text-[#001F54] group-hover:text-[#0033A0]"
-                    : "text-white group-hover:text-blue-200"
-                }`}
-              >
-                DIGITELLER CREATIVE
-              </motion.span>
-              <motion.div
-                layoutId="logo-underline"
-                className={`absolute bottom-0 left-0 h-[2px] rounded-full transition-all duration-500 ${
-                  isScrolled ? "bg-[#0033A0]" : "bg-white"
-                } group-hover:w-full w-0`}
-              />
-            </a>
-
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-1">
-              {navItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="relative"
-                  onMouseEnter={() =>
-                    item.hasSubmenu && handleDesktopSubmenuEnter(index)
-                  }
-                  onMouseLeave={() =>
-                    item.hasSubmenu && handleDesktopSubmenuLeave()
-                  }
-                >
-                  <motion.a
-                    whileHover={{ y: -2 }}
-                    href={item.href || "#"}
-                    className={`flex items-center gap-1 px-4 py-2 text-sm font-semibold rounded-md transition-all duration-300 ${
-                      isScrolled
-                        ? "text-[#001F54] hover:text-[#0033A0] hover:bg-blue-50"
-                        : "text-white hover:text-blue-200"
-                    } ${
-                      activeDesktopSubmenu === index ? "text-[#0033A0]" : ""
-                    }`}
-                  >
-                    {item.title}
-                    {item.hasSubmenu && (
-                      <ChevronDown
-                        size={16}
-                        className={`transition-transform duration-300 ${
-                          activeDesktopSubmenu === index ? "rotate-180" : ""
-                        }`}
-                      />
-                    )}
-                  </motion.a>
-                </div>
-              ))}
-            </nav>
-
-            {/* CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+          <div className="grid grid-cols-3 items-center h-20 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 transition-all duration-500">
+            {/* Left: Social Icons */}
+            <div className="hidden lg:flex items-center gap-4">
               <a
-                href="https://wa.me/917998596948"
+                href="https://instagram.com/digitellercreative"
                 target="_blank"
                 rel="noopener noreferrer"
+                className={`${
+                  isBlue
+                    ? "text-white hover:text-brand-blue-200"
+                    : isScrolled
+                      ? "text-[#001F54] hover:text-[#0033A0]"
+                      : "text-white hover:text-blue-200"
+                } transition-colors`}
+                aria-label="Instagram"
               >
-                <motion.div whileHover={{ scale: 1.05 }}>
-                  <Button
-                    className={`font-semibold shadow-md hover:shadow-lg transition-all duration-300 ${
-                      isScrolled
-                        ? "bg-[#001F54] hover:bg-[#0033A0] text-white"
-                        : "bg-white text-[#001F54] hover:bg-blue-100"
-                    }`}
-                  >
-                    Book a Demo
-                  </Button>
-                </motion.div>
+                <Instagram size={18} />
               </a>
+              <a
+                href="https://facebook.com/digitellercreative"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  isBlue
+                    ? "text-white hover:text-brand-blue-200"
+                    : isScrolled
+                      ? "text-[#001F54] hover:text-[#0033A0]"
+                      : "text-white hover:text-blue-200"
+                } transition-colors`}
+                aria-label="Facebook"
+              >
+                <Facebook size={18} />
+              </a>
+              <a
+                href="https://linkedin.com/company/digitellercreative"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${
+                  isBlue
+                    ? "text-white hover:text-brand-blue-200"
+                    : isScrolled
+                      ? "text-[#001F54] hover:text-[#0033A0]"
+                      : "text-white hover:text-blue-200"
+                } transition-colors`}
+                aria-label="LinkedIn"
+              >
+                <Linkedin size={18} />
+              </a>
+              
             </div>
 
-            {/* Mobile Toggle */}
-            <button
-              onClick={toggleMobileMenu}
-              className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
-                isScrolled ? "text-[#001F54]" : "text-white"
-              }`}
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Center: Logo */}
+            <div className="flex justify-center">
+              <a href="/" className="flex-shrink-0 select-none relative group flex items-center justify-center">
+{/* LOGO IMAGE */}
+<motion.img
+src="/images/work/Digireller%20logo_png.png" // <-- corrected public path
+alt="DIGITELLER CREATIVE"
+whileHover={{ scale: 1.05, y: -2 }}
+transition={{ type: "spring", stiffness: 300 }}
+className="h-12 sm:h-14 lg:h-16 w-auto object-contain"
+/>
+
+
+{/* OPTIONAL UNDERLINE EFFECT */}
+<motion.div
+layoutId="logo-underline"
+className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full ${
+  isBlue ? "bg-white" : "bg-[#0033A0]"
+} group-hover:w-full transition-all duration-500`}
+/>
+</a>
+            </div>
+
+            {/* Right: Desktop Nav + Mobile Toggle */}
+            <div className="flex items-center justify-end gap-3">
+              <nav className="hidden lg:flex items-center space-x-1">
+                {navItems.map((item, index) => (
+                  <div
+                    key={index}
+                    className="relative"
+                    onMouseEnter={() =>
+                      item.hasSubmenu && handleDesktopSubmenuEnter(index)
+                    }
+                    onMouseLeave={() =>
+                      item.hasSubmenu && handleDesktopSubmenuLeave()
+                    }
+                  >
+                    <motion.a
+                      whileHover={{ y: -2 }}
+                      href={item.href || "#"}
+                      className={`flex items-center gap-1 px-4 py-2 text-sm font-semibold rounded-md transition-all duration-300 ${
+                        isBlue
+                          ? "text-white hover:text-brand-blue-200 hover:bg-white/10"
+                          : isScrolled
+                            ? "text-[#001F54] hover:text-[#0033A0] hover:bg-blue-50"
+                            : "text-white hover:text-blue-200"
+                      } ${
+                        activeDesktopSubmenu === index
+                          ? isBlue
+                            ? "text-brand-blue-200"
+                            : "text-[#0033A0]"
+                          : ""
+                      }`}
+                    >
+                      {item.title}
+                      {item.hasSubmenu && (
+                        <ChevronDown
+                          size={16}
+                          className={`transition-transform duration-300 ${
+                            activeDesktopSubmenu === index ? "rotate-180" : ""
+                          }`}
+                        />
+                      )}
+                    </motion.a>
+                  </div>
+                ))}
+              </nav>
+
+              {/* Mobile Toggle */}
+              <button
+                onClick={toggleMobileMenu}
+                className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
+                  isBlue ? "text-white" : isScrolled ? "text-[#001F54]" : "text-white"
+                }`}
+                aria-label="Toggle menu"
+              >
+                {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
 
