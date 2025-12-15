@@ -205,12 +205,12 @@ export function ServicesSection() {
               <span className="text-xs md:text-sm font-semibold uppercase tracking-widest text-bor-gray mb-3 block">
                 OUR SERVICES
               </span>
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-bor-foreground">
+              {/* <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-bor-foreground">
                 What we{" "}
                 <span className="font-serif text-4xl md:text-6xl lg:text-7xl font-normal">
                   <em>offer</em>
                 </span>
-              </h2>
+              </h2> */}
             </motion.div>
 
             {/* Horizontal Scrolling Container */}
@@ -224,7 +224,7 @@ export function ServicesSection() {
             </motion.div>
 
             {/* Progress Indicator */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {/* <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
               {servicesData.map((service, index) => (
                 <ProgressIndicator
                   key={service.id}
@@ -233,7 +233,7 @@ export function ServicesSection() {
                   total={servicesData.length}
                 />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

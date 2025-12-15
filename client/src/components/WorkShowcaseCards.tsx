@@ -204,7 +204,10 @@ export function WorkShowcaseCards() {
   }, [shouldReduceMotion]);
 
   return (
-    <section className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32" data-mood="brand-surface">
+    <section
+      className="relative overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32"
+      data-mood="brand-surface"
+    >
       <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
         {/* Header */}
         <motion.div
@@ -229,11 +232,17 @@ export function WorkShowcaseCards() {
         </motion.div>
 
         {/* === Splide Slider (NO gradient mask) === */}
-        <div id="work-splide" className="splide select-none max-w-full overflow-x-hidden">
+        <div
+          id="work-splide"
+          className="splide select-none max-w-full overflow-x-hidden"
+        >
           <div className="splide__track overflow-hidden md:!overflow-visible cursor-grab active:cursor-grabbing">
             <ul className="splide__list">
               {workCards.map((card) => (
-                <li key={card.id} className="splide__slide flex justify-center px-2 py-4 sm:px-0">
+                <li
+                  key={card.id}
+                  className="splide__slide flex justify-center px-2 py-4 sm:px-0"
+                >
                   <WorkCard card={card} />
                 </li>
               ))}

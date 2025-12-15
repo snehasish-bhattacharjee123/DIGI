@@ -89,6 +89,42 @@ export default function OurWork() {
     },
   ];
 
+  const clientResultStats = [
+    {
+      brand: "PointCard",
+      metric: "Increase in CTR",
+      value: "240%",
+      copy:
+        "A modular experimentation engine helped PointCard turn one hero concept into hundreds of winners, unlocking a 240% jump in click-throughs.",
+      signal: "Paid media lift",
+      href: "/case-studies/pointcard",
+      glow: "from-brand-green/30 via-brand-green/10 to-transparent",
+      delay: 0.1,
+    },
+    {
+      brand: "Amazon",
+      metric: "Reduction in cost per asset",
+      value: "50%",
+      copy:
+        "Centralized creative ops and reusable design kits cut Amazon’s per-asset cost in half while scaling global launches.",
+      signal: "Production efficiency",
+      href: "/case-studies/amazon",
+      glow: "from-brand-orange/30 via-brand-orange/10 to-transparent",
+      delay: 0.2,
+    },
+    {
+      brand: "Thomson Reuters",
+      metric: "Design time saved",
+      value: "~90%",
+      copy:
+        "An embedded sprint team automated repetitive formats so Thomson Reuters’ strategists shipped concepts nearly 90% faster.",
+      signal: "Speed to market",
+      href: "/case-studies/thomson-reuters",
+      glow: "from-brand-blue-500/30 via-brand-blue-300/10 to-transparent",
+      delay: 0.3,
+    },
+  ];
+
   const projects = [
     {
       id: 1,
@@ -538,9 +574,12 @@ export default function OurWork() {
 
 
       {/* Client Results Statistics Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
-        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          {/* Optional Section Header */}
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F4FAFF] to-white py-16 sm:py-20 lg:py-24">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 right-10 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl opacity-70 animate-pulse" />
+          <div className="absolute bottom-[-120px] left-[-40px] h-72 w-72 rounded-full bg-brand-blue-500/10 blur-3xl" />
+        </div>
+        <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -548,111 +587,72 @@ export default function OurWork() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 lg:mb-16"
           >
-            <h2 className="font-heading text-h2 leading-tight-13 font-bold mb-4 text-brand-blue-900">
-              <span className="font-semibold uppercase tracking-wide text-brand-green">
+            <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-brand-green">
+              Client Outcomes
+            </p>
+            <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
+              <span className="bg-gradient-to-r from-brand-green to-brand-blue-500 bg-clip-text text-transparent">
                 Real Results
               </span>{" "}
               for Real Brands
             </h2>
+            <p className="mt-4 text-base lg:text-lg text-brand-blue-700 max-w-2xl mx-auto">
+              We embed with growth teams to ship high-performing creative pods.
+              Every metric below is tied to shipped assets and real revenue
+              moments&mdash;not vanity stats.
+            </p>
           </motion.div>
 
-          {/* Statistics Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-            {/* Stat 1 - PointCard */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
-            >
-              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
-                {/* Description */}
-                <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-700">
-                    Increase in CTR for PointCard
-                  </p>
-                  <a
-                    href="/case-studies/pointcard"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
-                  >
-                    <span className="relative">
-                      PointCard case study
-                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent md:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent md:hidden" />
+            <div className="flex snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
+              {clientResultStats.map((stat) => (
+                <motion.article
+                  key={stat.brand}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: stat.delay }}
+                  whileHover={{ y: -12, rotate: -0.4 }}
+                  className="group relative min-w-[280px] snap-center rounded-2xl border border-brand-blue-100/60 bg-white/90 p-6 lg:p-8 shadow-[0_25px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-[transform,box-shadow] duration-500 md:min-w-0"
+                >
+                  <div
+                    aria-hidden="true"
+                    className={`absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${stat.glow}`}
+                  />
+                  <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-blue-500">
+                    <span>{stat.metric}</span>
+                    <span className="flex items-center gap-2 tracking-[0.2em] text-brand-blue-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+                      {stat.signal}
                     </span>
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
-                </div>
-                {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
-                  240%
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Stat 2 - Amazon */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
-            >
-              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
-                {/* Description */}
-                <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-700">
-                    Reduction in cost per asset for Amazon
+                  </div>
+                  <p className="mt-6 text-5xl md:text-6xl font-black leading-none text-brand-green">
+                    {stat.value}
                   </p>
-                  <a
-                    href="/case-studies/amazon"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
-                  >
-                    <span className="relative">
-                      Amazon case study
-                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </a>
-                </div>
-                {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
-                  50%
-                </p>
-              </div>
-            </motion.div>
-
-            {/* Stat 3 - Thomson Reuters */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="relative pb-8 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-border"
-            >
-              <div className="flex flex-col-reverse lg:flex-row lg:items-end lg:justify-between gap-6 lg:gap-8">
-                {/* Description */}
-                <div className="flex flex-col gap-3 max-w-[500px]">
-                  <p className="text-base lg:text-lg text-brand-blue-700">
-                    Design time saved for Thomson Reuters
+                  <p className="mt-4 text-base lg:text-lg text-brand-blue-800">
+                    <span className="font-semibold text-brand-blue-900">
+                      {stat.brand}
+                    </span>{" "}
+                    {stat.copy}
                   </p>
+                  <motion.span
+                    aria-hidden="true"
+                    className="mt-6 block h-px w-full bg-gradient-to-r from-transparent via-brand-blue-200 to-transparent"
+                    animate={{ opacity: [0.3, 1, 0.3] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  />
                   <a
-                    href="/case-studies/thomson-reuters"
-                    className="group inline-flex items-center gap-2 text-sm font-medium text-brand-blue-800 hover:text-brand-green transition-colors"
+                    href={stat.href}
+                    className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-blue-800 transition-all duration-300 hover:text-brand-green"
                   >
-                    <span className="relative">
-                      Thomson Reuters case study
-                      <span className="absolute bottom-0 left-0 w-0 h-px bg-current group-hover:w-full transition-all duration-500"></span>
-                    </span>
-                    <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    Explore case study
+                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
                   </a>
-                </div>
-                {/* Number */}
-                <p className="text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-brand-green leading-none">
-                  ~90%
-                </p>
-              </div>
-            </motion.div>
+                </motion.article>
+              ))}
+            </div>
           </div>
         </div>
       </section>

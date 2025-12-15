@@ -490,7 +490,7 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary> */}
 
-          <section
+          {/* <section
             aria-label="Demo slides"
             className="py-16 sm:py-20 lg:py-24 bg-background"
           >
@@ -502,7 +502,7 @@ export default function Home() {
                 />
               </Suspense>
             </ErrorBoundary>
-          </section>
+          </section> */}
 
           {/* Quote Section */}
           {/* <ErrorBoundary>
@@ -550,11 +550,11 @@ export default function Home() {
             </Suspense>
           </ErrorBoundary> */}
 
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <ServicesSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* How We Work Section */}
           {/* <ErrorBoundary>
