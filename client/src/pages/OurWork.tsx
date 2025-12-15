@@ -17,6 +17,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useCallback, useEffect, useState } from "react";
 import { ServicesSection } from "@/components/ServicesSection";
+import { CreativeAssetsSection } from "@/components/CreativeAssetsSection";
 
 export default function OurWork() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -744,11 +745,13 @@ export default function OurWork() {
         </div>
       </section>
 
+            <CreativeAssetsSection/>
+
       {/* Accelerate Business Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white">
+      {/* <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Left Column - Content */}
+            
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -801,7 +804,7 @@ export default function OurWork() {
               </div>
             </motion.div>
 
-            {/* Right Column - Carousel */}
+            
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -828,7 +831,7 @@ export default function OurWork() {
                 </div>
               </div>
 
-              {/* Carousel Navigation */}
+              
               <div className="absolute top-1/2 -translate-y-1/2 left-4 right-4 flex justify-between pointer-events-none">
                 <button
                   onClick={scrollPrev}
@@ -850,7 +853,7 @@ export default function OurWork() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Projects Grid */}
       {/* <section className="py-20 bg-brand-beige-100">

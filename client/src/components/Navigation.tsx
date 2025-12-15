@@ -124,6 +124,7 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
   const submenuTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isBlue = theme === "blue";
+  const isBlueScrolled = isBlue && isScrolled;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -162,11 +163,13 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
       ============================ */}
       <motion.header
         initial={{
-          backgroundColor: isBlue ? "#0d123c" : "rgba(255,255,255,0)",
+          backgroundColor: "rgba(255,255,255,0)",
         }}
         animate={{
           backgroundColor: isBlue
-            ? "#0d123c"
+            ? isScrolled
+              ? "#0d123c"
+              : "rgba(255,255,255,0)"
             : isScrolled
               ? "rgba(255,255,255,1)"
               : "rgba(255,255,255,0)",
@@ -190,7 +193,9 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
                 rel="noopener noreferrer"
                 className={`${
                   isBlue
-                    ? "text-white hover:text-brand-blue-200"
+                    ? isBlueScrolled
+                      ? "text-white hover:text-brand-blue-200"
+                      : "text-[#0033A0] hover:text-[#001F54]"
                     : isScrolled
                       ? "text-[#001F54] hover:text-[#0033A0]"
                       : "text-white hover:text-blue-200"
@@ -205,7 +210,9 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
                 rel="noopener noreferrer"
                 className={`${
                   isBlue
-                    ? "text-white hover:text-brand-blue-200"
+                    ? isBlueScrolled
+                      ? "text-white hover:text-brand-blue-200"
+                      : "text-[#0033A0] hover:text-[#001F54]"
                     : isScrolled
                       ? "text-[#001F54] hover:text-[#0033A0]"
                       : "text-white hover:text-blue-200"
@@ -220,7 +227,9 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
                 rel="noopener noreferrer"
                 className={`${
                   isBlue
-                    ? "text-white hover:text-brand-blue-200"
+                    ? isBlueScrolled
+                      ? "text-white hover:text-brand-blue-200"
+                      : "text-[#0033A0] hover:text-[#001F54]"
                     : isScrolled
                       ? "text-[#001F54] hover:text-[#0033A0]"
                       : "text-white hover:text-blue-200"
@@ -249,7 +258,7 @@ className="h-10 sm:h-14 lg:h-16 w-auto max-w-[160px] sm:max-w-none object-contai
 <motion.div
 layoutId="logo-underline"
 className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full ${
-  isBlue ? "bg-white" : "bg-[#0033A0]"
+  isBlue && isScrolled ? "bg-white" : "bg-[#0033A0]"
 } group-hover:w-full transition-all duration-500`}
 />
 </a>
@@ -274,14 +283,18 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
                       href={item.href || "#"}
                       className={`flex items-center gap-1 px-4 py-2 text-sm font-semibold rounded-md transition-all duration-300 ${
                         isBlue
-                          ? "text-white hover:text-brand-blue-200 hover:bg-white/10"
+                          ? isBlueScrolled
+                            ? "text-white hover:text-brand-blue-200 hover:bg-white/10"
+                            : "text-[#0033A0] hover:text-[#001F54] hover:bg-blue-50"
                           : isScrolled
                             ? "text-[#001F54] hover:text-[#0033A0] hover:bg-blue-50"
                             : "text-white hover:text-blue-200"
                       } ${
                         activeDesktopSubmenu === index
                           ? isBlue
-                            ? "text-brand-blue-200"
+                            ? isBlueScrolled
+                              ? "text-brand-blue-200"
+                              : "text-[#001F54]"
                             : "text-[#0033A0]"
                           : ""
                       }`}
@@ -304,7 +317,13 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
               <button
                 onClick={toggleMobileMenu}
                 className={`lg:hidden p-2 rounded-lg transition-colors duration-200 ${
-                  isBlue ? "text-white" : isScrolled ? "text-[#001F54]" : "text-white"
+                  isBlue
+                    ? isBlueScrolled
+                      ? "text-white"
+                      : "text-[#0033A0]"
+                    : isScrolled
+                      ? "text-[#001F54]"
+                      : "text-white"
                 }`}
                 aria-label="Toggle menu"
               >

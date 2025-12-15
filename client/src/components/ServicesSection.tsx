@@ -1,5 +1,10 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { useRef, useState } from "react";
 
 interface Service {
   id: string;
@@ -151,9 +156,16 @@ function ProgressIndicator({
 
 export function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isPinned, setIsPinned] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
+  });
+
+  useMotionValueEvent(scrollYProgress, "change", (value) => {
+    // Fallback pinning for cases where CSS sticky is interfered with by parents
+    const shouldPin = value > 0 && value < 1;
+    setIsPinned((prev) => (prev === shouldPin ? prev : shouldPin));
   });
 
   // Calculate horizontal scroll based on number of services
@@ -176,7 +188,14 @@ export function ServicesSection() {
         style={{ height: `${servicesData.length * 100}vh` }}
       >
         {/* Sticky/Pinned Container - stays fixed while user scrolls */}
-        <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div
+          className="h-screen w-full overflow-hidden"
+          style={
+            isPinned
+              ? { position: "fixed", top: 0, left: 0, right: 0 }
+              : { position: "sticky", top: 0 }
+          }
+        >
           <div className="relative h-full w-full">
             {/* Header - appears at start */}
             <motion.div
