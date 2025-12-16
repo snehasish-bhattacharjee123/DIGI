@@ -88,28 +88,35 @@ export const CreativeServicesSection = () => {
 
   return (
     <section className="relative flex flex-col overflow-hidden bg-bor-background text-bor-foreground" data-mood="brand-dark" aria-label="Creative services hero">
+      <div className="absolute left-4 top-4 z-20 sm:left-6 sm:top-6">
+        <div className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm sm:px-4 sm:py-2 sm:text-xs">
+          Why us
+        </div>
+      </div>
       <div className="mx-auto h-full w-full max-w-screen-2xl">
-        <div className="mx-4 flex w-full flex-col justify-end gap-8 pt-10 pb-8 sm:mx-6 lg:mx-8 xl:mx-12 2xl:mx-16 static min-h-[560px] md:min-h-[680px] md:gap-16 md:pt-14 md:pb-10 lg:gap-20 lg:pt-[88px] lg:pb-12">
+        <div className="mx-4 flex w-full flex-col justify-end gap-8 pt-12 pb-10 sm:mx-6 lg:mx-8 xl:mx-12 2xl:mx-16 static min-h-[620px] md:min-h-[760px] md:gap-16 md:pt-16 md:pb-12 lg:min-h-[860px] lg:gap-20 lg:pt-[104px] lg:pb-16">
           {/* Background Images */}
           <div className="absolute inset-0 z-0 flex h-full w-full flex-col bg-bor-background max-md:max-h-[800px]">
             <img
               alt=""
-              loading="lazy"
+              loading="eager"
               decoding="async"
               className="hidden h-full w-full object-cover object-center md:block pointer-events-none select-none"
-              srcSet="https://cdn.sanity.io/images/k0dlbavy/production/2e6fc4afd008200fd365792091ceb4c629967f09-3840x1432.png?auto=format&fit=max&q=100&w=1280 1280w, https://cdn.sanity.io/images/k0dlbavy/production/2e6fc4afd008200fd365792091ceb4c629967f09-3840x1432.png?auto=format&fit=max&q=100&w=1920 1920w, https://cdn.sanity.io/images/k0dlbavy/production/2e6fc4afd008200fd365792091ceb4c629967f09-3840x1432.png?auto=format&fit=max&q=100&w=2560 2560w"
+              fetchPriority="high"
+              srcSet="/images/work/IMG_7935.JPG"
               sizes="(min-width: 1024px) 100vw, 0px"
-              src="https://cdn.sanity.io/images/k0dlbavy/production/2e6fc4afd008200fd365792091ceb4c629967f09-3840x1432.png?auto=format&fit=max&q=100&w=1920"
+              src="/images/work/IMG_7935.JPG?auto=format&fit=max&q=80&w=1920"
               aria-hidden="true"
             />
             <img
               alt=""
-              loading="lazy"
+              loading="eager"
               decoding="async"
               className="h-full w-full object-cover object-center md:hidden max-md:max-h-[800px] pointer-events-none select-none"
-              srcSet="https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=100&w=360 360w, https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=100&w=540 540w, https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=100&w=720 720w"
+              fetchPriority="high"
+              srcSet="https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=80&w=360 360w, https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=80&w=540 540w, https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=80&w=720 720w"
               sizes="100vw"
-              src="https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=100&w=360"
+              src="https://cdn.sanity.io/images/k0dlbavy/production/c2081b809044e9c2b82381a3a585e8fbe4410b8c-720x1360.png?auto=format&fit=max&q=80&w=360"
               aria-hidden="true"
             />
             <div className="absolute bottom-0 left-0 h-[100px] w-full bg-gradient-to-t from-bor-background to-transparent md:hidden"></div>
@@ -119,23 +126,48 @@ export const CreativeServicesSection = () => {
           <div className="absolute inset-0 z-0 flex h-full w-full flex-col bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
 
           {/* Content */}
-          <div className="z-10 flex flex-col max-w-[850px] max-md:mt-24">
-            <span className="font-din mb-2 font-semibold uppercase tracking-widest text-[10px] sm:text-xs lg:mb-4 lg:text-sm text-bor-gray">
-              Creative services
-            </span>
-            <h1 className="font-heading text-h2 leading-tight-1 font-bold tracking-tight">
-              <span className="text-[calc(100%+2px)] sm:text-[calc(100%+4px)] font-extrabold tracking-tight">
-                eBooks &amp; report design
-              </span>
-            </h1>
-            <p className="mt-3 max-w-[680px] text-sm sm:text-base lg:mt-8 lg:text-lg text-white/90">
-              Supercharge your reports, eBooks and digital learning content with
-              top global designers and an easy-to-use collaboration platform.
-            </p>
-            <div className="mt-4 flex w-full max-w-full flex-row gap-3 justify-stretch max-md:flex-col md:self-start lg:mt-8">
-              {/* <button type="button" className="group/button relative overflow-hidden rounded-md bg-blue-600 px-6 py-3 sm:py-4 text-center font-semibold text-white text-sm leading-5 transition-all hover:bg-blue-700 hover:shadow-lg hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-400 w-full md:w-auto">
-                <span className="block">Book a demo</span>
-              </button> */}
+          <div className="z-10 w-full max-md:mt-24">
+            <div
+              className="elementor-element elementor-element-4785a65 e-flex e-con-boxed e-con e-parent e-lazyloaded"
+              data-id="4785a65"
+              data-element_type="container"
+              data-settings='{"background_background":"classic"}'
+            >
+              <div className="e-con-inner flex w-full flex-col gap-10 md:flex-row md:items-start md:justify-between">
+                <div
+                  className="elementor-element elementor-element-359bbea e-con-full e-flex e-con e-child"
+                  data-id="359bbea"
+                  data-element_type="container"
+                  data-settings='{"background_background":"classic"}'
+                >
+                  <div className="elementor-element elementor-element-521e1e0 elementor-widget-mobile__width-initial elementor-widget elementor-widget-hub_fancy_heading">
+                    <div className="elementor-widget-container">
+                      <div id="ld-fancy-heading-6940a1ba55e39" className="ld-fancy-heading pos-rel">
+                        <h1 className="ld-fh-element d-inline-block pos-rel elementor-heading-title lqd-highlight-classic lqd-highlight-grow-left h1 is-in-view font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] font-bold tracking-tight text-white">
+                          The{" "}
+                          <mark className="lqd-highlight">
+                            <span className="lqd-highlight-txt">creative extension</span>
+                            <span className="lqd-highlight-inner" style={{ transitionDelay: "0ms" }} />
+                          </mark>{" "}
+                          to any creator's team.
+                        </h1>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="elementor-element elementor-element-cb1daf4 elementor-widget elementor-widget-hub_fancy_heading">
+                    <div className="elementor-widget-container">
+                      <div id="ld-fancy-heading-6940a1ba56717" className="ld-fancy-heading pos-rel">
+                        <p className="ld-fh-element d-inline-block pos-rel lqd-highlight-classic lqd-highlight-grow-left p mt-4 max-w-[760px] text-base sm:text-lg lg:mt-10 lg:text-xl text-white/90 leading-relaxed">
+                          Crafting high-quality content consistently is tough work — but we're here to help. Our team of 75+ top creatives takes care of video editing, graphics and strategy to make your life easier, allowing you to focus on what you truly enjoy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="elementor-element elementor-element-c80da4b e-con-full elementor-hidden-mobile e-flex e-con e-child hidden md:block" data-id="c80da4b" data-element_type="container"></div>
+              </div>
             </div>
           </div>
 

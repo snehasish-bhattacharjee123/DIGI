@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   CheckCircle2,
   MousePointer,
+  Play,
 } from "lucide-react";
 import { CreativeServicesSection } from "@/components/CreativeServicesSection";
 import { clientLogos } from "@/data/portfolio-assets";

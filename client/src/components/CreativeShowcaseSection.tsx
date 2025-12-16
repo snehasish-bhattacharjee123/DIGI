@@ -140,7 +140,7 @@ const tabs: ShowcaseTab[] = [
         id: "michi-hero",
         mood: "dark",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-2",
           mobileHeight: "max-lg:h-[520px]",
           desktopMinHeight: "lg:min-h-[904px]",
@@ -165,7 +165,7 @@ const tabs: ShowcaseTab[] = [
         id: "michi-goto",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -179,7 +179,7 @@ const tabs: ShowcaseTab[] = [
         id: "michi-quote",
         mood: "lavender",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-full",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -197,7 +197,7 @@ const tabs: ShowcaseTab[] = [
         id: "michi-from",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -211,7 +211,7 @@ const tabs: ShowcaseTab[] = [
         id: "michi-brands",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -231,7 +231,7 @@ const tabs: ShowcaseTab[] = [
         id: "daniel-hero",
         mood: "dark",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-2",
           mobileHeight: "max-lg:h-[520px]",
           desktopMinHeight: "lg:min-h-[904px]",
@@ -256,7 +256,7 @@ const tabs: ShowcaseTab[] = [
         id: "daniel-goto",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -270,7 +270,7 @@ const tabs: ShowcaseTab[] = [
         id: "daniel-quote",
         mood: "peach",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-full",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -288,7 +288,7 @@ const tabs: ShowcaseTab[] = [
         id: "daniel-from",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -302,7 +302,7 @@ const tabs: ShowcaseTab[] = [
         id: "daniel-brands",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -322,7 +322,7 @@ const tabs: ShowcaseTab[] = [
         id: "sam-hero",
         mood: "dark",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-2",
           mobileHeight: "max-lg:h-[520px]",
           desktopMinHeight: "lg:min-h-[904px]",
@@ -342,7 +342,7 @@ const tabs: ShowcaseTab[] = [
         id: "sam-goto",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -356,7 +356,7 @@ const tabs: ShowcaseTab[] = [
         id: "sam-quote",
         mood: "minty-leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-full",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -373,7 +373,7 @@ const tabs: ShowcaseTab[] = [
         id: "sam-from",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -387,7 +387,7 @@ const tabs: ShowcaseTab[] = [
         id: "sam-brands",
         mood: "leaf",
         size: {
-          colSpan: "col-span-full xl:col-span-4",
+          colSpan: "col-span-full lg:col-span-4",
           rowSpan: "row-span-1",
           mobileHeight: "max-lg:h-[440px]",
           desktopMinHeight: "lg:min-h-[440px]",
@@ -441,7 +441,7 @@ export function CreativeShowcaseSection() {
 
             {tabs.map((t) => (
               <TabsContent key={t.id} value={t.id} className="mt-10 lg:mt-16">
-                <div className="grid grid-cols-4 md:grid-cols-8 xl:grid-cols-12 gap-4 grid-flow-dense">
+                <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 gap-4 grid-flow-dense">
                   {t.cards.map((c) => (
                     <BentoCard key={c.id} card={c} />
                   ))}

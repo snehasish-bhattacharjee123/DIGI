@@ -110,7 +110,7 @@ const navItems = [
   },
 ];
 
-type NavigationTheme = "default" | "blue";
+type NavigationTheme = "default" | "blue" | "white";
 
 export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);

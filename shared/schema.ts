@@ -15,6 +15,9 @@ export const portfolioItems = pgTable("portfolio_items", {
   category: text("category").notNull(),
   imageUrl: text("image_url").notNull(),
 
+  // Optional poster (e.g. for videos)
+  posterUrl: text("poster_url"),
+
   // Optional fields
   description: text("description"), // for body text in card
   href: text("href"), // "Learn more" link

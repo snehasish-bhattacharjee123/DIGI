@@ -44,6 +44,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  const contactSubmissionSchema = z.object({
+    nameOrCompany: z.string().min(1),
+    email: z.string().email(),
+    youtubeLink: z.string().min(1),
+    aboutProject: z.string().min(1),
+    servicesNeeded: z.array(z.string()).min(1),
+    companyCountry: z.string().optional().default(""),
+    honeyEmail: z.string().optional().default(""),
+  });
+
+  app.post("/api/contact", async (req, res) => {
+    try {
+      const submission = contactSubmissionSchema.parse(req.body);
+
+      if (submission.honeyEmail.trim().length > 0) {
+        return res.status(200).json({ ok: true });
+      }
+
+      console.log("Contact submission", {
+        nameOrCompany: submission.nameOrCompany,
+        email: submission.email,
+        youtubeLink: submission.youtubeLink,
+        aboutProject: submission.aboutProject,
+        servicesNeeded: submission.servicesNeeded,
+        companyCountry: submission.companyCountry,
+      });
+
+      return res.status(200).json({ ok: true });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res
+          .status(400)
+          .json({ error: "Invalid request data", details: error.errors });
+      }
+      return res.status(500).json({ error: "Failed to submit contact form" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

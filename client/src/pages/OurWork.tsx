@@ -12,12 +12,19 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { useCallback, useEffect, useState } from "react";
-import { ServicesSection } from "@/components/ServicesSection";
-import { CreativeAssetsSection } from "@/components/CreativeAssetsSection";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+
+const ServicesSectionLazy = lazy(() =>
+  import("@/components/ServicesSection").then((m) => ({ default: m.ServicesSection }))
+);
+const CreativeAssetsSectionLazy = lazy(() =>
+  import("@/components/CreativeAssetsSection").then((m) => ({
+    default: m.CreativeAssetsSection,
+  }))
+);
 
 export default function OurWork() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -25,10 +32,45 @@ export default function OurWork() {
     null
   );
 
+  const [renderDeferredSections, setRenderDeferredSections] = useState(false);
+  const [activeFeaturedVideoIndex, setActiveFeaturedVideoIndex] = useState(0);
+
+  const prefersReducedMotion = useReducedMotion();
+  const revealViewport = { once: true, margin: "-120px" };
+  const revealEase: [number, number, number, number] = [0.22, 1, 0.36, 1];
+  const revealTransition = { duration: 0.7, ease: revealEase };
+  const revealUpInitial = { opacity: 0, y: 24 };
+  const revealUpWhileInView = { opacity: 1, y: 0 };
+
+  const getResponsiveImgSrc = useCallback((url: string, width: number) => {
+    if (!url) return url;
+    if (url.includes("w=")) return url.replace(/w=\d+/i, `w=${width}`);
+    return `${url}${url.includes("?") ? "&" : "?"}w=${width}`;
+  }, []);
+
+  const getResponsiveImgSrcSet = useCallback(
+    (url: string, widths: number[]) =>
+      widths.map((w) => `${getResponsiveImgSrc(url, w)} ${w}w`).join(", "),
+    [getResponsiveImgSrc]
+  );
+
+  useEffect(() => {
+    const win = window as any;
+    const reveal = () => setRenderDeferredSections(true);
+
+    if (typeof win?.requestIdleCallback === "function") {
+      const handle = win.requestIdleCallback(reveal, { timeout: 2000 });
+      return () => win.cancelIdleCallback?.(handle);
+    }
+
+    const timeout = window.setTimeout(reveal, 1200);
+    return () => window.clearTimeout(timeout);
+  }, []);
+
   const serviceTiles = [
     {
       id: "content",
-      title: "Content",
+      title: "Video Editing",
       imageSrc:
         "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=1600&auto=format&fit=crop",
       imageAlt:
@@ -37,7 +79,7 @@ export default function OurWork() {
     },
     {
       id: "conversion",
-      title: "Conversion",
+      title: "Motion Graphics",
       imageSrc:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop",
       imageAlt:
@@ -46,7 +88,7 @@ export default function OurWork() {
     },
     {
       id: "conversation",
-      title: "Conversation",
+      title: "Thumbnails",
       imageSrc:
         "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&auto=format&fit=crop",
       imageAlt:
@@ -55,7 +97,7 @@ export default function OurWork() {
     },
     {
       id: "creative",
-      title: "Creative",
+      title: "3d Animation",
       imageSrc:
         "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&auto=format&fit=crop",
       imageAlt:
@@ -98,7 +140,7 @@ export default function OurWork() {
         "A modular experimentation engine helped PointCard turn one hero concept into hundreds of winners, unlocking a 240% jump in click-throughs.",
       signal: "Paid media lift",
       href: "/case-studies/pointcard",
-      glow: "from-brand-green/30 via-brand-green/10 to-transparent",
+      glow: "bg-brand-green/10",
       delay: 0.1,
     },
     {
@@ -109,7 +151,7 @@ export default function OurWork() {
         "Centralized creative ops and reusable design kits cut Amazon’s per-asset cost in half while scaling global launches.",
       signal: "Production efficiency",
       href: "/case-studies/amazon",
-      glow: "from-brand-orange/30 via-brand-orange/10 to-transparent",
+      glow: "bg-brand-orange/10",
       delay: 0.2,
     },
     {
@@ -120,7 +162,7 @@ export default function OurWork() {
         "An embedded sprint team automated repetitive formats so Thomson Reuters’ strategists shipped concepts nearly 90% faster.",
       signal: "Speed to market",
       href: "/case-studies/thomson-reuters",
-      glow: "from-brand-blue-500/30 via-brand-blue-300/10 to-transparent",
+      glow: "bg-brand-blue-500/10",
       delay: 0.3,
     },
   ];
@@ -246,6 +288,38 @@ export default function OurWork() {
     isVideo?: boolean;
     poster?: string;
   };
+
+  type FeaturedVideoItem = {
+    title: string;
+    description: string;
+    src: string;
+    poster: string;
+    href: string;
+  };
+
+  const featuredVideos: FeaturedVideoItem[] = [
+    {
+      title: "Digiteller Graphics Reel",
+      description: "Motion graphics & design highlights",
+      src: "/videos/Digiteller Graphics Reel Final.mp4",
+      poster: "/generated_images/Brand_identity_system_8af1f13b.png",
+      href: "/our-work",
+    },
+    {
+      title: "Motion Graphic Animation",
+      description: "Animated storytelling & kinetic typography",
+      src: "/videos/7048309_Animation_Motion_Graphic_3840x2160.mp4",
+      poster: "/generated_images/Pernod_Ricard_video_production_685784cf.png",
+      href: "/our-work",
+    },
+    {
+      title: "Product Video Snippet",
+      description: "High-energy edits for performance creatives",
+      src: "/videos/3135926-hd_1920_1080_30fps.mp4",
+      poster: "/generated_images/E-commerce_website_design_43c43606.png",
+      href: "/our-work",
+    },
+  ];
 
   const workItems: WorkItem[] = [
     {
@@ -451,6 +525,7 @@ export default function OurWork() {
     if (!emblaApi) return;
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
+    setActiveFeaturedVideoIndex(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
   useEffect(() => {
@@ -473,6 +548,10 @@ export default function OurWork() {
           name="description"
           content="Explore our portfolio of award-winning creative projects. From branding to video production, see how we've helped brands tell their stories."
         />
+        <link rel="preconnect" href="https://images.unsplash.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
       </Helmet>
       <Navigation theme="blue" />
 
@@ -512,9 +591,15 @@ export default function OurWork() {
       </section> */}
 
       {/* Service Tiles (Hover Zoom-Out) */}
-      <section className="bg-white">
+      <motion.section
+        initial={prefersReducedMotion ? false : revealUpInitial}
+        whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+        viewport={prefersReducedMotion ? undefined : revealViewport}
+        transition={prefersReducedMotion ? undefined : revealTransition}
+        className="bg-white"
+      >
         <div className="w-full grid grid-cols-1 md:flex md:overflow-visible">
-          {serviceTiles.map((tile) => (
+          {serviceTiles.map((tile, index) => (
             <div
               key={tile.id}
               onMouseEnter={() => setHoveredServiceTile(tile.id)}
@@ -528,10 +613,14 @@ export default function OurWork() {
               }`}
             >
               <img
-                src={tile.imageSrc}
+                src={getResponsiveImgSrc(tile.imageSrc, 1200)}
+                srcSet={getResponsiveImgSrcSet(tile.imageSrc, [480, 768, 1024, 1200, 1600])}
+                sizes="(min-width: 1024px) 25vw, 100vw"
                 alt={tile.imageAlt}
                 className="absolute inset-0 h-full w-full object-cover transform scale-125 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-                loading="lazy"
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                fetchPriority={index === 0 ? "high" : "low"}
               />
               <div className="absolute inset-0 bg-black/15 transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-10" />
               <h2 className="absolute bottom-6 left-6 text-white text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-wide uppercase">
@@ -540,7 +629,7 @@ export default function OurWork() {
             </div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
       {/* Category Filter */}
       {/* <section className="py-8 bg-brand-beige-100 sticky top-20 z-40 border-b border-brand-gray-300 shadow-brand">
@@ -574,26 +663,24 @@ export default function OurWork() {
 
 
       {/* Client Results Statistics Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-white via-[#F4FAFF] to-white py-16 sm:py-20 lg:py-24">
+      <section className="relative overflow-hidden bg-[#F4FAFF] py-16 sm:py-20 lg:py-24">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -top-24 right-10 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl opacity-70 animate-pulse" />
           <div className="absolute bottom-[-120px] left-[-40px] h-72 w-72 rounded-full bg-brand-blue-500/10 blur-3xl" />
         </div>
         <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={prefersReducedMotion ? false : revealUpInitial}
+            whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+            viewport={prefersReducedMotion ? undefined : revealViewport}
+            transition={prefersReducedMotion ? undefined : revealTransition}
             className="text-center mb-12 lg:mb-16"
           >
             <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-brand-green">
               Client Outcomes
             </p>
             <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
-              <span className="bg-gradient-to-r from-brand-green to-brand-blue-500 bg-clip-text text-transparent">
-                Real Results
-              </span>{" "}
+              <span className="text-brand-green">Real Results</span>{" "}
               for Real Brands
             </h2>
             <p className="mt-4 text-base lg:text-lg text-brand-blue-700 max-w-2xl mx-auto">
@@ -604,22 +691,26 @@ export default function OurWork() {
           </motion.div>
 
           <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-white to-transparent md:hidden" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-white to-transparent md:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-[#F4FAFF] md:hidden" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-[#F4FAFF] md:hidden" />
             <div className="flex snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
               {clientResultStats.map((stat) => (
                 <motion.article
                   key={stat.brand}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: stat.delay }}
+                  initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                  whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                  viewport={prefersReducedMotion ? undefined : revealViewport}
+                  transition={
+                    prefersReducedMotion
+                      ? undefined
+                      : { ...revealTransition, delay: stat.delay }
+                  }
                   whileHover={{ y: -12, rotate: -0.4 }}
                   className="group relative min-w-[280px] snap-center rounded-2xl border border-brand-blue-100/60 bg-white/90 p-6 lg:p-8 shadow-[0_25px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-[transform,box-shadow] duration-500 md:min-w-0"
                 >
                   <div
                     aria-hidden="true"
-                    className={`absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${stat.glow}`}
+                    className={`absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${stat.glow}`}
                   />
                   <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-blue-500">
                     <span>{stat.metric}</span>
@@ -639,9 +730,17 @@ export default function OurWork() {
                   </p>
                   <motion.span
                     aria-hidden="true"
-                    className="mt-6 block h-px w-full bg-gradient-to-r from-transparent via-brand-blue-200 to-transparent"
-                    animate={{ opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                    className="mt-6 block h-px w-full bg-brand-blue-200/60"
+                    animate={
+                      prefersReducedMotion
+                        ? { opacity: 0.6 }
+                        : { opacity: [0.3, 1, 0.3] }
+                    }
+                    transition={
+                      prefersReducedMotion
+                        ? undefined
+                        : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                    }
                   />
                   <a
                     href={stat.href}
@@ -657,7 +756,11 @@ export default function OurWork() {
         </div>
       </section>
 
-      <ServicesSection />
+      {renderDeferredSections ? (
+        <Suspense fallback={null}>
+          <ServicesSectionLazy />
+        </Suspense>
+      ) : null}
 
 
 
@@ -665,10 +768,10 @@ export default function OurWork() {
       <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={prefersReducedMotion ? false : revealUpInitial}
+            whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+            viewport={prefersReducedMotion ? undefined : revealViewport}
+            transition={prefersReducedMotion ? undefined : revealTransition}
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="font-heading text-h2 leading-tight-13 font-bold mb-4 text-brand-blue-900">
@@ -679,14 +782,139 @@ export default function OurWork() {
             </h2>
           </motion.div>
 
+          <div className="mb-10 lg:mb-14">
+            <div className="flex items-end justify-between gap-6 mb-5">
+              <div>
+                <p className="text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-brand-green">
+                  Featured Videos
+                </p>
+                <p className="mt-2 text-sm sm:text-base text-brand-blue-700 max-w-2xl">
+                  A quick look at motion, edits, and reels we craft for brands.
+                </p>
+              </div>
+
+              <div className="hidden sm:flex items-center gap-2">
+                <button
+                  onClick={scrollPrev}
+                  disabled={!canScrollPrev}
+                  className="w-10 h-10 rounded-full bg-white border border-brand-blue-100 text-brand-blue-900 shadow-sm flex items-center justify-center hover:bg-brand-blue-900 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Previous featured video"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={scrollNext}
+                  disabled={!canScrollNext}
+                  className="w-10 h-10 rounded-full bg-white border border-brand-blue-100 text-brand-blue-900 shadow-sm flex items-center justify-center hover:bg-brand-blue-900 hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Next featured video"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="overflow-hidden" ref={emblaRef}>
+                <div className="flex gap-4">
+                  {featuredVideos.map((video, index) => (
+                    <div
+                      key={video.title}
+                      className="flex-[0_0_88%] sm:flex-[0_0_65%] md:flex-[0_0_52%] lg:flex-[0_0_40%] xl:flex-[0_0_33%] min-w-0"
+                    >
+                      <a
+                        href={video.href}
+                        className="group block overflow-hidden rounded-2xl border border-brand-blue-100/70 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.06)]"
+                      >
+                        <div className="relative aspect-[16/9] overflow-hidden">
+                          {activeFeaturedVideoIndex === index ? (
+                            <video
+                              autoPlay
+                              playsInline
+                              muted
+                              loop
+                              preload="metadata"
+                              poster={video.poster}
+                              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                              src={video.src}
+                            />
+                          ) : (
+                            <img
+                              src={video.poster}
+                              alt={video.title}
+                              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          )}
+                          <img
+                            src={video.poster}
+                            alt={video.title}
+                            className="absolute inset-0 w-full h-full object-cover md:hidden transform transition-transform duration-500 group-hover:scale-105"
+                            loading={index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchPriority={index === 0 ? "high" : "auto"}
+                          />
+
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
+                              <Play className="w-6 h-6 text-brand-blue-900 ml-1" />
+                            </div>
+                          </div>
+
+                          <div className="absolute left-4 right-4 bottom-4">
+                            <p className="text-white font-semibold text-lg leading-tight">
+                              {video.title}
+                            </p>
+                            <p className="mt-1 text-white/80 text-sm">
+                              {video.description}
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="sm:hidden absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                <button
+                  onClick={scrollPrev}
+                  disabled={!canScrollPrev}
+                  className="w-10 h-10 rounded-full bg-white border border-brand-blue-100 text-brand-blue-900 shadow-sm flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Previous featured video"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={scrollNext}
+                  disabled={!canScrollNext}
+                  className="w-10 h-10 rounded-full bg-white border border-brand-blue-100 text-brand-blue-900 shadow-sm flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label="Next featured video"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-4 gap-4 md:grid-cols-8 lg:grid-cols-12 lg:gap-y-10">
             {workItems.map((item, index) => (
               <motion.div
                 key={item.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.05 }}
+                initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={prefersReducedMotion ? undefined : revealViewport}
+                transition={
+                  prefersReducedMotion
+                    ? undefined
+                    : { ...revealTransition, delay: index * 0.05 }
+                }
+                whileHover={
+                  prefersReducedMotion
+                    ? undefined
+                    : { y: -10, transition: { duration: 0.25, ease: revealEase } }
+                }
                 className={`col-span-full row-span-1 ${item.colSpan} group`}
               >
                 <a href={item.href} className="flex flex-col lg:gap-6 gap-3">
@@ -745,7 +973,11 @@ export default function OurWork() {
         </div>
       </section>
 
-            <CreativeAssetsSection/>
+            {renderDeferredSections ? (
+              <Suspense fallback={null}>
+                <CreativeAssetsSectionLazy />
+              </Suspense>
+            ) : null}
 
       {/* Accelerate Business Section */}
       {/* <section className="py-12 sm:py-16 lg:py-20 bg-white">
@@ -1009,10 +1241,10 @@ export default function OurWork() {
       <section className="py-12 sm:py-16 lg:py-20 bg-white">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={prefersReducedMotion ? false : revealUpInitial}
+            whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+            viewport={prefersReducedMotion ? undefined : revealViewport}
+            transition={prefersReducedMotion ? undefined : revealTransition}
             className="text-center mb-10 md:mb-12"
           >
             <span className="text-xs md:text-xs lg:text-sm tracking-widest font-semibold uppercase text-brand-blue-800">TESTIMONIALS</span>

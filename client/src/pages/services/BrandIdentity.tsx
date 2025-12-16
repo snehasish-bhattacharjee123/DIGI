@@ -21,7 +21,7 @@ import {
 } from "lucide-react";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ScrollSectionsProps } from "@/components/ScrollSections";
-import {ClientLogos } from "@/components/ClientLogos";
+import ClientLogos from "@/components/ClientLogos";
 import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
 import { MadeToFlexSection } from "@/components/MadeToFlexSection";
 import  {StatsSection}  from "@/components/StatsSection";

@@ -686,68 +686,10 @@
 
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
+import { RequirementsForm } from "@/components/RequirementsForm";
 import { Helmet } from "react-helmet-async";
-import { useState } from "react";
-import { Instagram, Linkedin, Facebook } from "lucide-react";
 
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus("success");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        message: "",
-      });
-
-      setTimeout(() => setSubmitStatus("idle"), 5000);
-    }, 1500);
-  };
-
-  const socialLinks = [
-    {
-      icon: Instagram,
-      href: "https://instagram.com/digitellercreative",
-      label: "Instagram",
-    },
-    {
-      icon: Facebook,
-      href: "https://facebook.com/digitellercreative",
-      label: "Facebook",
-    },
-    {
-      icon: Linkedin,
-      href: "https://linkedin.com/company/digitellercreative",
-      label: "LinkedIn",
-    },
-  ];
-
   return (
     <>
       <Helmet>
@@ -757,17 +699,44 @@ export default function Contact() {
           content="Get in touch with DIGITELLER CREATIVE. Contact us for creative services."
         />
       </Helmet>
-      <Navigation theme="blue" />
+      <Navigation theme="white" />
+
+      <section className="bg-brand-blue-900 text-white pt-24  overflow-x-hidden">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
+                Get in touch
+              </h1>
+              <p className="mt-4 text-base sm:text-lg text-white/80 max-w-2xl">
+                Want to get in touch? We'd love to hear from you. Here's how you can
+                reach us.
+              </p>
+            </div>
+
+            <div className="hidden lg:flex justify-end">
+              <img
+                src="https://www.hubspot.com/hs-fs/hubfs/Contact%20Us/DO%20NOT%20USE-%202025%20Contact%20Us%20images%20%5Bcontact%20Teenie%20Rose%20for%20usage%5D/contact-us-illustration-crop.webp?width=901&height=644&name=contact-us-illustration-crop.webp"
+                alt="Contact us illustration"
+                width={901}
+                height={644}
+                loading="eager"
+                className="w-full max-w-[901px] h-auto"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Hero Section with Company Name */}
       <section className="bg-white text-brand-blue-900 pt-20 pb-16 overflow-x-hidden">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <div className="text-center mb-12">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+            {/* <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight">
               DIGITELLER
               <br />
               CREATIVE
-            </h1>
+            </h1> */}
           </div>
 
           {/* Intro Text Section under the title */}
@@ -788,11 +757,17 @@ export default function Contact() {
             </p>
           </div>
 
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white border border-brand-blue-900/10 rounded-2xl p-6 sm:p-10 shadow-sm">
+              <RequirementsForm />
+            </div>
+          </div>
+
           {/* Two Column Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
-            {/* Left Column - Contact Info */}
+          {/* <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20">
+            
             <div className="flex flex-col justify-start">
-              {/* Contact Details */}
+              
               <div className="space-y-4 mb-12">
                 <a
                   href="mailto:digitellercreative@gmail.com"
@@ -810,7 +785,7 @@ export default function Contact() {
                 </p>
               </div>
 
-              {/* Social Links */}
+              
               <div className="flex gap-6">
                 {socialLinks.map((social) => (
                   <a
@@ -827,7 +802,7 @@ export default function Contact() {
               </div>
             </div>
 
-            {/* Right Column - Contact Form */}
+            
             <div className="bg-white rounded-2xl p-8 md:p-12">
               <h2 className="text-lg md:text-xl font-bold text-brand-blue-900 mb-3 uppercase tracking-wide">
                 Ready to Collaborate?
@@ -837,7 +812,7 @@ export default function Contact() {
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-6">
-                {/* First Name and Last Name */}
+               
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label
@@ -877,7 +852,7 @@ export default function Contact() {
                   </div>
                 </div>
 
-                {/* Email */}
+                
                 <div>
                   <label
                     htmlFor="email"
@@ -897,7 +872,7 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Message */}
+                
                 <div>
                   <label
                     htmlFor="message"
@@ -917,7 +892,7 @@ export default function Contact() {
                   />
                 </div>
 
-                {/* Submit Button */}
+                
                 <div className="pt-4">
                   <button
                     type="submit"
@@ -928,7 +903,7 @@ export default function Contact() {
                   </button>
                 </div>
 
-                {/* Status Messages */}
+                
                 {submitStatus === "success" && (
                   <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-sm">
                     Thank you! Your message has been sent successfully. We'll
@@ -943,11 +918,11 @@ export default function Contact() {
                 )}
               </form>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
-      {/* Map Section */}
+    
       <section className="bg-white py-12">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           <h2 className="text-2xl font-bold text-brand-blue-900 mb-6">Find Us on the Map</h2>

@@ -55,7 +55,7 @@ export function OurWorkSection() {
             }}
           >
             <VideoPlayer
-              src="/videos/7048309_Animation_Motion_Graphic_3840x2160.mp4"
+              src="/videos/Digiteller Graphics Reel Final.mp4"
               className="h-full w-full"
             />
           </motion.div>

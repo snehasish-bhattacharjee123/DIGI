@@ -156,6 +156,12 @@ const ServicesSection = lazy(() =>
   }))
 );
 
+const VideoEditingServicesSection = lazy(() =>
+  import("@/components/VideoEditingServicesSection").then((m) => ({
+    default: m.VideoEditingServicesSection,
+  }))
+);
+
 const CreativeServicesGridSection = lazy(() =>
   import("@/components/CreativeServicesGridSection").then((m) => ({
     default: m.CreativeServicesGridSection,
@@ -403,11 +409,11 @@ export default function Home() {
           </ErrorBoundary>
 
           {/* Work Showcase Cards - Scrolling Portfolio */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <WorkShowcaseCards />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Work Carousel Section */}
           {/* <ErrorBoundary>
@@ -438,9 +444,15 @@ export default function Home() {
           </ErrorBoundary> */}
 
           {/* Versatile Designs Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="lg" />}>
               <VersatileDesignsSection />
+            </Suspense>
+          </ErrorBoundary> */}
+
+          <ErrorBoundary>
+            <Suspense fallback={<SectionSkeleton height="lg" />}>
+              <VideoEditingServicesSection />
             </Suspense>
           </ErrorBoundary>
 

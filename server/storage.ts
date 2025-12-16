@@ -75,7 +75,18 @@ export class MemStorage implements IStorage {
 
     items.forEach((item) => {
       const id = randomUUID();
-      this.portfolioItems.set(id, { ...item, id });
+      const normalized: PortfolioItem = {
+        id,
+        title: item.title,
+        client: item.client,
+        category: item.category,
+        imageUrl: item.imageUrl,
+        posterUrl: item.posterUrl ?? null,
+        description: item.description ?? null,
+        href: item.href ?? null,
+        aspectRatio: item.aspectRatio ?? null,
+      };
+      this.portfolioItems.set(id, normalized);
     });
   }
 
@@ -108,7 +119,17 @@ export class MemStorage implements IStorage {
     insertItem: InsertPortfolioItem,
   ): Promise<PortfolioItem> {
     const id = randomUUID();
-    const item: PortfolioItem = { ...insertItem, id };
+    const item: PortfolioItem = {
+      id,
+      title: insertItem.title,
+      client: insertItem.client,
+      category: insertItem.category,
+      imageUrl: insertItem.imageUrl,
+      posterUrl: insertItem.posterUrl ?? null,
+      description: insertItem.description ?? null,
+      href: insertItem.href ?? null,
+      aspectRatio: insertItem.aspectRatio ?? null,
+    };
     this.portfolioItems.set(id, item);
     return item;
   }

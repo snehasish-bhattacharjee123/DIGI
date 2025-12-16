@@ -5,11 +5,23 @@ import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
 import { motion } from "framer-motion";
 import "@splidejs/splide/dist/css/splide.min.css";
 
-type LogoItem = { name: string; svg: React.ReactElement };
+type LogoItem = {
+  name: string;
+  svg?: React.ReactElement;
+  img?: {
+    src: string;
+    alt?: string;
+  };
+};
+
 
 const clientsTop: LogoItem[] = [
   {
     name: "Addidas",
+    img: {
+      src: "/images/work/Digireller%20logo_png.png",
+      alt: "Addidas",
+    },
     svg: (
       <svg
         role="img"
@@ -29,6 +41,10 @@ const clientsTop: LogoItem[] = [
   },
   {
     name: "Wipro Streamline",
+    img: {
+      src: "/images/work/Digireller%20logo%20Black%20BG_png.png",
+      alt: "Wipro Streamline",
+    },
     svg: (
       <svg
         role="img"
@@ -48,6 +64,10 @@ const clientsTop: LogoItem[] = [
   },
   {
     name: "NovaTech",
+    img: {
+      src: "/images/work/Naksha%20LOGO.png",
+      alt: "NovaTech",
+    },
     svg: (
       <svg
         role="img"
@@ -65,6 +85,13 @@ const clientsTop: LogoItem[] = [
       </svg>
     ),
   },
+  {
+    name: "Doritos",
+    img: {
+      src: "/images/work/Naksha%20LOGO%20(3).png",
+      alt: "Doritos",
+    },
+  },
 
   // Add the rest of your real logos here (kept concise for the sample)
 ];
@@ -72,6 +99,10 @@ const clientsTop: LogoItem[] = [
 const clientsBottom: LogoItem[] = [
   {
     name: "Cascade",
+    img: {
+      src: "/images/work/Naksha%20LOGO%20(1).png",
+      alt: "Cascade",
+    },
     svg: (
       <svg
         role="img"
@@ -91,6 +122,10 @@ const clientsBottom: LogoItem[] = [
   },
   {
     name: "Lumen",
+    img: {
+      src: "/images/work/Naksha%20LOGO%20(2).png",
+      alt: "Lumen",
+    },
     svg: (
       <svg
         role="img"
@@ -110,6 +145,10 @@ const clientsBottom: LogoItem[] = [
   },
   {
     name: "Cafepress",
+    img: {
+      src: "/images/work/Naksha%20LOGO%20(3).png",
+      alt: "Cafepress",
+    },
     svg: (
       <svg
         role="img"
@@ -130,6 +169,42 @@ const clientsBottom: LogoItem[] = [
 
   // ... add other bottom logos (Pivot, Atlas, Ripple, Glyph, Terra) similarly ...
 ];
+
+const renderLogoVisual = (c: LogoItem) => {
+  if (c.img) {
+    return (
+      <img
+        src={c.img.src}
+        alt={c.img.alt ?? c.name}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
+        width={280}
+        height={140}
+        style={{
+          width: "clamp(64px, 9vw, 140px)",
+          height: "auto",
+          display: "block",
+          objectFit: "contain",
+        }}
+      />
+    );
+  }
+
+  if (c.svg) {
+    return React.cloneElement(c.svg, {
+      width: undefined,
+      height: undefined,
+      style: {
+        width: "clamp(64px, 9vw, 140px)",
+        height: "auto",
+        display: "block",
+      },
+    });
+  }
+
+  return null;
+};
 
 const ClientLogosInlineSVG: React.FC = () => {
   const topSplide = useRef<any>(null);
@@ -263,15 +338,7 @@ const ClientLogosInlineSVG: React.FC = () => {
                         justifyContent: "center",
                       }}
                     >
-                      {React.cloneElement(c.svg, {
-                        width: undefined,
-                        height: undefined,
-                        style: {
-                          width: "clamp(64px, 9vw, 140px)",
-                          height: "auto",
-                          display: "block",
-                        },
-                      })}
+                      {renderLogoVisual(c)}
                     </div>
 
                     {/* Screen-reader label */}
@@ -308,13 +375,7 @@ const ClientLogosInlineSVG: React.FC = () => {
                         justifyContent: "center",
                       }}
                     >
-                      {React.cloneElement(c.svg, {
-                        style: {
-                          width: "clamp(64px, 9vw, 140px)",
-                          height: "auto",
-                          display: "block",
-                        },
-                      })}
+                      {renderLogoVisual(c)}
                     </div>
 
                     <figcaption className="sr-only">{c.name}</figcaption>
@@ -348,6 +409,14 @@ const ClientLogosInlineSVG: React.FC = () => {
           width: clamp(64px, 9vw, 140px);
           height: auto;
           display: block;
+        }
+
+        .logo-wrap .logo-visual img {
+          transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+          width: clamp(64px, 9vw, 140px);
+          height: auto;
+          display: block;
+          object-fit: contain;
         }
 
         .splide__slide:hover .logo-wrap {

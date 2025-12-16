@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
-import { useRef, useState, MouseEvent, useEffect } from "react";
+import { useRef, useEffect } from "react";
+import Splide from "@splidejs/splide";
+import { AutoScroll } from "@splidejs/splide-extension-auto-scroll";
+import "@splidejs/splide/dist/css/splide.min.css";
 
 interface TeamMember {
   id: string;
@@ -11,178 +14,40 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Soumitra Mitra",
-    position: "President",
-    image: "/uploads/team/cat250517042503.jpeg",
+    name: "Anurag Chanda",
+    position: "Founder",
+    image: "/images/work/Copy of DSC09129.jpg",
   },
   {
     id: "2",
-    name: "Rajat Bandyopadhyay",
-    position: "Working President",
-    image: "/uploads/team/cat250517042659.jpeg",
+    name: "Sougata Das",
+    position: "Co Founder",
+    image: "/images/work/DSC09150.jpg",
   },
   {
     id: "3",
-    name: "Pranati Tagore",
-    position: "Working President",
-    image: "/uploads/team/cat250517042752.jpeg",
+    name: "Sombit Saha",
+    position: "Creative Director",
+    image: "/images/work/IMG_7981.JPG",
   },
   {
     id: "4",
-    name: "Rabin Bhattacharya",
-    position: "Vice-President",
-    image: "/uploads/team/cat250517042951.jpeg",
+    name: "Rahul Majumdar",
+    position: "Editor",
+    image: "/images/work/IMG_7988.JPG",
   },
   {
     id: "5",
-    name: "Alok Roy Ghatak",
-    position: "Vice-President",
-    image: "/uploads/team/cat250517043101.jpeg",
+    name: "Srikanta kar",
+    position: "Graphic Designer",
+    image: "/images/work/IMG_7999.JPG",
   },
   {
     id: "6",
-    name: "Aloke Mukherjee",
-    position: "Vice-President",
-    image: "/uploads/team/cat250517042828.jpeg",
-  },
-  {
-    id: "7",
-    name: "Chandan Majumdar",
-    position: "Jt. Secretary",
-    image: "/uploads/team/cat250517043155.jpeg",
-  },
-  {
-    id: "8",
-    name: "Sekhar Dey",
-    position: "Jt. Secretary",
-    image: "/uploads/team/cat250517043234.jpeg",
-  },
-  {
-    id: "9",
-    name: "Subhabrata Raychaudhuri",
-    position: "Asst. Secretary",
-    image: "/uploads/team/cat250519010744.jpeg",
-  },
-  {
-    id: "10",
-    name: "Sarnava Roy",
-    position: "Asst. Secretary",
-    image: "/uploads/team/cat250517043531.jpeg",
-  },
-  {
-    id: "11",
-    name: "Prosenjit Ghosh",
-    position: "Treasurer",
-    image: "/uploads/team/cat250517043613.jpeg",
-  },
-  {
-    id: "12",
-    name: "Jagannath Chattopadhyay",
-    position: "Member",
-    image: "/uploads/team/cat250517043652.jpeg",
-  },
-  {
-    id: "13",
-    name: "Asish Dasgupta",
-    position: "Member",
-    image: "/uploads/team/cat250517044327.jpeg",
-  },
-  {
-    id: "14",
-    name: "Krishnapada Das",
-    position: "Member",
-    image: "/uploads/team/cat250517043728.jpeg",
-  },
-  {
-    id: "15",
-    name: "Ranjan Sen",
-    position: "Member",
-    image: "/uploads/team/cat250517043803.jpeg",
-  },
-  {
-    id: "16",
-    name: "Pitam Bhattacharya",
-    position: "Member",
-    image: "/uploads/team/cat250517043846.jpeg",
-  },
-  {
-    id: "17",
-    name: "Tusharkanti Ghosh",
-    position: "Member",
-    image: "/uploads/team/cat250517043925.jpeg",
-  },
-  {
-    id: "18",
-    name: "Saswati Guha",
-    position: "Member",
-    image: "/uploads/team/cat250517043955.jpeg",
-  },
-  {
-    id: "19",
-    name: "Iva Kanrar",
-    position: "Member",
-    image: "/uploads/team/cat250517044021.jpeg",
-  },
-  {
-    id: "20",
-    name: "Sreetama Mukherjee",
-    position: "Member",
-    image: "/uploads/team/cat250517044039.jpeg",
-  },
-  {
-    id: "21",
-    name: "Nibedita Nagtahabildar",
-    position: "Member",
-    image: "/uploads/team/cat250517044118.jpg",
-  },
-  {
-    id: "22",
-    name: "Srabonti Maitra",
-    position: "Member",
-    image: "/uploads/team/cat250517044151.jpeg",
-  },
-  {
-    id: "23",
-    name: "Chumki Dutta",
-    position: "Member",
-    image: "/uploads/team/cat250517044301.jpeg",
-  },
-  {
-    id: "24",
-    name: "Subir Bhattacharya",
-    position: "Member",
-    image: "/uploads/team/cat250517044417.jpeg",
-  },
-  {
-    id: "25",
-    name: "Minakshi Ghosh",
-    position: "Member",
-    image: "/uploads/team/cat250517044451.jpeg",
-  },
-  {
-    id: "26",
-    name: "Maloy Poddar",
-    position: "Member",
-    image: "/uploads/team/cat250517044521.jpeg",
-  },
-  {
-    id: "27",
-    name: "Parthapratim Nandy",
-    position: "Member",
-    image: "/uploads/team/cat250517044631.jpeg",
-  },
-  {
-    id: "28",
-    name: "Debabrata Dutta",
-    position: "Member",
-    image: "/uploads/team/cat250517044653.jpeg",
-  },
-  {
-    id: "29",
-    name: "Pranabesh Ray",
-    position: "Member",
-    image: "/uploads/team/cat250517044735.jpeg",
-  },
+    name: "Anirban Baidya",
+    position: "Editor",
+    image: "/images/work/IMG_20251210_205642.jpg",
+  }
 ];
 
 const teamFallbackImages = [
@@ -234,189 +99,63 @@ interface TeamScrollerProps {
 }
 
 const TeamScroller: React.FC<TeamScrollerProps> = ({ members }) => {
-  const scrollerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [isDown, setIsDown] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-  const targetRef = useRef(0);
-  const velocityRef = useRef(0);
-  const lastXRef = useRef(0);
-  const lastTimeRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
-
-  const clamp = (val: number, min: number, max: number) => Math.max(min, Math.min(max, val));
-
-  const animate = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-    velocityRef.current *= 0.94;
-    targetRef.current = clamp(targetRef.current + -velocityRef.current, 0, Math.max(0, maxScroll));
-    const current = scroller.scrollLeft;
-    const next = current + (targetRef.current - current) * 0.14;
-    scroller.scrollLeft = next;
-    const done = Math.abs(targetRef.current - next) < 0.5 && Math.abs(velocityRef.current) < 0.1;
-    if (!done) {
-      rafRef.current = requestAnimationFrame(animate);
-    } else {
-      rafRef.current = null;
-    }
-  };
-
-  const startAnimate = () => {
-    if (rafRef.current == null) {
-      rafRef.current = requestAnimationFrame(animate);
-    }
-  };
+  const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
+    const root = rootRef.current;
+    if (!root) return;
 
-  const handleMouseDown = (e: MouseEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    const content = contentRef.current;
-    if (!scroller || !content) return;
+    const existing = (root as any).splide;
+    if (existing) existing.destroy(true);
 
-    setIsDown(true);
-    content.classList.add("animate-pause");
-    setStartX(e.pageX - scroller.offsetLeft);
-    setScrollLeft(scroller.scrollLeft);
-    lastXRef.current = e.pageX;
-    lastTimeRef.current = performance.now();
-  };
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
 
-  const handleMouseUpOrLeave = () => {
-    const content = contentRef.current;
-    if (!content) return;
+    const splide = new Splide(root, {
+      type: "loop",
+      drag: "free",
+      arrows: false,
+      pagination: false,
+      autoWidth: true,
+      gap: "1.25rem",
+      autoScroll: prefersReducedMotion
+        ? undefined
+        : {
+            speed: 0.9,
+            pauseOnHover: true,
+            pauseOnFocus: true,
+          },
+    });
 
-    setIsDown(false);
-    content.classList.remove("animate-pause");
-  };
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!isDown || !scrollerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    const next = scrollLeft - walk;
-    scrollerRef.current.scrollLeft = next;
-    const now = performance.now();
-    const dx = e.pageX - lastXRef.current;
-    const dt = now - lastTimeRef.current || 16.7;
-    velocityRef.current = dx / dt * 16.7;
-    lastXRef.current = e.pageX;
-    lastTimeRef.current = now;
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    const scroller = scrollerRef.current;
-    const content = contentRef.current;
-    if (!scroller || !content) return;
-
-    setIsDown(true);
-    content.classList.add("animate-pause");
-    setStartX(e.touches[0].pageX - scroller.offsetLeft);
-    setScrollLeft(scroller.scrollLeft);
-    lastXRef.current = e.touches[0].pageX;
-    lastTimeRef.current = performance.now();
-  };
-
-  const handleTouchEnd = () => {
-    const content = contentRef.current;
-    if (!content) return;
-
-    setIsDown(false);
-    content.classList.remove("animate-pause");
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!isDown || !scrollerRef.current) return;
-    const x = e.touches[0].pageX - scrollerRef.current.offsetLeft;
-    const walk = (x - startX) * 2;
-    const next = scrollLeft - walk;
-    scrollerRef.current.scrollLeft = next;
-    const now = performance.now();
-    const dx = e.touches[0].pageX - lastXRef.current;
-    const dt = now - lastTimeRef.current || 16.7;
-    velocityRef.current = dx / dt * 16.7;
-    lastXRef.current = e.touches[0].pageX;
-    lastTimeRef.current = now;
-  };
-
-  const handleReleaseMomentum = () => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-    targetRef.current = clamp(scroller.scrollLeft - velocityRef.current * 60, 0, Math.max(0, maxScroll));
-    startAnimate();
-  };
-
-  const handleWheel: React.WheelEventHandler<HTMLDivElement> = (e) => {
-    e.preventDefault();
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-    targetRef.current = clamp((rafRef.current ? targetRef.current : scroller.scrollLeft) + delta * 0.9, 0, Math.max(0, maxScroll));
-    velocityRef.current += delta * 0.02;
-    startAnimate();
-  };
-
-  const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
-    const scroller = scrollerRef.current;
-    if (!scroller) return;
-    const step = 120;
-    if (e.key === "ArrowRight" || e.key === "PageDown") {
-      e.preventDefault();
-      targetRef.current = Math.min(scroller.scrollLeft + step, scroller.scrollWidth - scroller.clientWidth);
-      startAnimate();
-    } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
-      e.preventDefault();
-      targetRef.current = Math.max(scroller.scrollLeft - step, 0);
-      startAnimate();
+    if (prefersReducedMotion) {
+      splide.mount();
+    } else {
+      splide.mount({ AutoScroll });
     }
-  };
+
+    return () => {
+      splide.destroy(true);
+    };
+  }, [members.length]);
 
   return (
     <div className="relative overflow-hidden select-none">
       {/* Left fade - responsive widths */}
-      <div className="pointer-events-none absolute left-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-r from-brand-blue-900 via-brand-blue-900/90 to-transparent z-10" />
+      <div className="hidden" />
       {/* Right fade - responsive widths */}
-      <div className="pointer-events-none absolute right-0 top-0 h-full w-12 sm:w-16 md:w-20 lg:w-28 xl:w-32 bg-gradient-to-l from-brand-blue-900 via-brand-blue-900/90 to-transparent z-10" />
+      <div className="hidden" />
 
-      <div
-        ref={scrollerRef}
-        className={`relative overflow-hidden touch-pan-x ${
-          isDown ? "cursor-grabbing" : "cursor-grab"
-        }`}
-        onMouseDown={handleMouseDown}
-        onMouseUp={() => { handleMouseUpOrLeave(); handleReleaseMomentum(); }}
-        onMouseLeave={() => { handleMouseUpOrLeave(); handleReleaseMomentum(); }}
-        onMouseMove={handleMouseMove}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={() => { handleTouchEnd(); handleReleaseMomentum(); }}
-        onTouchMove={handleTouchMove}
-        onWheel={handleWheel}
-        tabIndex={0}
-        onKeyDown={handleKeyDown}
-      >
-        <div
-          ref={contentRef}
-          className="flex w-max hover:animate-pause animate-scroll-team"
-        >
-          {/* Triple the members for seamless infinite loop */}
-          {[...members, ...members, ...members].map((member, index) => (
-            <div
-              key={`${member.id}-${index}`}
-              className="mx-2 sm:mx-3 md:mx-4 lg:mx-5 xl:mx-6 py-4"
-            >
-              <TeamMemberCard member={member} />
-            </div>
-          ))}
+      <div ref={rootRef} className="splide select-none max-w-full overflow-x-hidden">
+        <div className="splide__track overflow-hidden cursor-grab active:cursor-grabbing">
+          <ul className="splide__list">
+            {/* Triple the members for seamless infinite loop */}
+            {[...members, ...members, ...members].map((member, index) => (
+              <li key={`${member.id}-${index}`} className="splide__slide !w-auto py-4">
+                <TeamMemberCard member={member} />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
@@ -452,7 +191,7 @@ export function TeamSection() {
         </div>
 
         {/* Helper text */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -465,7 +204,7 @@ export function TeamSection() {
             </span>
             <span className="sm:hidden">Swipe to explore</span>
           </p>
-        </motion.div>
+        </motion.div> */}
       </div>
 
       {/* Background decoration */}

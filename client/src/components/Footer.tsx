@@ -199,21 +199,9 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
-import { useState } from "react";
+import { RequirementsForm } from "@/components/RequirementsForm";
 
 export function Footer() {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<
-    "idle" | "success" | "error"
-  >("idle");
-
   const navigationLinks = [
     { label: "PORTFOLIO", href: "/portfolio" },
     { label: "STUDIO", href: "/studio" },
@@ -254,48 +242,6 @@ export function Footer() {
     },
   ];
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({
-          firstName: "",
-          lastName: "",
-          email: "",
-          message: "",
-        });
-        setTimeout(() => setSubmitStatus("idle"), 3000);
-      } else {
-        setSubmitStatus("error");
-        setTimeout(() => setSubmitStatus("idle"), 3000);
-      }
-    } catch (error) {
-      setSubmitStatus("error");
-      setTimeout(() => setSubmitStatus("idle"), 3000);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
     <footer className="bg-bor-black text-white py-16 md:py-24 overflow-hidden">
       <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
@@ -306,11 +252,11 @@ export function Footer() {
               DigiTeller Creative
             </h2>
             <div className="select-none">
-              <div className="inline-block font-extrabold tracking-tight leading-none text-[clamp(48px,8vw,120px)] uppercase bg-gradient-to-r from-brand-blue-500 via-brand-blue-300 to-brand-green bg-clip-text text-transparent">
+              <div className="inline-block font-azeret font-extrabold tracking-tight leading-none text-[clamp(48px,8vw,120px)] uppercase bg-gradient-to-r from-brand-blue-500 via-brand-blue-300 to-brand-green bg-clip-text text-transparent">
                 DIGITELLER
               </div>
               <div className="mt-2 text-gray-300 text-sm md:text-base max-w-xl">
-                Creative studio for brand, content, and digital experiences.
+                A one stop subcription for your creative solutions.
               </div>
             </div>
           </div>
@@ -382,6 +328,24 @@ export function Footer() {
                   </p>
                 </div>
               </div>
+
+              <div className="pt-2">
+                <p className="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-3">
+                  Map
+                </p>
+                <div className="w-full h-56 sm:h-64 rounded-2xl overflow-hidden border border-white/10 bg-white">
+                  <iframe
+                    title="Digiteller Creative Location"
+                    src="https://www.google.com/maps?q=E-79%2C%20Ramgarh%2C%20Kolkata%20700047&output=embed"
+                    width="100%"
+                    height="100%"
+                    loading="lazy"
+                    style={{ border: 0 }}
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="w-full h-full"
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -413,93 +377,7 @@ export function Footer() {
           {/* Right Column: Contact Form */}
           <div className="md:col-span-6">
             <div className="bg-white text-black p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-xl">
-              <h3 className="text-lg md:text-xl font-bold uppercase tracking-wider mb-2">
-                Ready to Collaborate?
-              </h3>
-              <p className="text-gray-600 text-sm mb-8">
-                Let's create something epic together
-              </p>
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
-                    First Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    placeholder="John"
-                    required
-                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
-                    Last Name <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    placeholder="Smith"
-                    required
-                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
-                    Email <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    placeholder="hello@example.com"
-                    required
-                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs uppercase tracking-wider font-semibold text-black mb-2">
-                    Message <span className="text-red-500">*</span>
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    placeholder="Type your message here"
-                    required
-                    rows={4}
-                    className="w-full border-b border-gray-300 bg-transparent py-2 text-sm focus:outline-none focus:border-black transition-colors resize-none"
-                  />
-                </div>
-
-                {submitStatus === "success" && (
-                  <div className="text-green-600 text-sm">
-                    Thank you! Your message has been sent successfully.
-                  </div>
-                )}
-                {submitStatus === "error" && (
-                  <div className="text-red-600 text-sm">
-                    There was an error sending your message. Please try again.
-                  </div>
-                )}
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full uppercase tracking-wider font-semibold text-black hover:bg-gray-100 bg-gray-50 py-3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-8 text-sm"
-                >
-                  {isSubmitting ? "Sending..." : "Submit"}
-                </button>
-              </form>
+              <RequirementsForm />
             </div>
           </div>
         </div>

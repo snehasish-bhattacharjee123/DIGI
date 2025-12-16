@@ -66,7 +66,7 @@ export function CreativeAssetsSection() {
                     playsInline
                     muted
                     loop
-                    preload="auto"
+                    preload="metadata"
                     controls={false}
                     disablePictureInPicture
                     controlsList="nodownload nofullscreen noremoteplayback"

@@ -9,13 +9,17 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(
   "/images",
-  express.static(path.resolve(import.meta.dirname, "..", "client", "public", "images")),
+  express.static(
+    path.resolve(import.meta.dirname, "..", "client", "public", "images"),
+    { maxAge: "7d" },
+  ),
 );
 
 app.use(
   "/generated_images",
   express.static(
     path.resolve(import.meta.dirname, "..", "attached_assets", "generated_images"),
+    { maxAge: "30d" },
   ),
 );
 
