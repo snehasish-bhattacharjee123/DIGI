@@ -96,7 +96,7 @@ const Card: React.FC<CardProps> = ({ card, isMobile }) => {
       >
         {/* Title */}
         <div className="mb-2 lg:mb-4">
-          <h5 className="font-heading text-h4 leading-tight-14 font-bold tracking-tight">
+          <h5 className="font-heading text-xl sm:text-2xl leading-tight-14 font-bold tracking-tight">
             {card.title}
           </h5>
         </div>
@@ -112,7 +112,7 @@ const Card: React.FC<CardProps> = ({ card, isMobile }) => {
           }
         `}
         >
-          <p className="text-base leading-relaxed lg:text-lg">
+          <p className="text-lg leading-relaxed lg:text-xl">
             {card.description}
           </p>
         </div>
@@ -140,7 +140,7 @@ export function MadeToFlexSection() {
         <div className="flex w-full flex-col transition-colors pt-20 md:pt-28 lg:pt-52 pb-20 md:pb-28 lg:pb-52 gap-12 lg:gap-20 px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
           {/* Header */}
           <div className="flex flex-col gap-4 lg:gap-8 text-center items-center mx-auto max-w-[840px]">
-            <span className="font-din text-xs font-semibold uppercase tracking-[0.15em] text-bor-gray lg:text-sm">
+            <span className="font-din text-sm font-semibold uppercase tracking-[0.15em] text-bor-gray lg:text-base">
               made to flex
             </span>
             <h2 className="font-heading text-h2 leading-tight-13 font-bold tracking-tight">

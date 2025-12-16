@@ -82,6 +82,122 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  const talentRequisitionSchema = z.object({
+    requesterName: z.string().min(1),
+    requesterEmail: z.string().email(),
+    department: z.string().optional().default(""),
+    roleTitle: z.string().min(1),
+    location: z.string().optional().default(""),
+    employmentType: z.string().optional().default(""),
+    openings: z.string().optional().default(""),
+    urgency: z.string().optional().default(""),
+    budgetRange: z.string().optional().default(""),
+    jobDescription: z.string().min(1),
+    requirements: z.string().optional().default(""),
+    additionalNotes: z.string().optional().default(""),
+    honeyEmail: z.string().optional().default(""),
+  });
+
+  app.post("/api/talent-requisition", async (req, res) => {
+    try {
+      const submission = talentRequisitionSchema.parse(req.body);
+
+      if (submission.honeyEmail.trim().length > 0) {
+        return res.status(200).json({ ok: true });
+      }
+
+      console.log("Talent requisition submission", {
+        requesterName: submission.requesterName,
+        requesterEmail: submission.requesterEmail,
+        department: submission.department,
+        roleTitle: submission.roleTitle,
+        location: submission.location,
+        employmentType: submission.employmentType,
+        openings: submission.openings,
+        urgency: submission.urgency,
+        budgetRange: submission.budgetRange,
+      });
+
+      return res.status(200).json({ ok: true });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res
+          .status(400)
+          .json({ error: "Invalid request data", details: error.errors });
+      }
+      return res.status(500).json({ error: "Failed to submit requisition" });
+    }
+  });
+
+  const jobApplicationSchema = z.object({
+    jobId: z.string().min(1),
+    fullName: z.string().min(1),
+    email: z.string().email(),
+    phone: z.string().min(1),
+    currentLocation: z.string().optional().default(""),
+    linkedInUrl: z.string().optional().default(""),
+    portfolioUrl: z.string().optional().default(""),
+    coverLetter: z.string().optional().default(""),
+    additionalInfo: z.string().optional().default(""),
+    experiences: z
+      .array(
+        z.object({
+          company: z.string().optional().default(""),
+          title: z.string().optional().default(""),
+          duration: z.string().optional().default(""),
+          description: z.string().optional().default(""),
+        }),
+      )
+      .optional()
+      .default([]),
+    educations: z
+      .array(
+        z.object({
+          institute: z.string().optional().default(""),
+          degree: z.string().optional().default(""),
+          duration: z.string().optional().default(""),
+        }),
+      )
+      .optional()
+      .default([]),
+    resumeFileName: z.string().min(1),
+    resumeFileType: z.string().optional().default(""),
+    resumeFileSize: z.number().nonnegative(),
+    resumeBase64: z.string().min(1),
+    honeyEmail: z.string().optional().default(""),
+  });
+
+  app.post("/api/job-application", async (req, res) => {
+    try {
+      const submission = jobApplicationSchema.parse(req.body);
+
+      if (submission.honeyEmail.trim().length > 0) {
+        return res.status(200).json({ ok: true });
+      }
+
+      console.log("Job application submission", {
+        jobId: submission.jobId,
+        fullName: submission.fullName,
+        email: submission.email,
+        phone: submission.phone,
+        resumeFileName: submission.resumeFileName,
+        resumeFileType: submission.resumeFileType,
+        resumeFileSize: submission.resumeFileSize,
+        experiencesCount: submission.experiences.length,
+        educationsCount: submission.educations.length,
+      });
+
+      return res.status(200).json({ ok: true });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res
+          .status(400)
+          .json({ error: "Invalid request data", details: error.errors });
+      }
+      return res.status(500).json({ error: "Failed to submit application" });
+    }
+  });
+
   const httpServer = createServer(app);
 
   return httpServer;

@@ -194,7 +194,6 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-  Youtube,
   Mail,
   Phone,
   MapPin,
@@ -235,10 +234,10 @@ export function Footer() {
       ariaLabel: "LinkedIn",
     },
     {
-      icon: Youtube,
-      href: "https://www.youtube.com/",
-      label: "YouTube",
-      ariaLabel: "YouTube",
+      icon: Phone,
+      href: "tel:+917998596948",
+      label: "Phone",
+      ariaLabel: "Call +91-7998596948",
     },
   ];
 
@@ -263,25 +262,29 @@ export function Footer() {
 
           <div className="md:col-span-4 flex md:justify-end">
             <div className="flex gap-5">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-gray-400 hover:text-white transition-colors"
-                  aria-label={social.ariaLabel}
-                  data-testid={`link-social-${social.label.toLowerCase()}`}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
+              {socialLinks.map((social) => {
+                const isExternal = social.href.startsWith("http");
+
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noreferrer noopener" : undefined}
+                    className="text-gray-400 hover:text-white transition-colors"
+                    aria-label={social.ariaLabel}
+                    data-testid={`link-social-${social.label.toLowerCase()}`}
+                  >
+                    <social.icon className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
         </div>
 
         {/* Section 2: Left contact | Middle menu | Right form */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12 mb-16">
           {/* Left: Email / Phone / Address */}
           <div className="md:col-span-4">
             <div className="space-y-5 text-gray-300 text-sm">
@@ -376,7 +379,7 @@ export function Footer() {
 
           {/* Right Column: Contact Form */}
           <div className="md:col-span-6">
-            <div className="bg-white text-black p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-xl">
+            <div className="bg-white text-black p-6 sm:p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-xl">
               <RequirementsForm />
             </div>
           </div>

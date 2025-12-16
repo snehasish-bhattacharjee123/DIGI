@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
-import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { motion } from "framer-motion";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import {
   Users,
@@ -19,19 +19,21 @@ import {
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
-import { LiquidButton } from "@/components/LiquidButton";
-import { Button } from "@/components/ui/button";
-import { HowWeWorkSection } from "@/components/HowWeWorkSection";
-import { GlobalTeamSection } from "@/components/GlobalTeamSection";
-import { CTASection } from "@/components/CTASection";
-import { CreativePowerSection } from "@/components/CreativePowerSection";
-import { OurPeopleSection } from "@/components/OurPeopleSection";
-import { TeamSection } from "@/components/TeamSection";
-import { NewEraSection } from "@/components/NewEraSection";
-import { FreshAdsFuelSection } from "@/components/FreshAdsFuelSection";
+const TeamSection = lazy(() =>
+  import("@/components/TeamSection").then((m) => ({ default: m.TeamSection })),
+);
+const GlobalTeamSection = lazy(() =>
+  import("@/components/GlobalTeamSection").then((m) => ({
+    default: m.GlobalTeamSection,
+  })),
+);
+const CreativeShowcaseSection = lazy(() =>
+  import("@/components/CreativeShowcaseSection").then((m) => ({
+    default: m.CreativeShowcaseSection,
+  })),
+);
 // import { SectionSkeleton } from "@/components/SectionSkeleton";
 import { CreativeServicesSection } from "@/components/CreativeServicesSection";
-import { CreativeShowcaseSection } from "@/components/CreativeShowcaseSection";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function WhyUs() {
@@ -45,40 +47,6 @@ export default function WhyUs() {
     align: "center",
   });
   const [gallerySelectedIndex, setGallerySelectedIndex] = useState(0);
-
-  const ourServices = [
-    {
-      id: "digital-marketing",
-      title: "Digital Marketing & Customer Acquisition",
-      description:
-        "The modern customer is always online. If you have an exciting product, they are looking for you. We ensure that tailor-made content reaches the right audience. From the blogs they read, the posts they engage with to the websites they frequent, acquiring new customers in the digital space with the right message is simple, quick and easy!",
-    },
-    {
-      id: "omni-channel",
-      title: "Omnichannel Strategy & Solutions",
-      description:
-        "A crisp copy on the right platform is the recipe to brand success. The first impression means a whole lot more in the digital space. Your customers make up their minds the instant they see your website, the minute they engage with your brand on any platform. We, the most accomplished online marketing consultant in India ensure that your customers are delighted, every step along the way.",
-    },
-    {
-      id: "digital-media",
-      title: "Digital Media Distribution and Solutions",
-      description:
-        "As the best known digital marketing consultant, we've cracked the code to finding the right partners who will amplify your offering to the right people. With our strategic alliances with media houses, we're able to get the right buzz going around your offering!",
-    },
-  ] as const;
-
-  type OurServiceId = (typeof ourServices)[number]["id"];
-
-  const [activeOurService, setActiveOurService] = useState<OurServiceId>(
-    "digital-marketing"
-  );
-
-  const activeOurServiceData = useMemo(() => {
-    return (
-      ourServices.find((service) => service.id === activeOurService) ??
-      ourServices[0]
-    );
-  }, [activeOurService, ourServices]);
 
   const benefits = [
     {
@@ -324,85 +292,6 @@ export default function WhyUs() {
               <CreativeServicesSection />
           </ErrorBoundary>
 
-        <section
-          className="py-20 md:py-28 lg:py-36 bg-[#0b0f14] text-white"
-          id="our-services"
-        >
-          <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-            <div className="relative grid gap-10 lg:gap-14 md:grid-cols-2 items-start">
-              <div className="relative">
-                <div className="hidden md:block absolute -left-10 top-0 bottom-0">
-                  <div className="h-full flex items-center">
-                    <span className="font-din text-xs uppercase tracking-[0.4em] text-white/55 [writing-mode:vertical-rl] [transform:rotate(180deg)]">
-                      Our Services
-                    </span>
-                  </div>
-                </div>
-
-                <div className="md:hidden mb-6">
-                  <p className="font-din text-xs uppercase tracking-[0.35em] text-white/70">
-                    Our Services
-                  </p>
-                </div>
-
-                <div className="space-y-5">
-                  {ourServices.map((service) => {
-                    const isActive = service.id === activeOurService;
-                    return (
-                      <button
-                        key={service.id}
-                        type="button"
-                        aria-pressed={isActive}
-                        onClick={() => setActiveOurService(service.id)}
-                        className="w-full text-left group flex gap-5 items-start"
-                      >
-                        <span
-                          className={
-                            isActive
-                              ? "mt-2 h-3 w-3 rounded-full bg-brand-orange shrink-0"
-                              : "mt-2 h-3 w-3 rounded-full border border-brand-blue-600/70 shrink-0"
-                          }
-                        />
-                        <span
-                          className={
-                            isActive
-                              ? "font-heading text-2xl md:text-3xl lg:text-4xl leading-tight font-bold text-white"
-                              : "text-sm md:text-base text-white/70 group-hover:text-white transition-colors"
-                          }
-                        >
-                          {service.title}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div className="md:pl-10 md:border-l md:border-white/20">
-                <AnimatePresence mode="wait" initial={false}>
-                  <motion.p
-                    key={activeOurServiceData.id}
-                    initial={{ opacity: 0, x: 18 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -18 }}
-                    transition={{ duration: 0.28, ease: "easeOut" }}
-                    className="text-sm md:text-base lg:text-lg text-white/80 leading-relaxed max-w-xl"
-                  >
-                    {activeOurServiceData.description}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        
-
-        {/* <ErrorBoundary>
-          <OurPeopleSection />
-        </ErrorBoundary> */}
-
-        
 
         {/* ========================================= */}
 
@@ -534,7 +423,9 @@ export default function WhyUs() {
 
         {/* Global Team Section */}
         <ErrorBoundary>
-          <TeamSection />
+          <Suspense fallback={null}>
+            <TeamSection />
+          </Suspense>
         </ErrorBoundary>
 
         {/* How We Work Section */}
@@ -545,11 +436,15 @@ export default function WhyUs() {
 
               
         <ErrorBoundary>
-          <GlobalTeamSection />
+          <Suspense fallback={null}>
+            <GlobalTeamSection />
+          </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
-          <CreativeShowcaseSection />
+          <Suspense fallback={null}>
+            <CreativeShowcaseSection />
+          </Suspense>
         </ErrorBoundary>
 
         <ErrorBoundary>
@@ -747,9 +642,9 @@ export default function WhyUs() {
           </>
         )}
 
-        <ErrorBoundary>
+        {/* <ErrorBoundary>
           <CreativePowerSection />
-        </ErrorBoundary>
+        </ErrorBoundary> */}
       </main>
 
       <Footer />

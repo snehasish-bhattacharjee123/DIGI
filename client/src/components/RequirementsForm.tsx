@@ -104,7 +104,7 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
 
   return (
     <div className={className}>
-      <div className="mb-8">
+      <div className="mb-6 sm:mb-8">
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-brand-blue-900">
           Work with our{" "}
           <span className="relative inline-block">
@@ -114,12 +114,12 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
         </h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="md:col-span-1">
+      <form onSubmit={handleSubmit} className="space-y-8 sm:space-y-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div>
             <label
               htmlFor="nameOrCompany"
-              className="block text-sm font-semibold text-brand-blue-900 mb-3"
+              className="block text-sm font-semibold text-brand-blue-900 mb-2 sm:mb-3"
             >
               Your Name/Company Name <span className="text-red-500">*</span>
             </label>
@@ -131,14 +131,14 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
               onChange={onTextChange}
               required
               placeholder="Enter Your Name/Company Name"
-              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-2 text-sm text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
+              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-3 text-base text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
             />
           </div>
 
-          <div className="md:col-span-1">
+          <div>
             <label
               htmlFor="email"
-              className="block text-sm font-semibold text-brand-blue-900 mb-3"
+              className="block text-sm font-semibold text-brand-blue-900 mb-2 sm:mb-3"
             >
               Your Email <span className="text-red-500">*</span>
             </label>
@@ -150,14 +150,14 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
               onChange={onTextChange}
               required
               placeholder="Enter Your Email"
-              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-2 text-sm text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
+              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-3 text-base text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
             />
           </div>
 
-          <div className="md:col-span-1">
+          <div>
             <label
               htmlFor="youtubeLink"
-              className="block text-sm font-semibold text-brand-blue-900 mb-3"
+              className="block text-sm font-semibold text-brand-blue-900 mb-2 sm:mb-3"
             >
               YouTube Channel Link <span className="text-red-500">*</span>
             </label>
@@ -169,7 +169,7 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
               onChange={onTextChange}
               required
               placeholder="Enter Link Here"
-              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-2 text-sm text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
+              className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-3 text-base text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900"
             />
           </div>
         </div>
@@ -189,7 +189,7 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
             required
             rows={4}
             placeholder="Tell Us About Your Project"
-            className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-2 text-sm text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900 resize-none"
+            className="w-full border-0 border-b border-brand-blue-900/25 bg-transparent px-0 py-3 text-base text-brand-blue-900 placeholder:text-brand-blue-900/40 focus:outline-none focus:border-brand-blue-900 resize-none"
           />
         </div>
 
@@ -209,8 +209,8 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
                   aria-pressed={checked}
                   className={
                     checked
-                      ? "rounded-full border border-brand-orange bg-brand-orange px-5 py-2 text-sm font-semibold text-white transition-colors"
-                      : "rounded-full border border-brand-blue-900/25 bg-white px-5 py-2 text-sm font-semibold text-brand-blue-900 transition-colors hover:border-brand-blue-900/50"
+                      ? "rounded-full border border-brand-orange bg-brand-orange px-5 py-2.5 text-sm font-semibold text-white transition-colors"
+                      : "rounded-full border border-brand-blue-900/25 bg-white px-5 py-2.5 text-sm font-semibold text-brand-blue-900 transition-colors hover:border-brand-blue-900/50"
                   }
                 >
                   {service}
@@ -260,7 +260,7 @@ export function RequirementsForm({ className }: RequirementsFormProps) {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="inline-flex items-center justify-center rounded-full bg-brand-orange px-12 py-3 text-sm font-semibold text-white transition-colors hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-brand-orange px-10 sm:px-12 py-3.5 text-base font-semibold text-white transition-colors hover:brightness-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? "Sending..." : "Submit"}
           </button>

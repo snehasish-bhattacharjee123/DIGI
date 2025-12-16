@@ -136,14 +136,14 @@
     }
 
     /* TYPOGRAPHY SHORTHANDS (font_#) */
-    .font_1 { font: var(--wst-font-style-h2); font-family: var(--font-work-sans); }
-    .font_2 { font: var(--wst-font-style-h3); font-family: var(--font-work-sans); }
+    .font_1 { font: var(--wst-font-style-h2); font-family: var(--font-azeret-mono); }
+    .font_2 { font: var(--wst-font-style-h3); font-family: var(--font-azeret-mono); }
     .font_3 { font: var(--wst-font-style-h4); font-family: var(--font-azeret-mono); }
-    .font_4 { font: var(--wst-font-style-h5); font-family: var(--font-work-sans); }
-    .font_5 { font: var(--wst-font-style-h6); font-family: var(--font-work-sans); }
+    .font_4 { font: var(--wst-font-style-h5); font-family: var(--font-azeret-mono); }
+    .font_5 { font: var(--wst-font-style-h6); font-family: var(--font-azeret-mono); }
     .font_6 { font: var(--wst-font-style-body-large); font-family: var(--font-azeret-mono); }
     .font_7 { font: var(--wst-font-style-body-medium); font-family: var(--font-azeret-mono); }
-    .font_8 { font: var(--wst-font-style-body-small); font-family: var(--font-work-sans); }
+    .font_8 { font: var(--wst-font-style-body-small); font-family: var(--font-azeret-mono); }
     .font_9 { font: var(--wst-font-style-body-x-small); font-family: var(--font-din-next-light); }
 }
 
@@ -155,8 +155,8 @@
         --background: 30 14% 93%;
         --foreground: 228 65% 14%;
 
-        --font-sans: var(--font-work-sans);
-        --font-serif: var(--font-work-sans);
+        --font-sans: var(--font-azeret-mono);
+        --font-serif: var(--font-azeret-mono);
         --font-mono: var(--font-azeret-mono);
 
         --font-work-sans: "Work Sans", sans-serif;
@@ -253,7 +253,7 @@
     h4,
     h5,
     h6 {
-        font-family: var(--font-work-sans);
+        font-family: var(--font-azeret-mono);
     }
 
     small {

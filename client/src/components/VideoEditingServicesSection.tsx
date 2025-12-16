@@ -13,35 +13,35 @@ const videoServices: VideoServiceItem[] = [
     title: "Short Form Video Editing",
     description:
       "Nail your Reels, TikToks and YouTube shorts to optimize engagement and shareability.",
-    href: "/short-form-vertical-video-editing",
+    href: "/services/video-editing/shorts-reel-video-editing",
     imageSrc: "https://prapermedia.com/wp-content/uploads/2025/05/Frame-3-1.webp",
   },
   {
     title: "Long Form Video Editing",
     description:
       "YouTube videos made more entertaining than ever for longer watch-time and more subs.",
-    href: "/long-form-video-editing",
+    href: "/services/video-editing/long-videos",
     imageSrc: "https://prapermedia.com/wp-content/uploads/2025/05/Frame-4-1.webp",
   },
   {
     title: "Thumbnail Design",
     description:
       "Upto 78% higher click-through rates with inviting graphics that lead to more views.",
-    href: "/thumbnail-design/",
+    href: "/services/video-editing/thumbnail-designing",
     imageSrc: "https://prapermedia.com/wp-content/uploads/2025/05/Frame-1.webp",
   },
   {
     title: "YT Channel Management",
     description:
       "End-to-end growth strategy, SEO, maintenance and analytics to grow your channel.",
-    href: "/youtube-channel-management/",
+    href: "/services/video-editing/youtube-channel-management",
     imageSrc:
       "https://prapermedia.com/wp-content/uploads/2025/05/combined-3-youtube-2.webp",
   },
   {
     title: "Podcast Editing",
     description: "Editing, sound design and content repurposing to boost reach.",
-    href: "/podcast-video-editing/",
+    href: "/services/video-editing/podcast-video-editing",
     imageSrc: "https://prapermedia.com/wp-content/uploads/2025/05/Frame-2-1.webp",
   },
 ];

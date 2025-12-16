@@ -549,11 +549,11 @@ export default function Home() {
           {/* ========================================================== */}
 
           {/* FAQ Section */}
-          <ErrorBoundary>
+          {/* <ErrorBoundary>
             <Suspense fallback={<SectionSkeleton height="xl" />}>
               <FaqSection />
             </Suspense>
-          </ErrorBoundary>
+          </ErrorBoundary> */}
 
           {/* Services Section */}
           {/* <ErrorBoundary>

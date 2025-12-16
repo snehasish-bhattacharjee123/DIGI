@@ -15,7 +15,7 @@ import {
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
 const ServicesSectionLazy = lazy(() =>
   import("@/components/ServicesSection").then((m) => ({ default: m.ServicesSection }))
@@ -42,17 +42,65 @@ export default function OurWork() {
   const revealUpInitial = { opacity: 0, y: 24 };
   const revealUpWhileInView = { opacity: 1, y: 0 };
 
+  const marketingServices = [
+    {
+      id: "digital-marketing",
+      title: "Digital Marketing & Customer Acquisition",
+      description:
+        "The modern customer is always online. If you have an exciting product, they are looking for you. We ensure that tailor-made content reaches the right audience. From the blogs they read, the posts they engage with to the websites they frequent, acquiring new customers in the digital space with the right message is simple, quick and easy!",
+    },
+    {
+      id: "omni-channel",
+      title: "Omnichannel Strategy & Solutions",
+      description:
+        "A crisp copy on the right platform is the recipe to brand success. The first impression means a whole lot more in the digital space. Your customers make up their minds the instant they see your website, the minute they engage with your brand on any platform. We, the most accomplished online marketing consultant in India ensure that your customers are delighted, every step along the way.",
+    },
+    {
+      id: "digital-media",
+      title: "Digital Media Distribution and Solutions",
+      description:
+        "As the best known digital marketing consultant, we've cracked the code to finding the right partners who will amplify your offering to the right people. With our strategic alliances with media houses, we're able to get the right buzz going around your offering!",
+    },
+  ] as const;
+
+  type MarketingServiceId = (typeof marketingServices)[number]["id"];
+
+  const [activeMarketingService, setActiveMarketingService] =
+    useState<MarketingServiceId>("digital-marketing");
+
+  const activeMarketingServiceData = useMemo(() => {
+    return (
+      marketingServices.find((service) => service.id === activeMarketingService) ??
+      marketingServices[0]
+    );
+  }, [activeMarketingService, marketingServices]);
+
   const getResponsiveImgSrc = useCallback((url: string, width: number) => {
     if (!url) return url;
+    if (url.startsWith("/")) return url;
+    if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(url)) return url;
     if (url.includes("w=")) return url.replace(/w=\d+/i, `w=${width}`);
     return `${url}${url.includes("?") ? "&" : "?"}w=${width}`;
   }, []);
 
   const getResponsiveImgSrcSet = useCallback(
-    (url: string, widths: number[]) =>
-      widths.map((w) => `${getResponsiveImgSrc(url, w)} ${w}w`).join(", "),
+    (url: string, widths: number[]) => {
+      if (!url) return "";
+      if (url.startsWith("/")) return "";
+      return widths.map((w) => `${getResponsiveImgSrc(url, w)} ${w}w`).join(", ");
+    },
     [getResponsiveImgSrc]
   );
+
+  const getWorkItemSizes = useCallback((colSpan: string) => {
+    if (colSpan.includes("lg:col-span-6")) {
+      return "(min-width: 1024px) 50vw, 100vw";
+    }
+    if (colSpan.includes("lg:col-span-3")) {
+      return "(min-width: 1024px) 25vw, 100vw";
+    }
+    return "(min-width: 1024px) 33vw, 100vw";
+  }, []);
 
   useEffect(() => {
     const win = window as any;
@@ -79,7 +127,7 @@ export default function OurWork() {
     },
     {
       id: "conversion",
-      title: "Motion Graphics",
+      title: "Performence Marketing",
       imageSrc:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1600&auto=format&fit=crop",
       imageAlt:
@@ -88,22 +136,14 @@ export default function OurWork() {
     },
     {
       id: "conversation",
-      title: "Thumbnails",
+      title: "Graphi Designing",
       imageSrc:
         "https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&auto=format&fit=crop",
       imageAlt:
         "Homepage banner conversions | Digital marketing agency in bangalore",
       bgClass: "bg-[#F59E0B]",
     },
-    {
-      id: "creative",
-      title: "3d Animation",
-      imageSrc:
-        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1600&auto=format&fit=crop",
-      imageAlt:
-        "creative marketing agency | best digital marketing agency in bangalore",
-      bgClass: "bg-[#1D4ED8]",
-    },
+    
   ];
 
   const categories = [
@@ -283,6 +323,7 @@ export default function OurWork() {
     title: string;
     description: string;
     image: string;
+    videoSrc?: string;
     href: string;
     colSpan: string;
     isVideo?: boolean;
@@ -302,22 +343,36 @@ export default function OurWork() {
       title: "Digiteller Graphics Reel",
       description: "Motion graphics & design highlights",
       src: "/videos/Digiteller Graphics Reel Final.mp4",
-      poster: "/generated_images/Brand_identity_system_8af1f13b.png",
+      poster: "/images/work/DSC09150.jpg",
       href: "/our-work",
     },
     {
       title: "Motion Graphic Animation",
       description: "Animated storytelling & kinetic typography",
       src: "/videos/7048309_Animation_Motion_Graphic_3840x2160.mp4",
-      poster: "/generated_images/Pernod_Ricard_video_production_685784cf.png",
+      poster: "/images/work/IMG_20251210_205642.jpg",
       href: "/our-work",
     },
     {
       title: "Product Video Snippet",
       description: "High-energy edits for performance creatives",
       src: "/videos/3135926-hd_1920_1080_30fps.mp4",
-      poster: "/generated_images/E-commerce_website_design_43c43606.png",
+      poster: "/images/work/DSC09150.jpg",
       href: "/our-work",
+    },
+    {
+      title: "Bolt",
+      description: "Motion design preview",
+      src: "https://cdn.sanity.io/files/k0dlbavy/production/9ef48fc5551e1e172ceca6555ce758868360a4e4.mp4",
+      poster: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1600&auto=format&fit=crop",
+      href: "/our-work/bolt",
+    },
+    {
+      title: "Improvise",
+      description: "Animated creative preview",
+      src: "/images/work/zomatoanim.mp4",
+      poster: "/images/work/DSC09150.jpg",
+      href: "/our-work/improvise",
     },
   ];
 
@@ -362,6 +417,15 @@ export default function OurWork() {
       poster:
         "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=1600&auto=format&fit=crop",
       href: "/our-work/bolt",
+      colSpan: "md:col-span-2 lg:col-span-3",
+      isVideo: true,
+    },
+    {
+      title: "Improvise",
+      description: "Motion Design, Video Production",
+      image: "/images/work/zomatoanim.mp4",
+      poster: "/images/work/DSC09150.jpg",
+      href: "/our-work/improvise",
       colSpan: "md:col-span-2 lg:col-span-3",
       isVideo: true,
     },
@@ -553,7 +617,7 @@ export default function OurWork() {
         <link rel="preconnect" href="https://cdn.sanity.io" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://cdn.sanity.io" />
       </Helmet>
-      <Navigation theme="blue" />
+      <Navigation theme="white" />
 
       <main id="main-content" role="main" className="wst-fonts overflow-x-hidden">
 
@@ -631,6 +695,75 @@ export default function OurWork() {
         </div>
       </motion.section>
 
+      {/* <section className="bg-white py-16 sm:py-20 lg:py-24">
+        <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+          <motion.div
+            initial={prefersReducedMotion ? false : revealUpInitial}
+            whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+            viewport={prefersReducedMotion ? undefined : revealViewport}
+            transition={prefersReducedMotion ? undefined : revealTransition}
+            className="text-center mb-10 lg:mb-14"
+          >
+            
+            <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
+              Strategies built for <span className="text-brand-green">growth</span>
+            </h2>
+            <p className="mt-4 text-base lg:text-lg text-brand-blue-700 max-w-2xl mx-auto">
+              Choose a capability to see how we help you reach the right audience, on the right channel, with the right message.
+            </p>
+          </motion.div>
+
+          <div className="grid gap-10 lg:gap-14 lg:grid-cols-2 items-start">
+            <div className="space-y-4">
+              {marketingServices.map((service) => {
+                const isActive = service.id === activeMarketingService;
+                return (
+                  <button
+                    key={service.id}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setActiveMarketingService(service.id)}
+                    className="w-full text-left group flex gap-4 items-start px-1 py-2 transition-colors"
+                  >
+                    <span
+                      className={
+                        isActive
+                          ? "mt-2 h-3 w-3 rounded-full bg-brand-green shrink-0"
+                          : "mt-2 h-3 w-3 rounded-full bg-brand-blue-200/60 shrink-0"
+                      }
+                    />
+                    <span
+                      className={
+                        isActive
+                          ? "font-heading text-2xl md:text-3xl leading-tight font-bold text-brand-blue-900"
+                          : "font-heading text-base md:text-lg leading-tight text-brand-blue-900/70 group-hover:text-brand-blue-900 transition-colors"
+                      }
+                    >
+                      {service.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="lg:pl-12 lg:border-l lg:border-brand-blue-100/80">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.p
+                  key={activeMarketingServiceData.id}
+                  initial={{ opacity: 0, x: 18 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -18 }}
+                  transition={{ duration: 0.28, ease: "easeOut" }}
+                  className="text-base md:text-lg text-brand-blue-700 leading-relaxed max-w-xl"
+                >
+                  {activeMarketingServiceData.description}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+          </div>
+        </div>
+      </section> */}
+
       {/* Category Filter */}
       {/* <section className="py-8 bg-brand-beige-100 sticky top-20 z-40 border-b border-brand-gray-300 shadow-brand">
         <div className="max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
@@ -662,99 +795,102 @@ export default function OurWork() {
 
 
 
-      {/* Client Results Statistics Section */}
-      <section className="relative overflow-hidden bg-[#F4FAFF] py-16 sm:py-20 lg:py-24">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 right-10 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl opacity-70 animate-pulse" />
-          <div className="absolute bottom-[-120px] left-[-40px] h-72 w-72 rounded-full bg-brand-blue-500/10 blur-3xl" />
-        </div>
-        <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-          <motion.div
-            initial={prefersReducedMotion ? false : revealUpInitial}
-            whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
-            viewport={prefersReducedMotion ? undefined : revealViewport}
-            transition={prefersReducedMotion ? undefined : revealTransition}
-            className="text-center mb-12 lg:mb-16"
-          >
-            <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-brand-green">
-              Client Outcomes
-            </p>
-            <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
-              <span className="text-brand-green">Real Results</span>{" "}
-              for Real Brands
-            </h2>
-            <p className="mt-4 text-base lg:text-lg text-brand-blue-700 max-w-2xl mx-auto">
-              We embed with growth teams to ship high-performing creative pods.
-              Every metric below is tied to shipped assets and real revenue
-              moments&mdash;not vanity stats.
-            </p>
-          </motion.div>
+      {false && (
+        <section className="relative overflow-hidden bg-[#F4FAFF] py-16 sm:py-20 lg:py-24">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute -top-24 right-10 h-64 w-64 rounded-full bg-brand-green/20 blur-3xl opacity-70 animate-pulse" />
+            <div className="absolute bottom-[-120px] left-[-40px] h-72 w-72 rounded-full bg-brand-blue-500/10 blur-3xl" />
+          </div>
+          <div className="relative max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
+            <motion.div
+              initial={prefersReducedMotion ? false : revealUpInitial}
+              whileInView={prefersReducedMotion ? undefined : revealUpWhileInView}
+              viewport={prefersReducedMotion ? undefined : revealViewport}
+              transition={prefersReducedMotion ? undefined : revealTransition}
+              className="text-center mb-12 lg:mb-16"
+            >
+              <p className="mb-4 text-xs sm:text-sm font-semibold uppercase tracking-[0.4em] text-brand-green">
+                Client Outcomes
+              </p>
+              <h2 className="font-heading text-h2 leading-tight-13 font-bold text-brand-blue-900">
+                <span className="text-brand-green">Real Results</span>{" "}
+                for Real Brands
+              </h2>
+              <p className="mt-4 text-base lg:text-lg text-brand-blue-700 max-w-2xl mx-auto">
+                We embed with growth teams to ship high-performing creative pods.
+                Every metric below is tied to shipped assets and real revenue
+                moments&mdash;not vanity stats.
+              </p>
+            </motion.div>
 
-          <div className="relative">
-            <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-[#F4FAFF] md:hidden" />
-            <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-[#F4FAFF] md:hidden" />
-            <div className="flex snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
-              {clientResultStats.map((stat) => (
-                <motion.article
-                  key={stat.brand}
-                  initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
-                  whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
-                  viewport={prefersReducedMotion ? undefined : revealViewport}
-                  transition={
-                    prefersReducedMotion
-                      ? undefined
-                      : { ...revealTransition, delay: stat.delay }
-                  }
-                  whileHover={{ y: -12, rotate: -0.4 }}
-                  className="group relative min-w-[280px] snap-center rounded-2xl border border-brand-blue-100/60 bg-white/90 p-6 lg:p-8 shadow-[0_25px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-[transform,box-shadow] duration-500 md:min-w-0"
-                >
-                  <div
-                    aria-hidden="true"
-                    className={`absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${stat.glow}`}
-                  />
-                  <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-blue-500">
-                    <span>{stat.metric}</span>
-                    <span className="flex items-center gap-2 tracking-[0.2em] text-brand-blue-400">
-                      <span className="h-1.5 w-1.5 rounded-full bg-brand-green"></span>
-                      {stat.signal}
-                    </span>
-                  </div>
-                  <p className="mt-6 text-5xl md:text-6xl font-black leading-none text-brand-green">
-                    {stat.value}
-                  </p>
-                  <p className="mt-4 text-base lg:text-lg text-brand-blue-800">
-                    <span className="font-semibold text-brand-blue-900">
-                      {stat.brand}
-                    </span>{" "}
-                    {stat.copy}
-                  </p>
-                  <motion.span
-                    aria-hidden="true"
-                    className="mt-6 block h-px w-full bg-brand-blue-200/60"
-                    animate={
-                      prefersReducedMotion
-                        ? { opacity: 0.6 }
-                        : { opacity: [0.3, 1, 0.3] }
+            <div className="relative">
+              <div className="pointer-events-none absolute inset-y-0 left-0 w-10 bg-[#F4FAFF] md:hidden" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-[#F4FAFF] md:hidden" />
+              <div className="flex snap-x snap-mandatory md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-10 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-4 px-4 md:mx-0 md:px-0">
+                {clientResultStats.map((stat) => (
+                  <motion.article
+                    key={stat.brand}
+                    initial={prefersReducedMotion ? false : { opacity: 0, y: 28 }}
+                    whileInView={
+                      prefersReducedMotion ? undefined : { opacity: 1, y: 0 }
                     }
+                    viewport={prefersReducedMotion ? undefined : revealViewport}
                     transition={
                       prefersReducedMotion
                         ? undefined
-                        : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                        : { ...revealTransition, delay: stat.delay }
                     }
-                  />
-                  <a
-                    href={stat.href}
-                    className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-blue-800 transition-all duration-300 hover:text-brand-green"
+                    whileHover={{ y: -12, rotate: -0.4 }}
+                    className="group relative min-w-[280px] snap-center rounded-2xl border border-brand-blue-100/60 bg-white/90 p-6 lg:p-8 shadow-[0_25px_70px_rgba(15,23,42,0.08)] backdrop-blur-2xl transition-[transform,box-shadow] duration-500 md:min-w-0"
                   >
-                    Explore case study
-                    <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-                  </a>
-                </motion.article>
-              ))}
+                    <div
+                      aria-hidden="true"
+                      className={`absolute inset-0 -z-10 rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${stat.glow}`}
+                    />
+                    <div className="flex items-center justify-between gap-3 text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-blue-500">
+                      <span>{stat.metric}</span>
+                      <span className="flex items-center gap-2 tracking-[0.2em] text-brand-blue-400">
+                        <span className="h-1.5 w-1.5 rounded-full bg-brand-green"></span>
+                        {stat.signal}
+                      </span>
+                    </div>
+                    <p className="mt-6 text-5xl md:text-6xl font-black leading-none text-brand-green">
+                      {stat.value}
+                    </p>
+                    <p className="mt-4 text-base lg:text-lg text-brand-blue-800">
+                      <span className="font-semibold text-brand-blue-900">
+                        {stat.brand}
+                      </span>{" "}
+                      {stat.copy}
+                    </p>
+                    <motion.span
+                      aria-hidden="true"
+                      className="mt-6 block h-px w-full bg-brand-blue-200/60"
+                      animate={
+                        prefersReducedMotion
+                          ? { opacity: 0.6 }
+                          : { opacity: [0.3, 1, 0.3] }
+                      }
+                      transition={
+                        prefersReducedMotion
+                          ? undefined
+                          : { duration: 3, repeat: Infinity, ease: "easeInOut" }
+                      }
+                    />
+                    <a
+                      href={stat.href}
+                      className="group/link mt-6 inline-flex items-center gap-2 text-sm font-semibold text-brand-blue-800 transition-all duration-300 hover:text-brand-green"
+                    >
+                      Explore case study
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                    </a>
+                  </motion.article>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {renderDeferredSections ? (
         <Suspense fallback={null}>
@@ -839,7 +975,12 @@ export default function OurWork() {
                             />
                           ) : (
                             <img
-                              src={video.poster}
+                              src={getResponsiveImgSrc(video.poster, 960)}
+                              srcSet={
+                                getResponsiveImgSrcSet(video.poster, [480, 768, 960, 1280]) ||
+                                undefined
+                              }
+                              sizes="(min-width: 1024px) 33vw, 88vw"
                               alt={video.title}
                               className="absolute inset-0 w-full h-full object-cover hidden md:block"
                               loading="lazy"
@@ -847,7 +988,12 @@ export default function OurWork() {
                             />
                           )}
                           <img
-                            src={video.poster}
+                            src={getResponsiveImgSrc(video.poster, 720)}
+                            srcSet={
+                              getResponsiveImgSrcSet(video.poster, [360, 480, 720, 960]) ||
+                              undefined
+                            }
+                            sizes="100vw"
                             alt={video.title}
                             className="absolute inset-0 w-full h-full object-cover md:hidden transform transition-transform duration-500 group-hover:scale-105"
                             loading={index === 0 ? "eager" : "lazy"}
@@ -855,12 +1001,12 @@ export default function OurWork() {
                             fetchPriority={index === 0 ? "high" : "auto"}
                           />
 
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                          {/* <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
                               <Play className="w-6 h-6 text-brand-blue-900 ml-1" />
                             </div>
-                          </div>
+                          </div> */}
 
                           <div className="absolute left-4 right-4 bottom-4">
                             <p className="text-white font-semibold text-lg leading-tight">
@@ -917,40 +1063,70 @@ export default function OurWork() {
                 }
                 className={`col-span-full row-span-1 ${item.colSpan} group`}
               >
-                <a href={item.href} className="flex flex-col lg:gap-6 gap-3">
+                <a
+                  href={item.href}
+                  className="flex flex-col lg:gap-6 gap-3"
+                >
                   <div className="overflow-hidden rounded-[10px]">
                     <div className="relative h-[180px] lg:h-[396px] overflow-hidden">
                       {item.isVideo ? (
-                        <>
-                          <video
-                            autoPlay
-                            playsInline
-                            muted
-                            loop
-                            preload="metadata"
-                            className="absolute inset-0 w-full h-full object-cover hidden md:block"
-                            src={item.image}
-                          />
+                        prefersReducedMotion ? (
                           <img
-                            src={item.poster || "https://source.unsplash.com/1200x800/?video,production&sig=99"}
+                            src={
+                              item.poster ||
+                              "https://source.unsplash.com/1200x800/?video,production&sig=99"
+                            }
                             alt={item.title}
-                            className="absolute inset-0 w-full h-full object-cover md:hidden transform transition-transform duration-500 group-hover:scale-105"
+                            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
+                            decoding="async"
                           />
-                        </>
+                        ) : (
+                          <>
+                            <video
+                              autoPlay
+                              playsInline
+                              muted
+                              loop
+                              preload="metadata"
+                              poster={
+                                item.poster ||
+                                "https://source.unsplash.com/1200x800/?video,production&sig=99"
+                              }
+                              className="absolute inset-0 w-full h-full object-cover hidden md:block"
+                              src={item.videoSrc || item.image}
+                            />
+                            <img
+                              src={
+                                item.poster ||
+                                "https://source.unsplash.com/1200x800/?video,production&sig=99"
+                              }
+                              alt={item.title}
+                              className="absolute inset-0 w-full h-full object-cover md:hidden transform transition-transform duration-500 group-hover:scale-105"
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          </>
+                        )
                       ) : (
                         <img
-                          src={item.image}
+                          src={getResponsiveImgSrc(item.image, 960)}
+                          srcSet={
+                            getResponsiveImgSrcSet(item.image, [480, 768, 960, 1280, 1600]) ||
+                            undefined
+                          }
+                          sizes={getWorkItemSizes(item.colSpan)}
                           alt={item.title}
                           className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                           loading="lazy"
+                          decoding="async"
                         />
                       )}
                       {item.isVideo && (
                         <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                          <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
+                          {/* <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center transform transition-transform group-hover:scale-110">
                             <Play className="w-6 h-6 text-brand-blue-900 ml-1" />
-                          </div>
+                          </div> */}
                         </div>
                       )}
                     </div>
@@ -973,11 +1149,11 @@ export default function OurWork() {
         </div>
       </section>
 
-            {renderDeferredSections ? (
+            {/* {renderDeferredSections ? (
               <Suspense fallback={null}>
                 <CreativeAssetsSectionLazy />
               </Suspense>
-            ) : null}
+            ) : null} */}
 
       {/* Accelerate Business Section */}
       {/* <section className="py-12 sm:py-16 lg:py-20 bg-white">

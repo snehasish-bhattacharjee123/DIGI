@@ -30,7 +30,7 @@ export function OurWorkSection() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-12 lg:mb-20"
         >
-          <span className="block mb-3 text-sm md:text-base font-semibold uppercase tracking-[0.2em] text-brand-green">
+          <span className="block mb-3 text-base md:text-lg font-semibold uppercase tracking-[0.2em] text-brand-green">
             Our Work
           </span>
 
@@ -62,7 +62,7 @@ export function OurWorkSection() {
         </div>
 
         {/* Optional Caption */}
-        <p className="mt-10 text-brand-blue-900/70 text-lg max-w-2xl mx-auto text-center leading-relaxed">
+        <p className="mt-10 text-brand-blue-900/70 text-xl max-w-2xl mx-auto text-center leading-relaxed">
           Experience how creativity and strategy come together in our latest
           work — pushing boundaries for global brands.
         </p>

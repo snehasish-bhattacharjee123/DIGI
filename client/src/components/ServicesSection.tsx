@@ -154,9 +154,15 @@ function ProgressIndicator({
   );
 }
 
-export function ServicesSection() {
+export function ServicesSection({ limit }: { limit?: number }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPinned, setIsPinned] = useState(false);
+
+  const visibleServices =
+    typeof limit === "number" && Number.isFinite(limit) && limit > 0
+      ? servicesData.slice(0, limit)
+      : servicesData;
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -170,7 +176,7 @@ export function ServicesSection() {
 
   // Calculate horizontal scroll based on number of services
   // Each service takes up 100vw, so total width is services.length * 100vw
-  const totalSlides = servicesData.length;
+  const totalSlides = visibleServices.length;
   const x = useTransform(
     scrollYProgress,
     [0, 1],
@@ -185,7 +191,7 @@ export function ServicesSection() {
       <div
         ref={containerRef}
         className="hidden lg:block relative bg-bor-background"
-        style={{ height: `${servicesData.length * 100}vh` }}
+        style={{ height: `${visibleServices.length * 100}vh` }}
       >
         {/* Sticky/Pinned Container - stays fixed while user scrolls */}
         <div
@@ -218,7 +224,7 @@ export function ServicesSection() {
               style={{ x, width: `${totalSlides * 100}vw` }}
               className="flex h-full items-center"
             >
-              {servicesData.map((service, index) => (
+              {visibleServices.map((service, index) => (
                 <ServiceItem key={service.id} service={service} index={index} />
               ))}
             </motion.div>
@@ -256,7 +262,7 @@ export function ServicesSection() {
 
           {/* Services List */}
           <div className="space-y-16 md:space-y-20">
-            {servicesData.map((service, index) => (
+            {visibleServices.map((service, index) => (
               <ServiceItemMobile
                 key={service.id}
                 service={service}

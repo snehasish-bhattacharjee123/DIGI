@@ -25,77 +25,108 @@ const navItems = [
   {
     title: "Services",
     hasSubmenu: true,
-    href: "/services",
+    
     subsections: [
       {
-        title: "Creative design services",
-        href: "/services/creative-design",
+        title: "Video Editing",
+        href: "/services/video-editing/long-videos",
         items: [
           {
             icon: LayoutGrid,
-            title: "Brand Identity",
+            title: "Long Videos",
             description: "Complete brand design and identity systems",
-            href: "/services/brand-identity",
+            href: "/services/video-editing/long-videos",
+          },
+          {
+            icon: Video,
+            title: "Showreel",
+            description: "Watch editing and motion highlights",
+            href: "/services/video-editing/showreel",
           },
           {
             icon: FileText,
-            title: "Graphic Design",
+            title: "Shorts Videos",
             description: "Visual content for all your needs",
-            href: "/services/graphic-design",
+            href: "/services/video-editing/shorts-reel-video-editing",
           },
           {
-            icon: Lightbulb,
-            title: "UI/UX Design",
-            description: "Beautiful and intuitive user experiences",
-            href: "/services/ui-ux-design",
+            icon: Video,
+            title: "Podcast Video Editing",
+            description: "Editing, sound design and content repurposing",
+            href: "/services/video-editing/podcast-video-editing",
           },
+          {
+            icon: Sparkles,
+            title: "Thumbnail Designing",
+            description: "High-converting thumbnails for better CTR",
+            href: "/services/video-editing/thumbnail-designing",
+          },
+          {
+            icon: LineChart,
+            title: "YouTube Channel Management",
+            description: "Strategy, SEO, publishing and analytics",
+            href: "/services/video-editing/youtube-channel-management",
+          },
+          
         ],
       },
       {
-        title: "Specialized production services",
+        title: "Performence Marketing",
         href: "/services/production",
         items: [
           {
             icon: Video,
-            title: "Social Media Marketing",
-            description: "Engage your audience on social platforms",
+            title: "Google Apps",
+            description: "Engage your audience on soamcial platforms",
             href: "/services/social-media-marketing",
           },
           {
             icon: Move,
-            title: "Content Marketing",
+            title: "Meta Apps",
             description: "Strategic content that drives results",
             href: "/services/content-marketing",
           },
           {
             icon: Layers,
-            title: "SEO & Analytics",
+            title: "Linkedin Management",
             description: "Data-driven digital strategies",
             href: "/services/seo-analytics",
           },
         ],
       },
       {
-        title: "AI & marketing services",
+        title: "Graphic Designing",
         href: "/services/ai-marketing",
         items: [
           {
             icon: Sparkles,
-            title: "Video Production",
+            title: "Thumbnail Designing",
             description: "Professional videos that tell your story",
-            href: "/services/video-production",
+            href: "/services/video-editing/thumbnail-designing",
           },
           {
             icon: Brain,
-            title: "Animation",
+            title: "Logo Designing",
             description: "Engaging animated content",
             href: "/services/animation",
           },
           {
             icon: LineChart,
-            title: "Photography",
+            title: "Social Media Post",
             description: "High-quality visual storytelling",
             href: "/services/photography",
+          },
+        ],
+      },
+      {
+        title: "Youtube Management",
+        href: "/services/video-editing/youtube-channel-management",
+        items: [
+          {
+            icon: LineChart,
+            title: "YouTube Channel Management",
+            description: "Strategy, SEO, publishing and analytics",
+            href: "/services/video-editing/youtube-channel-management",
           },
         ],
       },
@@ -103,6 +134,7 @@ const navItems = [
   },
   { title: "Studio", hasSubmenu: false, href: "/why-us" },
   { title: "Portfolio", hasSubmenu: false, href: "/our-work" },
+  // { title: "Join Us", hasSubmenu: false, href: "/join-us" },
   {
     title: "Contact",
     hasSubmenu: false,
@@ -244,24 +276,24 @@ export function Navigation({ theme = "default" }: { theme?: NavigationTheme }) {
             {/* Center: Logo */}
             <div className="flex justify-start lg:justify-center col-start-1 lg:col-start-2">
               <a href="/" className="flex-shrink-0 select-none relative group flex items-center justify-center">
-{/* LOGO IMAGE */}
-<motion.img
-src="/images/work/Digireller%20logo_png.png" // <-- corrected public path
-alt="DIGITELLER CREATIVE"
-whileHover={{ scale: 1.05, y: -2 }}
-transition={{ type: "spring", stiffness: 300 }}
-className="h-10 sm:h-14 lg:h-16 w-auto max-w-[160px] sm:max-w-none object-contain"
-/>
+                {/* LOGO IMAGE */}
+                <motion.img
+                  src="/images/work/Digireller%20logo_png.png" // <-- corrected public path
+                  alt="DIGITELLER CREATIVE"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                  className="h-14 sm:h-[68px] lg:h-[76px] w-auto max-w-[210px] sm:max-w-none object-contain"
+                />
 
 
-{/* OPTIONAL UNDERLINE EFFECT */}
-<motion.div
-layoutId="logo-underline"
-className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full ${
-  isBlue && isScrolled ? "bg-white" : "bg-[#0033A0]"
-} group-hover:w-full transition-all duration-500`}
-/>
-</a>
+                {/* OPTIONAL UNDERLINE EFFECT */}
+                <motion.div
+                  layoutId="logo-underline"
+                  className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-full ${
+                    isBlue && isScrolled ? "bg-white" : "bg-[#0033A0]"
+                  } group-hover:w-full transition-all duration-500`}
+                />
+              </a>
             </div>
 
             {/* Right: Desktop Nav + Mobile Toggle */}
@@ -349,13 +381,16 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
                 onMouseLeave={handleDesktopSubmenuLeave}
                 className="absolute top-20 left-0 w-full bg-white border-t border-gray-200 shadow-xl z-[50]"
               >
-                <div className="max-w-[1680px] mx-auto px-10 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div className="max-w-[1680px] mx-auto px-6 sm:px-8 lg:px-10 py-8 lg:py-10 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
                   {navItems[activeDesktopSubmenu].subsections?.map(
                     (section, sIndex) => (
                       <div key={sIndex} className="space-y-5">
-                        <h3 className="inline-block text-lg font-bold text-[#001F54] bg-[#E8F5E9] px-3 py-1 rounded-md">
+                        <a
+                          href={section.href || "#"}
+                          className="inline-block text-lg font-bold text-[#001F54] bg-blue-50 px-3 py-1 rounded-md hover:bg-blue-100 transition-colors"
+                        >
                           {section.title}
-                        </h3>
+                        </a>
                         <div className="space-y-2">
                           {section.items?.map((item, iIndex) => {
                             const Icon = item.icon;
@@ -365,7 +400,7 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
                                 href={item.href || "#"}
                                 whileHover={{ x: 6 }}
                                 transition={{ type: "spring", stiffness: 200 }}
-                                className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-50 transition-all duration-300 group"
+                                className="flex items-start gap-3 p-4 rounded-xl hover:bg-blue-50 transition-all duration-300 group"
                               >
                                 <Icon
                                   size={18}
@@ -456,11 +491,15 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
                                     (subsection, sIndex) => (
                                       <div
                                         key={sIndex}
-                                        className="bg-blue-50 rounded-lg p-4 border-l-4 border-[#001F54]"
+                                        className="bg-blue-50 rounded-xl p-4 border border-blue-100"
                                       >
-                                        <h3 className="text-base font-bold text-[#001F54] mb-3">
+                                        <a
+                                          href={subsection.href || "#"}
+                                          className="text-base font-bold text-[#001F54] mb-3 inline-block hover:text-[#0033A0] transition-colors"
+                                          onClick={toggleMobileMenu}
+                                        >
                                           {subsection.title}
-                                        </h3>
+                                        </a>
                                         <div className="space-y-2">
                                           {subsection.items?.map(
                                             (subItem, iIndex) => {
@@ -469,7 +508,7 @@ className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-0 rounded-ful
                                                 <a
                                                   key={iIndex}
                                                   href={subItem.href || "#"}
-                                                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-blue-100 transition-all duration-300"
+                                                  className="flex items-start gap-3 p-3 rounded-xl hover:bg-blue-100 transition-all duration-300"
                                                   onClick={toggleMobileMenu}
                                                 >
                                                   {Icon && (

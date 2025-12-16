@@ -310,11 +310,11 @@ const config = {
 
     extend: {
       fontFamily: {
-        heading: ["var(--font-work-sans)"],
-        sans: ["var(--font-work-sans)"],
-        serif: ["var(--font-work-sans)"],
+        heading: ["var(--font-azeret-mono)"],
+        sans: ["var(--font-azeret-mono)"],
+        serif: ["var(--font-azeret-mono)"],
         mono: ["var(--font-azeret-mono)"],
-        work: ["var(--font-work-sans)"],
+        work: ["var(--font-azeret-mono)"],
         azeret: ["var(--font-azeret-mono)"],
         din: ["var(--font-din-next-light)"],
       },

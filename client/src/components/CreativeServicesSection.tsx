@@ -89,7 +89,7 @@ export const CreativeServicesSection = () => {
   return (
     <section className="relative flex flex-col overflow-hidden bg-bor-background text-bor-foreground" data-mood="brand-dark" aria-label="Creative services hero">
       <div className="absolute left-4 top-4 z-20 sm:left-6 sm:top-6">
-        <div className="rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm sm:px-4 sm:py-2 sm:text-xs">
+        <div className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.24em] text-white backdrop-blur-sm sm:px-4 sm:py-2 sm:text-sm">
           Why us
         </div>
       </div>
@@ -99,13 +99,13 @@ export const CreativeServicesSection = () => {
           <div className="absolute inset-0 z-0 flex h-full w-full flex-col bg-bor-background max-md:max-h-[800px]">
             <img
               alt=""
-              loading="eager"
+              loading="lazy"
               decoding="async"
               className="hidden h-full w-full object-cover object-center md:block pointer-events-none select-none"
-              fetchPriority="high"
-              srcSet="/images/work/IMG_7935.JPG"
+              fetchPriority="auto"
+              srcSet="/images/work/IMG_7935.JPG 1x"
               sizes="(min-width: 1024px) 100vw, 0px"
-              src="/images/work/IMG_7935.JPG?auto=format&fit=max&q=80&w=1920"
+              src="/images/work/IMG_7935.JPG"
               aria-hidden="true"
             />
             <img
@@ -143,7 +143,7 @@ export const CreativeServicesSection = () => {
                   <div className="elementor-element elementor-element-521e1e0 elementor-widget-mobile__width-initial elementor-widget elementor-widget-hub_fancy_heading">
                     <div className="elementor-widget-container">
                       <div id="ld-fancy-heading-6940a1ba55e39" className="ld-fancy-heading pos-rel">
-                        <h1 className="ld-fh-element d-inline-block pos-rel elementor-heading-title lqd-highlight-classic lqd-highlight-grow-left h1 is-in-view font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] font-bold tracking-tight text-white">
+                        <h1 className="ld-fh-element d-inline-block pos-rel elementor-heading-title lqd-highlight-classic lqd-highlight-grow-left h1 is-in-view font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[1.05] font-bold tracking-tight text-white">
                           The{" "}
                           <mark className="lqd-highlight">
                             <span className="lqd-highlight-txt">creative extension</span>
@@ -158,7 +158,7 @@ export const CreativeServicesSection = () => {
                   <div className="elementor-element elementor-element-cb1daf4 elementor-widget elementor-widget-hub_fancy_heading">
                     <div className="elementor-widget-container">
                       <div id="ld-fancy-heading-6940a1ba56717" className="ld-fancy-heading pos-rel">
-                        <p className="ld-fh-element d-inline-block pos-rel lqd-highlight-classic lqd-highlight-grow-left p mt-4 max-w-[760px] text-base sm:text-lg lg:mt-10 lg:text-xl text-white/90 leading-relaxed">
+                        <p className="ld-fh-element d-inline-block pos-rel lqd-highlight-classic lqd-highlight-grow-left p mt-4 max-w-[760px] text-lg sm:text-xl lg:mt-10 lg:text-2xl text-white/90 leading-relaxed">
                           Crafting high-quality content consistently is tough work — but we're here to help. Our team of 75+ top creatives takes care of video editing, graphics and strategy to make your life easier, allowing you to focus on what you truly enjoy.
                         </p>
                       </div>
@@ -208,7 +208,7 @@ export const CreativeServicesSection = () => {
                       sizes="(max-width: 768px) 56px, (max-width: 1024px) 72px, 56px"
                       src={item.imageUrl}
                     />
-                    <span className="text-xs sm:text-sm">{item.title}</span>
+                    <span className="text-sm sm:text-base">{item.title}</span>
                   </div>
                 </div>
               ))}
